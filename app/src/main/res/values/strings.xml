@@ -2,13 +2,7 @@
     <string name="app_name">CustomerApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string-array name="userCreateTypeArray">
-        <item>AdminUser</item>
-        <item>StateOfficer</item>
-        <item>DivisionalOfficer</item>
-        <item>DistrictOfficer</item>
-        <item>BlockOfficer</item>
-    </string-array>
+
 
     <string name="password">Password</string>
     <string name="userid">UserId</string>
@@ -23,9 +17,47 @@
     <string name="header_text">View Your Purchase Volume\nReport, Order, etc.</string>
     <string name="sign_in">Sign In</string>
     <string name="personal_details">Personal Details</string>
+    <string name="image_message">Preview of attached image will be displayed here</string>
+
+    <string-array name="userCreateTypeArray">
+        <item>AdminUser</item>
+        <item>StateOfficer</item>
+        <item>DivisionalOfficer</item>
+        <item>DistrictOfficer</item>
+        <item>BlockOfficer</item>
+    </string-array>
 
     <string-array name="name_title">
+        <item>Name Tittle * </item>
         <item>Mr</item>
         <item>Mrs</item>
     </string-array>
+
+    <string-array name="occupation">
+        <item>Agriculture</item>
+        <item>Architect/Civil Contractor</item>
+        <item>Business - Retail/Wholesale</item>
+        <item>Business - Paint/Building Material</item>
+        <item>Professionals</item>
+        <item>Health/Doctor/Nutritionist</item>
+        <item>Fitness Coach</item>
+        <item>Parlour/Salon</item>
+        <item>Painter</item>
+        <item>Hotel/Restaurant/Center</item>
+        <item>Private Sector Employee</item>
+        <item>Lecturer/Teacher</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="idProofType">
+        <item>Aadhar Card</item>
+        <item>Pan Card</item>
+        <item>Driver Licences</item>
+    </string-array>
+
+    <string-array name="addressProofType">
+        <item>Electricity Bill</item>
+        <item>Bank PassBook</item>
+        <item>Driver Licences</item>
+    </string-array>
+
 </resources>
