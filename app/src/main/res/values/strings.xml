@@ -22,4 +22,5 @@
     <string name="nav_close">Close</string>
     <string name="header_text">View Your Purchase Volume\nReport, Order, etc.</string>
     <string name="sign_in">Sign In</string>
+    <string name="personal_details">Personal Details</string>
 </resources>
