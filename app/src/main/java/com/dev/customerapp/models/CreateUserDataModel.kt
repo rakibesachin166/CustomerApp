@@ -1,0 +1,45 @@
+package com.dev.customerapp.models;
+
+import java.io.File
+
+data class CreateUserDataModel(
+    val userNameTittle: String,
+    val userName: String,
+    val userGenderModel: UserGenderModel,
+    val userMarriageModel: UserMarriageModel,
+    val userPhoto: File,
+    val userDob: String,
+    val userAadhaarNo: String,
+    val userFatherName: String,
+    val userFatherAadhaarNo: String,
+    val userOccupation: String,
+    val userAddress: String,
+    val userState: String,
+    val userDistrict: String,
+    val userTensile: String,
+    val userPost: String,
+    val userCity: String,
+    val userPinCode: String,
+    val userMobileNo: String,
+    val userAlternateMobileNo: String,
+    val userEmailAddress: String,
+    val userIdProofType: Int,
+    val userIdProofFile: File,
+    val userAddressProofType: Int,
+    val userAddressProofFile: File,
+    val userNomineeName: String,
+    val userNomineeAadhaarNo: String,
+    val userNomineeDob: String,
+    val userNomineeAddress: String,
+    val userBankName: String,
+    val userBankState: String,
+
+    val userBankBranchName: String,
+    val userBankAccountNo: String,
+    val userPanCardNo: String,
+    val userBankPassPhoto: File,
+    val userPassword: String,
+    val userHintQuestion: String,
+    val userHintAnswer: String,
+
+    )
