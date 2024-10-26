@@ -10,23 +10,21 @@ import android.view.ViewGroup;
 import androidx.fragment.app.activityViewModels
 
 import com.dev.customerapp.R;
+import com.dev.customerapp.databinding.FragmentSelectUserStateBinding
 import com.dev.customerapp.viewModels.CreateUserViewModel
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SelectUserStateFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SelectUserStateFragment : Fragment() {
 
     private val sharedViewModel: CreateUserViewModel by activityViewModels()
+    private lateinit var binding: FragmentSelectUserStateBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_select_user_state, container, false)
+    ): View {
+        binding = FragmentSelectUserStateBinding.inflate(LayoutInflater.from(requireContext()))
+        return binding.root
     }
 
 }
