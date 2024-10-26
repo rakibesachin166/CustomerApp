@@ -50,4 +50,7 @@ dependencies {
     implementation(libs.sdp.android)
     implementation (libs.fragment.ktx)
     implementation(libs.circleimageview)
+
+    implementation (libs.autoimageslider)
+    implementation (libs.glide)
 }
