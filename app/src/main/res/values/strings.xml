@@ -23,7 +23,7 @@
     <string name="header_text">View Your Purchase Volume\nReport, Order, etc.</string>
     <string name="sign_in">Sign In</string>
     <string name="personal_details">Personal Details</string>
-    
+
     <string-array name="name_title">
         <item>Mr</item>
         <item>Mrs</item>
