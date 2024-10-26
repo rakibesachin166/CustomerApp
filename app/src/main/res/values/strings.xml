@@ -2,6 +2,14 @@
     <string name="app_name">CustomerApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="userCreateTypeArray">
+        <item>AdminUser</item>
+        <item>StateOfficer</item>
+        <item>DivisionalOfficer</item>
+        <item>DistrictOfficer</item>
+        <item>BlockOfficer</item>
+    </string-array>
+
     <string name="password">Password</string>
     <string name="userid">UserId</string>
     <string name="login">Login</string>
