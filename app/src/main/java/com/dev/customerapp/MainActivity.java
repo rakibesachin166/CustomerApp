@@ -17,14 +17,19 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.dev.customerapp.Activity.CreateUserActivity;
+import com.dev.customerapp.fragments.AccountFragment;
 import com.dev.customerapp.fragments.CreateUserFormFragment;
+import com.dev.customerapp.fragments.HomeFragment;
 import com.dev.customerapp.utils.ExtensionKt;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    BottomNavigationView bottomNavigationView;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +42,45 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 
         actionBarDrawerToggle.syncState();
         navigationView.setNavigationItemSelectedListener(item -> {
             closeDrawer();
             int id = item.getItemId();
             if (id == R.id.navigation_add_user) {
-                printLog("sachin","Click");
+                printLog("sachin", "Click");
                 ExtensionKt.changeActivity(MainActivity.this, CreateUserActivity.class, false);
             }
             return false;
         });
 
+
+        if (savedInstanceState == null) {
+            changeFragment(new HomeFragment());
+        }
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, new HomeFragment()).commit();
+
     }
+
+    private final BottomNavigationView.OnNavigationItemSelectedListener navListener = item -> {
+        Fragment selectedFragment = null;
+        int itemId = item.getItemId();
+        if (itemId == R.id.bottom_home) {
+            printLog("navin", "home");
+            selectedFragment = new HomeFragment();
+        } else if (itemId == R.id.bottom_account) {
+            selectedFragment = new AccountFragment();
+        }
+        if (selectedFragment != null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, selectedFragment).commit();
+        }
+        return true;
+    };
 
 
     public void closeDrawer() {
@@ -61,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     public void changeFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.drawerLayout, fragment)
+                .replace(R.id.main_fragment, fragment)
                 .addToBackStack(null)
                 .commit();
     }
