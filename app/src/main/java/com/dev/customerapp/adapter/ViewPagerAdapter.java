@@ -20,12 +20,14 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         switch (position) {
+            case 0:
+                return new CreateUserFormFragment();
             case 1:
                 return new SelectUserStateFragment();
             case 2:
-                return new CreateUserFormFragment();
-            default:
                 return new SelectUserTypeFragment();
+            default:
+                return new CreateUserFormFragment();
         }
     }
 
