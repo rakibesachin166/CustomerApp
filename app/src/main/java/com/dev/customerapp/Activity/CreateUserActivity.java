@@ -24,7 +24,6 @@ public class CreateUserActivity extends AppCompatActivity {
         ViewPager2 viewPager = findViewById(R.id.viewPager);
         ViewPagerAdapter adapter = new ViewPagerAdapter(this);
         viewPager.setAdapter(adapter);
-
         sharedViewModel = new ViewModelProvider(this).get(CreateUserViewModel.class);
     }
 }
