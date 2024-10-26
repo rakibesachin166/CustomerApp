@@ -2,4 +2,16 @@
     <string name="app_name">CustomerApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="password">Password</string>
+    <string name="userid">UserId</string>
+    <string name="login">Login</string>
+    <string name="categories">Categories</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="account">Account</string>
+
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
+    <string name="header_text">View Your Purchase Volume\nReport, Order, etc.</string>
+    <string name="sign_in">Sign In</string>
 </resources>
