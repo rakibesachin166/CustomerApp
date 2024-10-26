@@ -5,7 +5,7 @@
     android:layout_height="@dimen/_100sdp"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:background="@drawable/shape_cornear_radius"
+    android:background="@drawable/shape_corner_radius"
     android:paddingStart="@dimen/_20sdp"
     android:paddingEnd="@dimen/_20sdp">
 

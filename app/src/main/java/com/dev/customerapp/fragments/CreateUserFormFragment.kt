@@ -12,6 +12,7 @@ import com.dev.customerapp.viewModels.CreateUserViewModel
 
 class CreateUserFormFragment : Fragment() {
     private val sharedViewModel: CreateUserViewModel by activityViewModels()
+
      override fun onCreateView(
          inflater: LayoutInflater,
          container: ViewGroup?,
