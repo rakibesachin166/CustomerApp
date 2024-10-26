@@ -3,10 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.SelectUserStateFragment"
 
     >
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:elevation="@dimen/_4sdp"
+        app:cardCornerRadius="@dimen/_4sdp"
 
+        >
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/idProofType"
+            android:paddingHorizontal="@dimen/_6sdp"
+            android:paddingVertical="@dimen/_10sdp"
+            android:textSize="@dimen/_12ssp" />
+
+    </com.google.android.material.card.MaterialCardView>
 
 
 </FrameLayout>
