@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.dev.customerapp.R;
 import com.dev.customerapp.fragments.AccountFragment;
+import com.dev.customerapp.fragments.AddCustomerFragment;
 import com.dev.customerapp.fragments.HomeFragment;
 import com.dev.customerapp.utils.ExtensionKt;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
             if (id == R.id.navigation_add_user) {
                 printLog("sachin", "Click");
                 ExtensionKt.changeActivity(MainActivity.this, CreateUserActivity.class, false);
+            } else if (id == R.id.navigation_add_customer) {
+                changeFragment(new AddCustomerFragment());
             }
             return false;
         });

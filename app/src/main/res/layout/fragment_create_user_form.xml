@@ -65,6 +65,7 @@
 
                     </com.google.android.material.card.MaterialCardView>
 
+
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -73,6 +74,7 @@
                         android:paddingVertical="@dimen/_10sdp">
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/sponsorNumberInput"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -81,6 +83,7 @@
                             android:hint="Sponsor Number*">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/sponsorNumberEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:focusable="false"
@@ -90,6 +93,7 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/proposerNumberInput"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -98,6 +102,7 @@
                             android:hint="Proposer Number*">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/proposerNumberEdiText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:focusable="false"
@@ -108,15 +113,15 @@
 
 
                         <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/nameTypeMaterialCradview"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_8sdp"
                             android:elevation="@dimen/_4sdp"
-                            app:cardCornerRadius="@dimen/_4sdp"
-
-                            >
+                            app:cardCornerRadius="@dimen/_4sdp">
 
                             <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/nameTypeSpinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/name_title"
@@ -128,6 +133,7 @@
                         </com.google.android.material.card.MaterialCardView>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/applicantNameInput"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -136,6 +142,7 @@
                             android:hint="Applicant's Name*">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/applicantNameEdiText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
@@ -152,23 +159,27 @@
                             android:textSize="@dimen/_14ssp" />
 
                         <RadioGroup
+                            android:id="@+id/selectGenderRadioButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
                             <androidx.appcompat.widget.AppCompatRadioButton
+                                android:id="@+id/maleRadioButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_10sdp"
                                 android:text="Male" />
 
                             <androidx.appcompat.widget.AppCompatRadioButton
+                                android:id="@+id/feMaleRadioButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_10sdp"
                                 android:text="Female" />
 
                             <androidx.appcompat.widget.AppCompatRadioButton
+                                android:id="@+id/transGenderRadioButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_10sdp"
@@ -184,6 +195,7 @@
                             android:textSize="@dimen/_14ssp" />
 
                         <RadioGroup
+                            android:id="@+id/selectMaterialStatus"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -192,12 +204,14 @@
                                 android:layout_height="wrap_content">
 
                                 <androidx.appcompat.widget.AppCompatRadioButton
+                                    android:id="@+id/marriedRadioButton"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="@dimen/_10sdp"
                                     android:text="Married" />
 
                                 <androidx.appcompat.widget.AppCompatRadioButton
+                                    android:id="@+id/unMarriedRadioButton"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="UnMarried" />
@@ -209,15 +223,18 @@
                                 android:layout_height="wrap_content">
 
                                 <androidx.appcompat.widget.AppCompatRadioButton
+                                    android:id="@+id/windowRadioButton"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="@dimen/_10sdp"
                                     android:text="Window" />
 
                                 <androidx.appcompat.widget.AppCompatRadioButton
+                                    android:id="@+id/divorcedRadioButton"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Divorced" />
+
                             </RadioGroup>
                         </RadioGroup>
 
@@ -232,6 +249,7 @@
                                 android:layout_height="wrap_content">
 
                                 <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/setImageView"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
@@ -246,6 +264,7 @@
                                     android:text="@string/image_message"
                                     android:textColor="@color/light_gray"
                                     android:textSize="@dimen/_12ssp" />
+
                             </androidx.appcompat.widget.LinearLayoutCompat>
 
                             <androidx.appcompat.widget.AppCompatImageView
@@ -253,10 +272,12 @@
                                 android:layout_height="wrap_content"
                                 android:maxWidth="@dimen/_250sdp"
                                 android:maxHeight="@dimen/_250sdp" />
+
                         </RelativeLayout>
 
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/applicantPhotoTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -272,6 +293,7 @@
                             android:textSize="@dimen/_12ssp" />
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/applicantDOBInput"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -281,6 +303,7 @@
 
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/applicantDOBEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:focusable="false"
@@ -291,6 +314,7 @@
 
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/applicantAadharInput"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -299,6 +323,7 @@
                             android:hint="Applicant's Aadhar No *">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/applicantAadharEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="number"
@@ -314,11 +339,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_8sdp"
                             android:elevation="@dimen/_4sdp"
-                            app:cardCornerRadius="@dimen/_4sdp"
-
-                            >
+                            app:cardCornerRadius="@dimen/_4sdp">
 
                             <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/occupationSpinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/occupation"
@@ -331,6 +355,8 @@
 
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
+
+
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -351,13 +377,9 @@
                     android:orientation="vertical">
 
                     <com.google.android.material.card.MaterialCardView
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        app:cardCornerRadius="@dimen/_4sdp"
-
-                        >
+                        app:cardCornerRadius="@dimen/_4sdp">
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
@@ -375,6 +397,7 @@
                                 android:src="@drawable/icon_person" />
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/communicationDetailsTextView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
@@ -399,6 +422,7 @@
 
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/addressInput"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -407,16 +431,16 @@
                             android:hint="Address * ">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/addressEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-
-
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/stateInput"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -425,11 +449,10 @@
                             android:hint="State">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/stateEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:focusable="false"
-
-
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
 
@@ -437,6 +460,7 @@
 
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tehsilInput"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -445,16 +469,16 @@
                             android:hint="Tehsil">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/tehsilEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-
-
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/postInput"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -463,16 +487,16 @@
                             android:hint="Post">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/postEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-
-
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/cityInput"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -481,6 +505,7 @@
                             android:hint="City *">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/cityEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
 
@@ -491,6 +516,7 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/pinCodeInput"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -499,6 +525,7 @@
                             android:hint="Pincode *">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/pinCodeEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="number"
@@ -517,6 +544,7 @@
                             android:hint="MobileNumber *">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/mobileNumberEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="number"
@@ -528,6 +556,7 @@
 
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/alternativeMobileNOInput"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -536,6 +565,7 @@
                             android:hint="Alternative Mobile Number *">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/alternativeMobileNOEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="number"
@@ -555,6 +585,7 @@
                             android:hint="Email Address *">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/emailAddressEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="textEmailAddress"
@@ -568,11 +599,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_8sdp"
                             android:elevation="@dimen/_4sdp"
-                            app:cardCornerRadius="@dimen/_4sdp"
-
-                            >
+                            app:cardCornerRadius="@dimen/_4sdp">
 
                             <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/idProofTypeSpinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/idProofType"
@@ -592,6 +622,7 @@
                                 android:layout_height="wrap_content">
 
                                 <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imageViewAddPhoto"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
@@ -613,9 +644,11 @@
                                 android:layout_height="wrap_content"
                                 android:maxWidth="@dimen/_250sdp"
                                 android:maxHeight="@dimen/_250sdp" />
+
                         </RelativeLayout>
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/uploadOriginalIdTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -636,11 +669,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_8sdp"
                             android:elevation="@dimen/_4sdp"
-                            app:cardCornerRadius="@dimen/_4sdp"
-
-                            >
+                            app:cardCornerRadius="@dimen/_4sdp">
 
                             <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/addressProofSpinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/addressProofType"
@@ -674,6 +706,7 @@
                                     android:text="@string/image_message"
                                     android:textColor="@color/light_gray"
                                     android:textSize="@dimen/_12ssp" />
+
                             </androidx.appcompat.widget.LinearLayoutCompat>
 
                             <androidx.appcompat.widget.AppCompatImageView
@@ -684,6 +717,7 @@
                         </RelativeLayout>
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/uploadAddressProofTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -718,13 +752,9 @@
                     android:orientation="vertical">
 
                     <com.google.android.material.card.MaterialCardView
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        app:cardCornerRadius="@dimen/_4sdp"
-
-                        >
+                        app:cardCornerRadius="@dimen/_4sdp">
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
@@ -751,6 +781,7 @@
                                 android:textColor="@color/orange_primary"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="bold" />
+
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -775,6 +806,7 @@
 
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/nomineeNameEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
@@ -791,6 +823,7 @@
 
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/nomineeAadharEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="number"
@@ -809,6 +842,7 @@
 
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/nomineeDOBEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:focusable="false"
@@ -826,6 +860,7 @@
 
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/relationNomineeEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:focusable="false"
@@ -835,6 +870,7 @@
 
 
                         <com.google.android.material.checkbox.MaterialCheckBox
+                            android:id="@+id/applicationAddressCheckBox"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_10sdp"
@@ -852,6 +888,7 @@
 
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/nomineeAddressEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:focusable="false"
@@ -879,13 +916,9 @@
                     android:orientation="vertical">
 
                     <com.google.android.material.card.MaterialCardView
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        app:cardCornerRadius="@dimen/_4sdp"
-
-                        >
+                        app:cardCornerRadius="@dimen/_4sdp">
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
@@ -936,6 +969,7 @@
 
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/bankNameEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
@@ -952,6 +986,7 @@
                             >
 
                             <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/bankStateSpinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:autofillHints="Bank State"
@@ -971,6 +1006,7 @@
 
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/branchNameEdittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:focusable="false"
@@ -988,6 +1024,7 @@
 
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/accountNoEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:focusable="false"
@@ -1007,6 +1044,7 @@
 
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/panNoEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:focusable="false"
@@ -1049,6 +1087,7 @@
                         </RelativeLayout>
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/uploadBankDetailsTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -1142,6 +1181,7 @@
 
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/passwordEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="textPassword"
@@ -1158,6 +1198,7 @@
                             android:hint="Confirm Password*">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/confirmPasswordEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="textPassword"
@@ -1176,30 +1217,30 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_30sdp"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/_10sdp">
+                android:layout_marginHorizontal="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center">
 
                 <CheckBox
-
+                    android:id="@+id/checkBoxfinal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:gravity="center" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="I have read and agreed to following Terms and Conditions"
                     android:textSize="@dimen/_10ssp"
-
                     android:textStyle="bold" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/continueButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
