@@ -1,5 +1,6 @@
 package com.dev.customerapp.fragments
 
+import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,11 +8,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.dev.customerapp.R
+import com.dev.customerapp.api.ApiClient
+import com.dev.customerapp.api.ApiService
 import com.dev.customerapp.databinding.FragmentAddVendorBinding
+import com.dev.customerapp.models.CustomerModel
+import com.dev.customerapp.models.VendorModel
+import com.dev.customerapp.utils.Constant
+import com.dev.customerapp.utils.ResponseHandler
+import com.dev.customerapp.utils.showToast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class AddVendorFragment : Fragment() {
     private lateinit var binding: FragmentAddVendorBinding
+    private lateinit var apiService: ApiService
+    private var progressDialog: Dialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +37,8 @@ class AddVendorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        apiService = ApiClient.getRetrofitInstance()
+
         binding.vendorSubmitButton.setOnClickListener {
             val vendorName = binding.editTextVendorName.text.toString().trim()
             val firmName = binding.editTextFirmName.text.toString().trim()
@@ -32,6 +47,7 @@ class AddVendorFragment : Fragment() {
             val vendorType = binding.spinnerVendorType.selectedItem.toString()
             val businessCategory = binding.editTextBusinessCategory.text.toString().trim()
             val pin = binding.editTextPIN.text.toString().trim()
+
 
             if (vendorName.isEmpty()) {
                 binding.editTextVendorName.requestFocus()
@@ -51,7 +67,7 @@ class AddVendorFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            if (mobileNumber.isEmpty()) {
+            if (mobileNumber.isEmpty() || !mobileNumber.matches(Regex("\\d{10}"))) {
                 binding.editTextMobileNumber.requestFocus()
                 binding.editTextMobileNumber.error = "Enter Mobile Number."
                 return@setOnClickListener
@@ -69,12 +85,78 @@ class AddVendorFragment : Fragment() {
                 binding.editTextBusinessCategory.error = "Enter Business Category."
                 return@setOnClickListener
             }
-            if (pin.isEmpty()) {
+            if (pin.isEmpty() || !pin.matches(Regex("\\d{6}"))) {
                 binding.inputLayoutPIN.requestFocus()
                 binding.inputLayoutPIN.error = "Enter PinCode."
                 return@setOnClickListener
             }
+
+            val vendor = VendorModel(
+                vendorName,
+                firmName,
+                address,
+                mobileNumber,
+                vendorType,
+                businessCategory,
+                Constant(requireContext()).getUserData()?.userId.toString(),
+                ""
+            )
+            showProgressDialog(true)
+            val call: Call<ResponseHandler<List<VendorModel>>> = apiService.addVendor(vendor)
+            call.enqueue(object : Callback<ResponseHandler<List<VendorModel>>> {
+                override fun onResponse(
+                    call: Call<ResponseHandler<List<VendorModel>>>,
+                    response: Response<ResponseHandler<List<VendorModel>>>
+                ) {
+                    showProgressDialog(false)
+                    if (response.isSuccessful && response.body() != null) {
+                        val responseHandler = response.body()
+                        val code = responseHandler?.code
+                        val message = responseHandler?.message
+                        if (code == 200) {
+                            requireContext().showToast(message.toString())
+                        }
+                        if (code == 201) {
+                            requireContext().showToast(message.toString())
+                        }
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ResponseHandler<List<VendorModel>>>,
+                    t: Throwable
+                ) {
+                    showProgressDialog(false)
+                    requireContext().showToast(t.message.toString())
+                }
+
+            })
+
         }
+    }
+
+    private fun showProgressDialog(show: Boolean) {
+        if (show) {
+            if (progressDialog == null) {
+                progressDialog = Dialog(requireContext())
+                progressDialog!!.setContentView(R.layout.dialog_progress_bar)
+                progressDialog!!.setCancelable(false)
+                progressDialog!!.setCanceledOnTouchOutside(false)
+            }
+            if (!isFinishing()) {
+                progressDialog!!.show()
+            }
+        } else {
+            if (progressDialog != null && progressDialog!!.isShowing()) {
+                if (!isFinishing()) {
+                    progressDialog!!.dismiss()
+                }
+            }
+        }
+    }
+
+    private fun isFinishing(): Boolean {
+        return activity?.isFinishing == true
     }
 
 }

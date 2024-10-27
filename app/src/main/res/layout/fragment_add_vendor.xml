@@ -74,6 +74,7 @@
                                 android:id="@+id/editTextVendorName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:inputType="text"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -91,6 +92,7 @@
                                 android:id="@+id/editTextFirmName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:inputType="text"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
 
@@ -126,6 +128,7 @@
                                 android:id="@+id/editTextMobileNumber"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:inputType="number"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -160,6 +163,7 @@
                                 android:id="@+id/editTextBusinessCategory"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:inputType="text"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -177,6 +181,7 @@
                                 android:id="@+id/editTextPIN"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:inputType="number"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
                         </com.google.android.material.textfield.TextInputLayout>

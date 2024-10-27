@@ -2,7 +2,6 @@ package com.dev.customerapp.activity;
 
 import android.app.ProgressDialog
 import android.os.Bundle
-import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.dev.customerapp.api.ApiClient
 import com.dev.customerapp.databinding.ActivityLoginBinding
@@ -28,8 +27,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         binding?.userLoginButton?.setOnClickListener {
-
-
             val username = binding?.userNameEdt?.text.toString()
             val password = binding?.passwordEdt?.text.toString()
 
@@ -65,7 +62,6 @@ class LoginActivity : AppCompatActivity() {
                             changeActivity(MainActivity::class.java, true)
 
                         } else {
-
                             showErrorToast(responseBody.message)
                         }
                     } else {
@@ -74,6 +70,7 @@ class LoginActivity : AppCompatActivity() {
 
                     progressDialog?.dismiss()
                 }
+
                 override fun onFailure(call: Call<CommonResponse<UserDataModel>>, t: Throwable) {
                     progressDialog?.dismiss()
                     showErrorToast(t.message.toString())

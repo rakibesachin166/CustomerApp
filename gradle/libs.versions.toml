@@ -18,6 +18,7 @@ coreKtx = "1.13.1"
 retrofit = "2.9.0"
 sdpAndroid = "1.1.1"
 sspAndroid = "1.1.1"
+cronetEmbedded = "119.6045.31"
 
 [libraries]
 android-image-slider = { module = "com.github.smarteist:Android-Image-Slider", version.ref = "androidImageSlider" }
@@ -38,6 +39,7 @@ core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx"
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 sdp-android = { module = "com.intuit.sdp:sdp-android", version.ref = "sdpAndroid" }
 ssp-android = { module = "com.intuit.ssp:ssp-android", version.ref = "sspAndroid" }
+cronet-embedded = { group = "org.chromium.net", name = "cronet-embedded", version.ref = "cronetEmbedded" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -83,10 +83,12 @@
                                 android:id="@+id/editTextName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:inputType="text"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
+
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/textInputLayoutDOB"
@@ -101,10 +103,12 @@
                                 android:id="@+id/editTextDOB"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:focusable="false"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
+
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/textInputLayoutMobile"
@@ -119,6 +123,7 @@
                                 android:id="@+id/editTextMobile"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:inputType="number"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
 
@@ -137,6 +142,7 @@
                                 android:id="@+id/editTextEmail"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:inputType="text"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
 
@@ -155,6 +161,7 @@
                                 android:id="@+id/editTextAddress"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:inputType="text"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
 
@@ -173,6 +180,7 @@
                                 android:id="@+id/editTextHouseNo"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:inputType="text"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
 
@@ -191,6 +199,7 @@
                                 android:id="@+id/editTextLocality"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:inputType="text"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
 
@@ -209,6 +218,7 @@
                                 android:id="@+id/editTextBlock"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:inputType="text"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
 
@@ -227,6 +237,7 @@
                                 android:id="@+id/editTextDistrict"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:inputType="text"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
 
@@ -245,10 +256,12 @@
                                 android:id="@+id/editTextPinCode"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:inputType="number"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
+
 
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/customerSubmitButton"
