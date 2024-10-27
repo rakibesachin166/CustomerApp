@@ -1176,20 +1176,24 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_45sdp"
+                android:layout_marginHorizontal="@dimen/_30sdp"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:layout_marginTop="@dimen/_10sdp">
 
                 <CheckBox
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:layout_gravity="center" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="I have read and agreed to following \nTerms and Conditions"
+                    android:text="I have read and agreed to following Terms and Conditions"
                     android:textSize="@dimen/_10ssp"
+
                     android:textStyle="bold" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>

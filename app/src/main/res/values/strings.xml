@@ -20,7 +20,6 @@
     <string name="image_message">Preview of attached image will be displayed here</string>
 
     <string-array name="userCreateTypeArray">
-        <item>AdminUser</item>
         <item>StateOfficer</item>
         <item>DivisionalOfficer</item>
         <item>DistrictOfficer</item>

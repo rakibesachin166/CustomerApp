@@ -5,12 +5,9 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Activity.MainActivity">
 
-    <FrameLayout
-        android:id="@+id/main_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,7 +16,40 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="?attr/actionBarSize" >
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/_5sdp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:scaleType="fitStart"
+                   android:layout_centerVertical="true"
+                    android:src="@drawable/mobile_logo" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/cartButton"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:src="@drawable/icon_notification" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/cartButton"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:src="@drawable/icon_shop" />
+
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
 
         <FrameLayout
             android:id="@+id/mainFragmentLayout"

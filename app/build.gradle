@@ -51,6 +51,6 @@ dependencies {
     implementation (libs.fragment.ktx)
     implementation(libs.circleimageview)
 
-    implementation (libs.autoimageslider)
+    /*implementation (libs.autoimageslider)*/
     implementation (libs.glide)
 }

@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/viewPagerParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.CreateUserActivity"
-    >
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
+    tools:context=".Activity.CreateUserActivity">
+
+
+    <FrameLayout
+        android:id="@+id/userCreateFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
-
-
 </RelativeLayout>
