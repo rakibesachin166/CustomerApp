@@ -6,19 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".fragments.AddCustomerFragment">
 
-
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearLayoutContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_4sdp"
         android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardMain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardUseCompatPadding="true">
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearLayoutCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -30,6 +32,7 @@
                     app:cardCornerRadius="@dimen/_4sdp">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/linearLayoutHeader"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_2sdp"
@@ -38,6 +41,7 @@
                         android:paddingVertical="@dimen/_4sdp">
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewHeader"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -53,11 +57,13 @@
 
 
                 <ScrollView
+                    android:id="@+id/scrollViewContainer"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="@dimen/_60sdp">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/linearLayoutContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/_15sdp"
@@ -65,6 +71,7 @@
                         android:paddingVertical="@dimen/_10sdp">
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputLayoutName"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -73,6 +80,7 @@
                             android:hint="Name*">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editTextName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
@@ -81,6 +89,7 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputLayoutDOB"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -89,6 +98,7 @@
                             android:hint="DOB*">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editTextDOB"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
@@ -97,6 +107,7 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputLayoutMobile"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -105,6 +116,7 @@
                             android:hint="Mobile No*">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editTextMobile"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
@@ -113,6 +125,7 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputLayoutEmail"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -121,6 +134,7 @@
                             android:hint="Email*">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editTextEmail"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
@@ -129,6 +143,7 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputLayoutAddress"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -137,6 +152,7 @@
                             android:hint="Address*">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editTextAddress"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
@@ -145,6 +161,7 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputLayoutHouseNo"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -153,6 +170,7 @@
                             android:hint="House No*">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editTextHouseNo"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
@@ -161,6 +179,7 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputLayoutLocality"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -169,6 +188,7 @@
                             android:hint="Locality*">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editTextLocality"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
@@ -177,6 +197,7 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputLayoutBlock"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -185,6 +206,7 @@
                             android:hint="Block*">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editTextBlock"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
@@ -193,6 +215,7 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputLayoutDistrict"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -201,6 +224,7 @@
                             android:hint="District*">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editTextDistrict"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
@@ -209,37 +233,22 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputLayoutPinCode"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_8sdp"
                             android:elevation="@dimen/_4sdp"
-                            android:hint="State*">
+                            android:hint="Pin Code*">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editTextPinCode"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:elevation="@dimen/_4sdp"
-                            android:hint="PIN">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:singleLine="true"
-                                android:textSize="@dimen/_12ssp" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
 
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/customerSubmitButton"
@@ -252,20 +261,15 @@
                             android:textColor="@color/white"
                             android:textSize="@dimen/_12ssp" />
 
-
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
                 </ScrollView>
 
-
             </androidx.appcompat.widget.LinearLayoutCompat>
-
 
         </com.google.android.material.card.MaterialCardView>
 
-
     </androidx.appcompat.widget.LinearLayoutCompat>
-
 
 </RelativeLayout>
