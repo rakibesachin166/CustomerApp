@@ -1,20 +1,24 @@
 package com.dev.customerapp.fragments
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import com.dev.customerapp.R
+import com.dev.customerapp.activity.MainActivity
 import com.dev.customerapp.api.ApiClient
 import com.dev.customerapp.api.ApiService
 import com.dev.customerapp.databinding.FragmentAddVendorBinding
-import com.dev.customerapp.models.CustomerModel
 import com.dev.customerapp.models.VendorModel
 import com.dev.customerapp.utils.Constant
 import com.dev.customerapp.utils.ResponseHandler
+import com.dev.customerapp.utils.showErrorToast
+import com.dev.customerapp.utils.showSuccessToast
 import com.dev.customerapp.utils.showToast
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,6 +40,15 @@ class AddVendorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val intent = Intent(requireContext(), MainActivity::class.java)
+                    startActivity(intent)
+                }
+            })
 
         apiService = ApiClient.getRetrofitInstance()
 
@@ -114,10 +127,10 @@ class AddVendorFragment : Fragment() {
                         val code = responseHandler?.code
                         val message = responseHandler?.message
                         if (code == 200) {
-                            requireContext().showToast(message.toString())
+                            requireContext().showSuccessToast(message.toString())
                         }
                         if (code == 201) {
-                            requireContext().showToast(message.toString())
+                            requireContext().showErrorToast(message.toString())
                         }
                     }
                 }
@@ -127,7 +140,7 @@ class AddVendorFragment : Fragment() {
                     t: Throwable
                 ) {
                     showProgressDialog(false)
-                    requireContext().showToast(t.message.toString())
+                    requireContext().showErrorToast(t.message.toString())
                 }
 
             })
