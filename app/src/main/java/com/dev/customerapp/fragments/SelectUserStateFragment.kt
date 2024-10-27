@@ -1,28 +1,17 @@
 package com.dev.customerapp.fragments;
 
-import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-
-import com.dev.customerapp.R;
 import com.dev.customerapp.databinding.FragmentSelectUserStateBinding
-import com.dev.customerapp.models.BlockModel
 import com.dev.customerapp.models.BlockPostingDataModel
-import com.dev.customerapp.models.DistrictModel
 import com.dev.customerapp.models.DistrictPostingDataModel
-import com.dev.customerapp.models.DivisionModel
 import com.dev.customerapp.models.DivisionalPostingDataModel
-import com.dev.customerapp.models.StateModel
 import com.dev.customerapp.models.StatePostingDataModel
-import com.dev.customerapp.models.UserPostingModel
 import com.dev.customerapp.models.UserTypes
-import com.dev.customerapp.utils.showToast
 import com.dev.customerapp.viewModels.CreateUserViewModel
 
 public class SelectUserStateFragment : Fragment() {
