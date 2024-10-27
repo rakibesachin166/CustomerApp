@@ -11,5 +11,15 @@
         android:icon="@drawable/icon_person"
         android:title="Add User" />
 
+    <item
+        android:id="@+id/navigation_add_customer"
+        android:icon="@drawable/icon_person"
+        android:title="Add Customer" />
+
+    <item
+        android:id="@+id/navigation_add_vendor"
+        android:icon="@drawable/icon_person"
+        android:title="Add Vendor" />
+
 
 </menu>

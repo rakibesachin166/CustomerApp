@@ -18,6 +18,9 @@
     <string name="sign_in">Sign In</string>
     <string name="personal_details">Personal Details</string>
     <string name="image_message">Preview of attached image will be displayed here</string>
+    <string name="deliver_to">Deliver to</string>
+    <string name="add_customer">Add Customer</string>
+    <string name="add_vendor">Add Vendor</string>
 
     <string-array name="userCreateTypeArray">
         <item>StateOfficer</item>
@@ -30,6 +33,13 @@
         <item>Name Tittle * </item>
         <item>Mr</item>
         <item>Mrs</item>
+    </string-array>
+
+    <string-array name="vendor_type">
+        <item>Vendor Type * </item>
+        <item>Bulk</item>
+        <item>Retailer</item>
+        <item>Both</item>
     </string-array>
 
     <string-array name="occupation">
