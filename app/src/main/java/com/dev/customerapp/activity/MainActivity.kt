@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
+import com.dev.customerapp.Activity.CreateUserActivity
 import com.dev.customerapp.R
 import com.dev.customerapp.api.ApiClient
 import com.dev.customerapp.databinding.ActivityMainBinding
@@ -59,7 +59,6 @@ class MainActivity : AppCompatActivity() {
             closeDrawer()
             when (item.itemId) {
                 R.id.navigation_add_user -> {
-
                     changeActivity(CreateUserActivity::class.java, false)
                 }
 
@@ -87,7 +86,6 @@ class MainActivity : AppCompatActivity() {
         var selectedFragment: Fragment? = null
         when (item.itemId) {
             R.id.bottom_home -> {
-
                 selectedFragment = HomeFragment()
             }
 

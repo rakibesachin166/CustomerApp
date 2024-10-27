@@ -10,5 +10,6 @@
     <color name="darker_gray">#aaa</color>
     <color name="gray">#D3D3D3</color>
     <color name="light_gray">#6ED3D3D3</color>
+    <color name="purple">#5B1B9A</color>
 
 </resources>

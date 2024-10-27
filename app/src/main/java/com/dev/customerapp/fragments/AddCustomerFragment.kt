@@ -1,16 +1,32 @@
 package com.dev.customerapp.fragments
 
+import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.dev.customerapp.R
+import com.dev.customerapp.api.ApiClient
+import com.dev.customerapp.api.ApiService
 import com.dev.customerapp.databinding.FragmentAddCustomerBinding
+import com.dev.customerapp.models.CustomerModel
+import com.dev.customerapp.utils.Constant
+import com.dev.customerapp.utils.ResponseHandler
+import com.dev.customerapp.utils.showToast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.Calendar
 
 
 class AddCustomerFragment : Fragment() {
     private lateinit var binding: FragmentAddCustomerBinding
+    private lateinit var apiService: ApiService
+    private var progressDialog: Dialog? = null
+    private lateinit var datePickerDialog: DatePickerDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,6 +38,12 @@ class AddCustomerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        apiService = ApiClient.getRetrofitInstance()
+        initDatePicker()
+        binding.editTextDOB.setOnClickListener {
+            openDatePicker(it)
+        }
 
         binding.customerSubmitButton.setOnClickListener {
             val name = binding.editTextName.text.toString().trim()
@@ -35,6 +57,7 @@ class AddCustomerFragment : Fragment() {
             val district = binding.editTextDistrict.text.toString().trim()
             val pinCode = binding.editTextPinCode.text.toString().trim()
 
+
             if (name.isEmpty()) {
                 binding.editTextName.requestFocus()
                 binding.editTextName.error = "Enter Name."
@@ -47,15 +70,17 @@ class AddCustomerFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            if (mobile.isEmpty()) {
+            if (mobile.isEmpty() || !mobile.matches(Regex("\\d{10}"))) {
                 binding.editTextMobile.requestFocus()
-                binding.editTextMobile.error = "Enter Mobile Number."
+                binding.editTextMobile.error = "Enter a valid 10-digit mobile number."
                 return@setOnClickListener
             }
 
-            if (email.isEmpty()) {
+            if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email)
+                    .matches()
+            ) {
                 binding.editTextEmail.requestFocus()
-                binding.editTextEmail.error = "Enter Email Id."
+                binding.editTextEmail.error = "Enter a valid email address."
                 return@setOnClickListener
             }
 
@@ -78,23 +103,118 @@ class AddCustomerFragment : Fragment() {
             }
 
             if (block.isEmpty()) {
-                binding.editTextLocality.requestFocus()
-                binding.editTextLocality.error = "Enter Block."
+                binding.editTextBlock.requestFocus()
+                binding.editTextBlock.error = "Enter Block."
                 return@setOnClickListener
             }
 
             if (district.isEmpty()) {
-                binding.editTextLocality.requestFocus()
-                binding.editTextLocality.error = "Enter District."
+                binding.editTextDistrict.requestFocus()
+                binding.editTextDistrict.error = "Enter District."
                 return@setOnClickListener
             }
 
-            if (pinCode.isEmpty()) {
-                binding.editTextLocality.requestFocus()
-                binding.editTextLocality.error = "Enter PinCode."
+            if (pinCode.isEmpty() || !pinCode.matches(Regex("\\d{6}"))) {
+                binding.editTextPinCode.requestFocus()
+                binding.editTextPinCode.error = "Enter a valid 6-digit PinCode."
                 return@setOnClickListener
+            }
+
+            val customer = CustomerModel(
+                name,
+                dob,
+                mobile,
+                email,
+                address,
+                houseNo,
+                locality,
+                block,
+                district,
+                pinCode.toInt(),
+                Constant(requireContext()).getUserData()?.userId.toString(),
+                ""
+            )
+            showProgressDialog(true)
+            val call: Call<ResponseHandler<List<CustomerModel>>> = apiService.addCustomer(customer)
+            call.enqueue(object : Callback<ResponseHandler<List<CustomerModel>>> {
+                override fun onResponse(
+                    call: Call<ResponseHandler<List<CustomerModel>>>,
+                    response: Response<ResponseHandler<List<CustomerModel>>>
+                ) {
+                    showProgressDialog(false)
+                    if (response.isSuccessful && response.body() != null) {
+                        val responseHandler = response.body()
+                        val code = responseHandler?.code
+                        val message = responseHandler?.message
+                        if (code == 200) {
+                            requireContext().showToast(message.toString())
+                        }
+                        if (code == 201) {
+                            requireContext().showToast(message.toString())
+                        }
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ResponseHandler<List<CustomerModel>>>,
+                    t: Throwable
+                ) {
+                    showProgressDialog(false)
+                    requireContext().showToast(t.message.toString())
+                }
+
+            })
+
+        }
+    }
+
+    private fun showProgressDialog(show: Boolean) {
+        if (show) {
+            if (progressDialog == null) {
+                progressDialog = Dialog(requireContext())
+                progressDialog!!.setContentView(R.layout.dialog_progress_bar)
+                progressDialog!!.setCancelable(false)
+                progressDialog!!.setCanceledOnTouchOutside(false)
+            }
+            if (!isFinishing()) {
+                progressDialog!!.show()
+            }
+        } else {
+            if (progressDialog != null && progressDialog!!.isShowing()) {
+                if (!isFinishing()) {
+                    progressDialog!!.dismiss()
+                }
             }
         }
     }
+
+    private fun isFinishing(): Boolean {
+        return activity?.isFinishing == true
+    }
+
+    private fun openDatePicker(view: View) {
+        datePickerDialog.show()
+    }
+
+    private fun initDatePicker() {
+        val cal = Calendar.getInstance()
+        val year = cal.get(Calendar.YEAR)
+        val month = cal.get(Calendar.MONTH)
+        val day = cal.get(Calendar.DAY_OF_MONTH)
+
+        datePickerDialog = DatePickerDialog(
+            requireContext(),
+            { _, selectedYear, selectedMonth, selectedDay ->
+                val formattedMonth = selectedMonth + 1
+                val date = makeDateString(selectedDay, formattedMonth, selectedYear)
+                binding.editTextDOB.setText(date)
+            }, year, month, day
+        )
+    }
+
+    private fun makeDateString(day: Int, month: Int, year: Int): String {
+        return "$year-$month-$day"
+    }
+
 
 }

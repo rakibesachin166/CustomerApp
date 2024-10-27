@@ -3,6 +3,7 @@ package com.dev.customerapp.models
 import com.google.gson.annotations.SerializedName
 
 data class UserDataModel(
+    @SerializedName("userType") val userId: Int,
     @SerializedName("userType") val userType: Int,
     @SerializedName("userName") val userName: String,
     @SerializedName("gender") val gender: Int,

@@ -1,4 +1,4 @@
-package com.dev.customerapp.activity;
+package com.dev.customerapp.Activity;
 
 import android.os.Bundle;
 import android.util.Log;

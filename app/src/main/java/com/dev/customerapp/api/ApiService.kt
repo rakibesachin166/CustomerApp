@@ -1,11 +1,9 @@
 package com.dev.customerapp.api;
 
-import com.dev.customerapp.models.BlockPostingDataModel
-import com.dev.customerapp.models.DistrictPostingDataModel
-import com.dev.customerapp.models.DivisionalPostingDataModel
-import com.dev.customerapp.models.StatePostingDataModel
 import com.dev.customerapp.models.UserDataModel
+import com.dev.customerapp.models.VendorModel
 import com.dev.customerapp.response.CommonResponse
+import com.dev.customerapp.utils.ResponseHandler
 import com.dev.customerapp.response.PhotoResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -27,6 +25,12 @@ interface ApiService {
         @Field("username") username: String,
         @Field("password") password: String
     ): Call<CommonResponse<UserDataModel>>
+
+    @POST("createCustomer")
+    fun addCustomer(@Body customerModel: CustomerModel): Call<ResponseHandler<List<CustomerModel>>>
+
+    @POST("createVendor")
+    fun addVendor(@Body vendorModel: VendorModel): Call<ResponseHandler<List<VendorModel>>>
 
     @POST("getStateList")
     fun getStateList(): Call<CommonResponse<List<StatePostingDataModel>>>
