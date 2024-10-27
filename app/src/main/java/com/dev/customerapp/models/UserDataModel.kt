@@ -11,6 +11,7 @@ data class UserDataModel(
     @SerializedName("userDob") val userDob: String,
     @SerializedName("userAadharNo") val userAadharNo: String,
     @SerializedName("userFatherName") val userFatherName: String,
+    @SerializedName("userFatherAadharNo") val userFatherAadharNo: String,
     @SerializedName("occupation") val occupation: String,
     @SerializedName("userAddress") val userAddress: String,
     @SerializedName("userState") val userState: String,

@@ -55,7 +55,6 @@ public class CreateUserActivity extends AppCompatActivity {
 
         fragmentManager.beginTransaction()
                 .replace(R.id.userCreateFrameLayout, fragment, fragment.getClass().getSimpleName())
-                .addToBackStack(null)
                 .commit();
 
     }

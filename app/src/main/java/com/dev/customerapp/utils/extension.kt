@@ -4,6 +4,7 @@ package com.dev.customerapp.utils
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -60,6 +61,13 @@ fun printLog(tag:String = "sachin",message: String){
     Log.d(tag, message)
 }
 fun ImageView.loadImage(url: String) {
+    Glide.with(this.context)
+        .load(url)
+        .placeholder(R.drawable.icon_person)
+        .error(R.drawable.icon_person)
+        .into(this)
+}
+fun ImageView.loadImage(url: Uri) {
     Glide.with(this.context)
         .load(url)
         .placeholder(R.drawable.icon_person)

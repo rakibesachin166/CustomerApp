@@ -1,25 +1,104 @@
 package com.dev.customerapp.fragments
 
-import android.app.Activity
-import android.content.Intent
+import android.Manifest
+import android.app.ProgressDialog
+import android.content.ContentResolver
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.widget.AppCompatImageView
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.dev.customerapp.R
+import com.dev.customerapp.adapter.RadioButtonsAdapter
+import com.dev.customerapp.api.ApiClient
 import com.dev.customerapp.databinding.FragmentCreateUserFormBinding
-import com.dev.customerapp.utils.BottomSheetUtils
+import com.dev.customerapp.models.StatePostingDataModel
+import com.dev.customerapp.models.UserDataModel
+import com.dev.customerapp.response.CommonResponse
+import com.dev.customerapp.response.PhotoResponse
+import com.dev.customerapp.utils.loadImage
+import com.dev.customerapp.utils.progressDialog
+import com.dev.customerapp.utils.showErrorToast
+import com.dev.customerapp.utils.showSuccessToast
 import com.dev.customerapp.viewModels.CreateUserViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.coroutines.flow.callbackFlow
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
+
 
 class CreateUserFormFragment : Fragment() {
     private val sharedViewModel: CreateUserViewModel by activityViewModels()
     private lateinit var binding: FragmentCreateUserFormBinding
+    private lateinit var marriedAdapter: RadioButtonsAdapter
+
+    private var currentPickMode: Int =
+        0  //0-> User Photo 1-> Id Proof 2-> AAddress proof 3-> Bank Account Proof
+
+    private var userPhotoUri: Uri? = null
+    private var userIdProofUri: Uri? = null
+    private var userAddressProofUri: Uri? = null
+    private var userBankAccountProofUri: Uri? = null
+
+    private var progressDialog: ProgressDialog? = null
+    private val pickMedia: ActivityResultLauncher<PickVisualMediaRequest> =
+        registerForActivityResult(
+            ActivityResultContracts.PickVisualMedia()
+        ) { uri: Uri? ->
+
+            if (uri != null) {
+
+                when (currentPickMode) {
+                    0 -> {
+                        userPhotoUri = uri
+                        binding.userPhotoImageView.loadImage(userPhotoUri!!)
+                        binding.suggester0.visibility = View.GONE
+                    }
+
+                    1 -> {
+                        userIdProofUri = uri
+                        binding.uploadOriginalIdImageView.loadImage(userIdProofUri!!)
+                        binding.suggester1.visibility = View.GONE
+
+                    }
+
+                    2 -> {
+                        userAddressProofUri = uri
+                        binding.uploadAddressProofImageView.loadImage(userAddressProofUri!!)
+                        binding.suggester2.visibility = View.GONE
+                    }
+
+                    3 -> {
+                        userBankAccountProofUri = uri
+                        binding.uploadBankDetailsImageView.loadImage(userAddressProofUri!!)
+                        binding.suggester3.visibility = View.GONE
+                    }
+
+                }
+
+
+            }
+        }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,28 +109,84 @@ class CreateUserFormFragment : Fragment() {
         return binding.root
     }
 
+
+    private val bottomSheet: BottomSheetDialog by lazy {
+        val bottomSheetDialog = BottomSheetDialog(requireActivity())
+        val view: View =
+            LayoutInflater.from(requireActivity()).inflate(R.layout.select_image_bottom_sheet, null)
+        val cameraImageView = view.findViewById<ImageView>(R.id.camera)
+        val galleryImageView = view.findViewById<ImageView>(R.id.gallery)
+
+        galleryImageView.setOnClickListener { v: View? ->
+            currentPickMode = 0
+            pickMedia.launch(
+                PickVisualMediaRequest.Builder()
+                    .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                    .build()
+            )
+            bottomSheetDialog.dismiss()
+        }
+
+        cameraImageView.setOnClickListener { v: View? ->
+
+
+            bottomSheetDialog.dismiss()
+        }
+
+        bottomSheetDialog.setContentView(view)
+        bottomSheetDialog
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.applicantPhotoTextView.setOnClickListener {
-            BottomSheetUtils.showImageSelectionBottomSheet(
-                requireActivity(),
-                object : BottomSheetUtils.ImageSelectionCallback {
-                    override fun onImageSelected(imageFile: File?) {
-
-                    }
-
-                    override fun onImageSelected(imageUri: Uri) {
-                    }
-                })
+            currentPickMode = 0
+            bottomSheet.show()
         }
+
+        binding.uploadOriginalIdTextView.setOnClickListener {
+            currentPickMode = 1
+            bottomSheet.show()
+        }
+
+        binding.uploadAddressProofTextView.setOnClickListener {
+            currentPickMode = 2
+            bottomSheet.show()
+        }
+
+        binding.uploadBankDetailsTextView.setOnClickListener {
+            currentPickMode = 3
+            bottomSheet.show()
+        }
+
+
+        val list = listOf("Married", "Unmarried", "Widow/Widower", "Divorced")
+
+        binding.recyclerViewMarriedStatus.setHasFixedSize(true)
+        marriedAdapter = RadioButtonsAdapter(list)
+        binding.recyclerViewMarriedStatus.adapter = marriedAdapter
 
         binding.continueButton.setOnClickListener {
             val applicantName = binding.applicantNameEdiText.text.toString().trim()
+            val userGender = when (binding.selectGenderRadioButton.checkedRadioButtonId) {
+                R.id.maleRadioButton -> 1
+                R.id.feMaleRadioButton -> 2
+                R.id.transGenderRadioButton -> 3
+                else -> {
+                    0
+                }
+            }
+            val maritalStatus = marriedAdapter.getSelectedPosition()
             val applicantDOB = binding.applicantDOBEditText.text.toString().trim()
             val applicantAadhar = binding.applicantAadharEditText.text.toString().trim()
+            val fatherAadharCard = binding.fatherAadharCardEditText.text.toString().trim()
+            val occupation = binding.occupationSpinner.selectedItem.toString().trim()
+            val fatherName = binding.fatherNameEditText.text.toString().trim()
             val address = binding.addressEditText.text.toString().trim()
             val state = binding.stateEditText.text.toString().trim()
+            val district = binding.districtEditText.text.toString().trim()
             val tehsil = binding.tehsilEditText.text.toString().trim()
             val post = binding.postEditText.text.toString().trim()
             val city = binding.cityEditText.text.toString().trim()
@@ -68,6 +203,7 @@ class CreateUserFormFragment : Fragment() {
             val checkBoxApplicationAddress = binding.applicationAddressCheckBox.isChecked
             val nomineeAddress = binding.nomineeAddressEditText.text.toString().trim()
             val bankName = binding.bankNameEditText.text.toString().trim()
+            val bankState = binding.bankStateSpinner.selectedItem.toString().trim()
             val branchName = binding.branchNameEdittext.text.toString().trim()
             val accountNo = binding.accountNoEditText.text.toString().trim()
             val panNo = binding.panNoEditText.text.toString().trim()
@@ -230,9 +366,238 @@ class CreateUserFormFragment : Fragment() {
                 return@setOnClickListener
             }
 
+            if (userPhotoUri == null) {
+                requireContext().showErrorToast("Please Select a Application Photo")
+                return@setOnClickListener
+            }
+
+            if (userIdProofUri == null) {
+                requireContext().showErrorToast("Please Select a Id Proof Photo")
+                return@setOnClickListener
+            }
+
+            if (userAddressProofUri == null) {
+                requireContext().showErrorToast("Please Select a Address Proof Photo")
+                return@setOnClickListener
+            }
+
+            if (userBankAccountProofUri == null) {
+                requireContext().showErrorToast("Please Select a Bank Account Proof Photo")
+                return@setOnClickListener
+            }
+
+            uploadImages { photoResponse ->
+                if (photoResponse != null) {
+                    val userPhoto = photoResponse.userPhoto
+                    val idPhoto = photoResponse.idPhoto
+                    val addressPhoto = photoResponse.addressPhoto
+                    val bankPhoto = photoResponse.bankPhoto
+
+                    progressDialog = requireContext().progressDialog(message = "Saving Data ...")
+
+                    val apiService = ApiClient.getRetrofitInstance()
+                    val userInfo = UserDataModel(
+                        sharedViewModel.userType.value!!.code,
+                        applicantName,
+                        userGender,
+                        maritalStatus,
+                        userPhoto,
+                        applicantDOB,
+                        applicantAadhar,
+                        fatherName,
+                        fatherAadharCard,
+                        occupation,
+                        address,
+                        state,
+                        district,
+                        tehsil,
+                        post,
+                        city,
+                        pincode,
+                        mobileNo,
+                        emailAddress,
+                        selectIdProof,
+                        idPhoto,
+                        nomineeName,
+                        nomineeAadharNo,
+                        nomineeDOB,
+                        relationNominee,
+                        nomineeAddress,
+                        bankName,
+                        bankState,
+                        branchName,
+                        accountNo,panNo,bankPhoto,password
+                    )
+                    apiService.createUser(userInfo).enqueue(object : Callback<CommonResponse<String>>{
+                        override fun onResponse(
+                            call: Call<CommonResponse<String>>,
+                            response: Response<CommonResponse<String>>
+                        ) {
+                            TODO("Not yet implemented")
+                        }
+
+                        override fun onFailure(call: Call<CommonResponse<String>>, t: Throwable) {
+                            TODO("Not yet implemented")
+                        }
+
+                    })
+
+                }
+            }
         }
 
 
     }
 
+    private fun uploadImages(callback: (PhotoResponse?) -> Unit) {
+        if (progressDialog == null) {
+            progressDialog = requireContext().progressDialog(message = "Uploading Images...")
+        }
+        progressDialog!!.show()
+        val photoImage = getRealPathFromURI(userPhotoUri!!)
+
+        val idProofImage = getRealPathFromURI(userIdProofUri!!)
+        val addressProofImage = getRealPathFromURI(userAddressProofUri!!)
+        val bankPassImage = getRealPathFromURI(userBankAccountProofUri!!)
+
+
+        val photoFile = File(photoImage!!)
+        val idProofFile = File(idProofImage!!)
+        val addressProofFile = File(addressProofImage!!)
+        val bankPassFile = File(bankPassImage!!)
+
+        val photoRequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), photoFile)
+        val idProofRequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), idProofFile)
+        val addressProofRequestBody =
+            RequestBody.create("image/*".toMediaTypeOrNull(), addressProofFile)
+        val bankPassRequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), bankPassFile)
+
+        val photoPart =
+            MultipartBody.Part.createFormData("userPhoto", photoFile.name, photoRequestBody)
+        val idProofPart =
+            MultipartBody.Part.createFormData("idPhoto", idProofFile.name, idProofRequestBody)
+        val addressProofPart = MultipartBody.Part.createFormData(
+            "addressPhoto",
+            addressProofFile.name,
+            addressProofRequestBody
+        )
+        val bankPassPart =
+            MultipartBody.Part.createFormData("bankPhoto", bankPassFile.name, bankPassRequestBody)
+        val apiService = ApiClient.getRetrofitInstance()
+        apiService.uploadDocuments(photoPart, idProofPart, addressProofPart, bankPassPart)
+            .enqueue(object :
+                Callback<CommonResponse<PhotoResponse>> {
+                override fun onResponse(
+                    call: Call<CommonResponse<PhotoResponse>>,
+                    response: Response<CommonResponse<PhotoResponse>>
+                ) {
+                    progressDialog!!.dismiss()
+
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null && responseBody.code == 200) {
+                            callback(responseBody.data)
+                        } else {
+                            requireContext().showErrorToast(responseBody!!.message)
+                            callback(null)
+                        }
+                    } else {
+                        requireContext().showErrorToast("Error While Getting State List ")
+                        callback(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<CommonResponse<PhotoResponse>>, t: Throwable) {
+                    progressDialog!!.dismiss()
+                    requireContext().showErrorToast(t.message.toString())
+                    callback(null)
+                }
+
+            })
+
+    }
+
+    fun getRealPathFromURI(uri: Uri): String? {
+        val contentResolver: ContentResolver = requireContext().getContentResolver()
+
+        if (ContentResolver.SCHEME_CONTENT == uri.scheme) {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
+                try {
+                    val projection = arrayOf(MediaStore.Images.Media.DATA)
+
+                    val cursor = contentResolver.query(uri, projection, null, null, null)
+
+                    if (cursor != null) {
+                        try {
+                            if (cursor.moveToFirst()) {
+                                val columnIndex =
+                                    cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                                return cursor.getString(columnIndex)
+                            }
+                        } finally {
+                            cursor.close()
+                        }
+                    }
+                } catch (e: Exception) {
+                    Log.e("getRealPathFromURI", "Error: " + e.message)
+                }
+            } else {
+                val permissionCheck = ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+
+                if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                    val cursor = contentResolver.query(uri!!, null, null, null, null)
+
+                    if (cursor != null) {
+                        try {
+                            if (cursor.moveToFirst()) {
+                                val displayName =
+                                    cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME))
+
+                                val contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                                val projection = arrayOf(MediaStore.Images.Media.DATA)
+                                val selection = MediaStore.Images.Media.DISPLAY_NAME + " = ?"
+                                val selectionArgs = arrayOf(displayName)
+
+                                val cursor2 = contentResolver.query(
+                                    contentUri,
+                                    projection,
+                                    selection,
+                                    selectionArgs,
+                                    null
+                                )
+
+                                if (cursor2 != null) {
+                                    try {
+                                        if (cursor2.moveToFirst()) {
+                                            val columnIndex =
+                                                cursor2.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                                            return cursor2.getString(columnIndex)
+                                        }
+                                    } finally {
+                                        cursor2.close()
+                                    }
+                                }
+                            }
+                        } finally {
+                            cursor.close()
+                        }
+                    }
+                } else {
+                    ActivityCompat.requestPermissions(
+                        requireActivity(),
+                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                        101
+                    )
+                    return null
+                }
+            }
+        } else if (ContentResolver.SCHEME_FILE == uri.scheme) {
+            return uri.path
+        }
+
+        return null
+    }
 }

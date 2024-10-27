@@ -168,7 +168,7 @@
                                 android:id="@+id/maleRadioButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_10sdp"
+                                android:checked="true"
                                 android:text="Male" />
 
                             <androidx.appcompat.widget.AppCompatRadioButton
@@ -194,49 +194,14 @@
                             android:textColor="@color/black"
                             android:textSize="@dimen/_14ssp" />
 
-                        <RadioGroup
-                            android:id="@+id/selectMaterialStatus"
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerViewMarriedStatus"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <RadioGroup
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-                                <androidx.appcompat.widget.AppCompatRadioButton
-                                    android:id="@+id/marriedRadioButton"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginEnd="@dimen/_10sdp"
-                                    android:text="Married" />
-
-                                <androidx.appcompat.widget.AppCompatRadioButton
-                                    android:id="@+id/unMarriedRadioButton"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="UnMarried" />
-                            </RadioGroup>
-
-
-                            <RadioGroup
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-                                <androidx.appcompat.widget.AppCompatRadioButton
-                                    android:id="@+id/windowRadioButton"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginEnd="@dimen/_10sdp"
-                                    android:text="Window" />
-
-                                <androidx.appcompat.widget.AppCompatRadioButton
-                                    android:id="@+id/divorcedRadioButton"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Divorced" />
-
-                            </RadioGroup>
-                        </RadioGroup>
+                            android:layout_height="wrap_content"
+                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                            app:spanCount="2"
+                            tools:itemCount="6"
+                            tools:listitem="@layout/item_radio_button" />
 
 
                         <RelativeLayout
@@ -245,6 +210,7 @@
                             android:layout_marginTop="@dimen/_10sdp">
 
                             <androidx.appcompat.widget.LinearLayoutCompat
+                                android:id="@+id/suggester0"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
 
@@ -262,16 +228,20 @@
                                     android:layout_marginHorizontal="@dimen/_15sdp"
                                     android:lineSpacingExtra="3dp"
                                     android:text="@string/image_message"
-                                    android:textColor="@color/light_gray"
+                                    android:textColor="@color/darker_gray"
                                     android:textSize="@dimen/_12ssp" />
 
                             </androidx.appcompat.widget.LinearLayoutCompat>
 
                             <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/userPhotoImageView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:maxWidth="@dimen/_250sdp"
-                                android:maxHeight="@dimen/_250sdp" />
+                                android:layout_centerHorizontal="true"
+                                android:scaleType="centerInside"
+                                android:maxHeight="@dimen/_200sdp" 
+                                />
 
                         </RelativeLayout>
 
@@ -333,6 +303,44 @@
 
                         </com.google.android.material.textfield.TextInputLayout>
 
+                        <com.google.android.material.textfield.TextInputLayout
+
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:elevation="@dimen/_4sdp"
+                            android:hint="Fahter Name * ">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/fatherNameEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:singleLine="true"
+                                android:textSize="@dimen/_12ssp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:elevation="@dimen/_4sdp"
+                            android:hint="Fahter Addhar No* ">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/fatherAadharCardEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:singleLine="true"
+                                android:textSize="@dimen/_12ssp"
+                                />
+
+                        </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
@@ -476,7 +484,23 @@
                                 android:textSize="@dimen/_12ssp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/postInput"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:elevation="@dimen/_4sdp"
+                            android:hint="District">
 
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/districtEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:singleLine="true"
+                                android:textSize="@dimen/_12ssp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/postInput"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -618,6 +642,7 @@
                             android:layout_marginTop="@dimen/_10sdp">
 
                             <androidx.appcompat.widget.LinearLayoutCompat
+                                android:id="@+id/suggester1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
 
@@ -635,15 +660,18 @@
                                     android:layout_marginHorizontal="@dimen/_15sdp"
                                     android:lineSpacingExtra="3dp"
                                     android:text="@string/image_message"
-                                    android:textColor="@color/light_gray"
+                                    android:textColor="@color/darker_gray"
                                     android:textSize="@dimen/_12ssp" />
                             </androidx.appcompat.widget.LinearLayoutCompat>
 
                             <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/uploadOriginalIdImageView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:maxWidth="@dimen/_250sdp"
-                                android:maxHeight="@dimen/_250sdp" />
+                                android:layout_centerHorizontal="true"
+                                android:scaleType="centerInside"
+                                android:maxHeight="@dimen/_200sdp" />
 
                         </RelativeLayout>
 
@@ -688,6 +716,7 @@
                             android:layout_marginTop="@dimen/_10sdp">
 
                             <androidx.appcompat.widget.LinearLayoutCompat
+                                android:id="@+id/suggester2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
 
@@ -704,16 +733,19 @@
                                     android:layout_marginHorizontal="@dimen/_15sdp"
                                     android:lineSpacingExtra="3dp"
                                     android:text="@string/image_message"
-                                    android:textColor="@color/light_gray"
+                                    android:textColor="@color/darker_gray"
                                     android:textSize="@dimen/_12ssp" />
 
                             </androidx.appcompat.widget.LinearLayoutCompat>
 
                             <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/uploadAddressProofImageView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:maxWidth="@dimen/_250sdp"
-                                android:maxHeight="@dimen/_250sdp" />
+                                android:layout_centerHorizontal="true"
+                                android:scaleType="centerInside"
+                                android:maxHeight="@dimen/_200sdp" />
                         </RelativeLayout>
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -1049,6 +1081,7 @@
                                 android:layout_height="wrap_content"
                                 android:focusable="false"
                                 android:singleLine="true"
+                                android:maxLength="110"
                                 android:textSize="@dimen/_12ssp" />
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -1059,6 +1092,7 @@
                             android:layout_marginTop="@dimen/_10sdp">
 
                             <androidx.appcompat.widget.LinearLayoutCompat
+                                android:id="@+id/suggester3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
 
@@ -1075,15 +1109,18 @@
                                     android:layout_marginHorizontal="@dimen/_15sdp"
                                     android:lineSpacingExtra="3dp"
                                     android:text="@string/image_message"
-                                    android:textColor="@color/light_gray"
+                                    android:textColor="@color/darker_gray"
                                     android:textSize="@dimen/_12ssp" />
                             </androidx.appcompat.widget.LinearLayoutCompat>
 
                             <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/uploadBankDetailsImageView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:maxWidth="@dimen/_250sdp"
-                                android:maxHeight="@dimen/_250sdp" />
+                                android:layout_centerHorizontal="true"
+                                android:scaleType="centerInside"
+                                android:maxHeight="@dimen/_200sdp" />
                         </RelativeLayout>
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -1246,9 +1283,10 @@
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:enabled="false"
+                android:background="@drawable/gradient_background"
                 android:paddingVertical="@dimen/_10sdp"
-                android:text="Continue" />
+                android:text="Continue"
+                android:textColor="@color/white" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
 

@@ -60,7 +60,7 @@
                     android:id="@+id/scrollViewContainer"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/_60sdp">
+                    android:scrollbars="none">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:id="@+id/linearLayoutContent"

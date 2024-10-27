@@ -14,6 +14,8 @@ import com.dev.customerapp.R
 import com.dev.customerapp.api.ApiClient
 import com.dev.customerapp.databinding.ActivityMainBinding
 import com.dev.customerapp.fragments.AccountFragment
+import com.dev.customerapp.fragments.AddCustomerFragment
+import com.dev.customerapp.fragments.AddVendorFragment
 import com.dev.customerapp.fragments.HomeFragment
 import com.dev.customerapp.utils.Constant
 import com.dev.customerapp.utils.changeActivity
@@ -21,8 +23,7 @@ import com.dev.customerapp.utils.loadImage
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import de.hdodenhof.circleimageview.CircleImageView
 
-class MainActivity : AppCompatActivity()
-{
+class MainActivity : AppCompatActivity() {
 
     private var binding: ActivityMainBinding? = null
     private lateinit var drawerLayout: DrawerLayout
@@ -61,6 +62,14 @@ class MainActivity : AppCompatActivity()
 
                     changeActivity(CreateUserActivity::class.java, false)
                 }
+
+                R.id.navigation_add_customer -> {
+                    changeFragment(AddCustomerFragment())
+                }
+
+                R.id.navigation_add_vendor -> {
+                    changeFragment(AddVendorFragment())
+                }
             }
             false
         }
@@ -85,6 +94,8 @@ class MainActivity : AppCompatActivity()
             R.id.bottom_account -> {
                 selectedFragment = AccountFragment()
             }
+
+
         }
         selectedFragment?.let { changeFragment(it) }
         true

@@ -20,7 +20,7 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_50sdp"
+
                 android:orientation="vertical">
 
                 <com.google.android.material.card.MaterialCardView
@@ -52,7 +52,9 @@
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/_60sdp">
+                    android:scrollbars="none"
+
+                    >
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
