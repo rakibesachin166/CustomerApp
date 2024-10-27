@@ -18,6 +18,8 @@ import androidx.fragment.app.Fragment;
 
 import com.dev.customerapp.Activity.CreateUserActivity;
 import com.dev.customerapp.fragments.AccountFragment;
+import com.dev.customerapp.fragments.AddCustomerFragment;
+import com.dev.customerapp.fragments.AddVendorFragment;
 import com.dev.customerapp.fragments.CreateUserFormFragment;
 import com.dev.customerapp.fragments.HomeFragment;
 import com.dev.customerapp.utils.ExtensionKt;
@@ -52,7 +54,12 @@ public class MainActivity extends AppCompatActivity {
             if (id == R.id.navigation_add_user) {
                 printLog("sachin", "Click");
                 ExtensionKt.changeActivity(MainActivity.this, CreateUserActivity.class, false);
+            } else if (id == R.id.navigation_add_customer) {
+                changeFragment(new AddCustomerFragment());
+            } else if (id == R.id.navigation_add_vendor) {
+                changeFragment(new AddVendorFragment());
             }
+
             return false;
         });
 
@@ -96,4 +103,5 @@ public class MainActivity extends AppCompatActivity {
                 .addToBackStack(null)
                 .commit();
     }
+
 }

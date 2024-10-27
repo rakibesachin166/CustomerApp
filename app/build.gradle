@@ -17,7 +17,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
     }
 
@@ -48,9 +48,14 @@ dependencies {
     androidTestImplementation libs.espresso.core
     implementation(libs.ssp.android)
     implementation(libs.sdp.android)
-    implementation (libs.fragment.ktx)
+    implementation(libs.fragment.ktx)
     implementation(libs.circleimageview)
 
-    implementation (libs.autoimageslider)
-    implementation (libs.glide)
+
+    implementation libs.glide
+    annotationProcessor("com.github.bumptech.glide:compiler:4.13.2")
+    implementation 'com.github.smarteist:Android-Image-Slider:1.4.0'
+
+
+
 }
