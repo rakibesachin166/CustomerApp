@@ -393,6 +393,7 @@ class CreateUserFormFragment : Fragment() {
 
                     val apiService = ApiClient.getRetrofitInstance()
                     val userInfo = UserDataModel(
+                        0,
                         sharedViewModel.userType.value!!.code,
                         applicantName,
                         userGender,
@@ -422,21 +423,25 @@ class CreateUserFormFragment : Fragment() {
                         bankName,
                         bankState,
                         branchName,
-                        accountNo,panNo,bankPhoto,password
+                        accountNo, panNo, bankPhoto, password
                     )
-                    apiService.createUser(userInfo).enqueue(object : Callback<CommonResponse<String>>{
-                        override fun onResponse(
-                            call: Call<CommonResponse<String>>,
-                            response: Response<CommonResponse<String>>
-                        ) {
-                            TODO("Not yet implemented")
-                        }
+                    apiService.createUser(userInfo)
+                        .enqueue(object : Callback<CommonResponse<String>> {
+                            override fun onResponse(
+                                call: Call<CommonResponse<String>>,
+                                response: Response<CommonResponse<String>>
+                            ) {
+                                TODO("Not yet implemented")
+                            }
 
-                        override fun onFailure(call: Call<CommonResponse<String>>, t: Throwable) {
-                            TODO("Not yet implemented")
-                        }
+                            override fun onFailure(
+                                call: Call<CommonResponse<String>>,
+                                t: Throwable
+                            ) {
+                                TODO("Not yet implemented")
+                            }
 
-                    })
+                        })
 
                 }
             }

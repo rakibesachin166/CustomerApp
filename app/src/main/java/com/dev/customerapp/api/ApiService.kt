@@ -1,5 +1,10 @@
 package com.dev.customerapp.api;
 
+import com.dev.customerapp.models.BlockPostingDataModel
+import com.dev.customerapp.models.CustomerModel
+import com.dev.customerapp.models.DistrictPostingDataModel
+import com.dev.customerapp.models.DivisionalPostingDataModel
+import com.dev.customerapp.models.StatePostingDataModel
 import com.dev.customerapp.models.UserDataModel
 import com.dev.customerapp.models.VendorModel
 import com.dev.customerapp.response.CommonResponse
