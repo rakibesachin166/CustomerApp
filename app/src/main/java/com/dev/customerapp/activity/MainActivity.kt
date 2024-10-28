@@ -1,27 +1,19 @@
 package com.dev.customerapp.activity;
 
 
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import com.dev.customerapp.Activity.ChangeActivity
 import com.dev.customerapp.R
-import com.dev.customerapp.activity.CreateUserActivity
 import com.dev.customerapp.api.ApiClient
 import com.dev.customerapp.databinding.ActivityMainBinding
 import com.dev.customerapp.fragments.AccountFragment
-import com.dev.customerapp.fragments.AddCustomerFragment
-import com.dev.customerapp.fragments.AddVendorFragment
 import com.dev.customerapp.fragments.HomeFragment
 import com.dev.customerapp.utils.Constant
 import com.dev.customerapp.utils.changeActivity

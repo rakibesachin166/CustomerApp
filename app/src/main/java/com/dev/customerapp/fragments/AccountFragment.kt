@@ -9,16 +9,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
-import com.dev.customerapp.Activity.ChangeActivity
+
 import com.dev.customerapp.R
+import com.dev.customerapp.activity.ChangeActivity
+import com.dev.customerapp.activity.MainActivity
+import com.dev.customerapp.api.ApiClient
 import com.dev.customerapp.databinding.FragmentAccountBinding
+import com.dev.customerapp.utils.Constant
+import com.dev.customerapp.utils.changeActivity
+import com.dev.customerapp.utils.loadImage
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import de.hdodenhof.circleimageview.CircleImageView
 
 @SuppressLint("MissingInflatedId")
 class AccountFragment : Fragment() {
     private lateinit var binding: FragmentAccountBinding
-    private var currentPickMode: Int = 0
-    private lateinit var sharedPreferences: SharedPreferences
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +48,43 @@ class AccountFragment : Fragment() {
         binding.logoutTextView.setOnClickListener {
             bottomSheet.show()
         }
+        val userData = Constant(requireActivity()).getUserData()
+
+        if (
+            userData == null
+        ) {
+            binding.logoutTextView.visibility = View.GONE
+        } else {
+            binding.tvSignIn.text = userData.userName
+            binding.profileCircleImageView.loadImage(ApiClient.BASE_URL + userData.userPhoto)
+            when (userData.userType) {
+                1 -> {
+                    binding.tvUserType.text = "Admin"
+                }
+
+                2 -> {
+                    binding.tvUserType.text = "State Officer"
+                }
+
+                3 -> {
+                    binding.tvUserType.text = "Divisional Officer"
+                }
+
+                4 -> {
+                    binding.tvUserType.text = "District Officer"
+                }
+
+                5 -> {
+                    binding.tvUserType.text = "Block Officer"
+                }
+
+                else -> {
+
+                    println("Unknown user type")
+                }
+            }
+
+        }
     }
 
 
@@ -54,15 +97,15 @@ class AccountFragment : Fragment() {
 
 
         cancelButton.setOnClickListener {
-            currentPickMode = 0
+
             bottomSheetDialog.dismiss()
         }
 
 
         logoutButton.setOnClickListener {
-            sharedPreferences.edit().clear().apply()
+            Constant(requireActivity()).clearUserData()
             bottomSheetDialog.dismiss()
-
+            requireActivity().changeActivity(MainActivity::class.java, false)
         }
 
         bottomSheetDialog.setContentView(view)

@@ -1,4 +1,4 @@
-package com.dev.customerapp.Activity
+package com.dev.customerapp.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -21,14 +21,27 @@ class ChangeActivity : AppCompatActivity() {
             "idProof" -> changeFragment(CreateIDProofFragment())
             "customer" -> changeFragment(AddCustomerFragment())
             "vendor" -> changeFragment(AddVendorFragment())
-            else -> changeFragment(AccountFragment())
+            else ->{}
         }
     }
 
     private fun changeFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, fragment)
-            .addToBackStack(null)
             .commit()
     }
+
+    override fun onBackPressed() {
+        val fragmentManager = supportFragmentManager
+        val fragments = fragmentManager.backStackEntryCount
+
+        if (fragments == 1) {
+            finish()
+        } else if (fragments > 1) {
+            fragmentManager.popBackStack()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
 }
