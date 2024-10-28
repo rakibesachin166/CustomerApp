@@ -124,6 +124,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="number"
+                                android:maxLength="10"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
 
@@ -258,6 +259,7 @@
                                 android:layout_height="wrap_content"
                                 android:inputType="number"
                                 android:singleLine="true"
+                                android:maxLength="6"
                                 android:textSize="@dimen/_12ssp" />
 
                         </com.google.android.material.textfield.TextInputLayout>

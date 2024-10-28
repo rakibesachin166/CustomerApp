@@ -21,6 +21,7 @@
     <string name="deliver_to">Deliver to</string>
     <string name="add_customer">Add Customer</string>
     <string name="add_vendor">Add Vendor</string>
+    <string name="logout_message">Are You sure you Want to Logout</string>
 
     <string-array name="userTypeAdmin">
         <item>StateOfficer</item>

@@ -2,6 +2,7 @@ package com.dev.customerapp.activity;
 
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebView
@@ -13,7 +14,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.dev.customerapp.Activity.ChangeActivity
 import com.dev.customerapp.R
+import com.dev.customerapp.activity.CreateUserActivity
 import com.dev.customerapp.api.ApiClient
 import com.dev.customerapp.databinding.ActivityMainBinding
 import com.dev.customerapp.fragments.AccountFragment
@@ -67,11 +70,15 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.navigation_add_customer -> {
-                    changeFragment(AddCustomerFragment())
+                    val intent = Intent(this, ChangeActivity::class.java)
+                    intent.putExtra("fragment_type", "customer")
+                    startActivity(intent)
                 }
 
                 R.id.navigation_add_vendor -> {
-                    changeFragment(AddVendorFragment())
+                    val intent = Intent(this, ChangeActivity::class.java)
+                    intent.putExtra("fragment_type", "vendor")
+                    startActivity(intent)
                 }
             }
             false
@@ -96,7 +103,6 @@ class MainActivity : AppCompatActivity() {
             R.id.bottom_account -> {
                 selectedFragment = AccountFragment()
             }
-
 
         }
         selectedFragment?.let { changeFragment(it) }

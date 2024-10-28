@@ -1,21 +1,25 @@
 package com.dev.customerapp.fragments
 
-import android.app.AlertDialog
+import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.dev.customerapp.R
+import com.dev.customerapp.activity.MainActivity
 import com.dev.customerapp.api.ApiClient
 import com.dev.customerapp.api.ApiService
 import com.dev.customerapp.databinding.FragmentAddCustomerBinding
 import com.dev.customerapp.models.CustomerModel
 import com.dev.customerapp.utils.Constant
 import com.dev.customerapp.utils.ResponseHandler
-import com.dev.customerapp.utils.showToast
+import com.dev.customerapp.utils.showErrorToast
+import com.dev.customerapp.utils.showSuccessToast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,6 +42,15 @@ class AddCustomerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val intent = Intent(requireContext(), MainActivity::class.java)
+                    startActivity(intent)
+                }
+            })
 
         apiService = ApiClient.getRetrofitInstance()
         initDatePicker()
@@ -147,10 +160,10 @@ class AddCustomerFragment : Fragment() {
                         val code = responseHandler?.code
                         val message = responseHandler?.message
                         if (code == 200) {
-                            requireContext().showToast(message.toString())
+                            requireContext().showSuccessToast(message.toString())
                         }
                         if (code == 201) {
-                            requireContext().showToast(message.toString())
+                            requireContext().showErrorToast(message.toString())
                         }
                     }
                 }
@@ -160,7 +173,7 @@ class AddCustomerFragment : Fragment() {
                     t: Throwable
                 ) {
                     showProgressDialog(false)
-                    requireContext().showToast(t.message.toString())
+                    requireContext().showErrorToast(t.message.toString())
                 }
 
             })
