@@ -1,6 +1,7 @@
 package com.dev.customerapp.fragments
 
 import android.Manifest
+import android.app.DatePickerDialog
 import android.app.ProgressDialog
 import android.content.ContentResolver
 import android.content.pm.PackageManager
@@ -12,6 +13,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -25,14 +27,21 @@ import com.dev.customerapp.R
 import com.dev.customerapp.adapter.RadioButtonsAdapter
 import com.dev.customerapp.api.ApiClient
 import com.dev.customerapp.databinding.FragmentCreateUserFormBinding
+import com.dev.customerapp.models.CreateUserModel
+import com.dev.customerapp.models.DistrictPostingDataModel
+import com.dev.customerapp.models.StatePostingDataModel
 import com.dev.customerapp.models.UserDataModel
 import com.dev.customerapp.response.CommonResponse
+import com.dev.customerapp.response.CreateUserData
 import com.dev.customerapp.response.PhotoResponse
 import com.dev.customerapp.utils.loadImage
 import com.dev.customerapp.utils.progressDialog
 import com.dev.customerapp.utils.showErrorToast
+import com.dev.customerapp.utils.showSuccessToast
+import com.dev.customerapp.utils.showToast
 import com.dev.customerapp.viewModels.CreateUserViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.textfield.TextInputEditText
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -40,6 +49,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
+import java.util.Calendar
 
 
 class CreateUserFormFragment : Fragment() {
@@ -114,7 +124,7 @@ class CreateUserFormFragment : Fragment() {
         val galleryImageView = view.findViewById<ImageView>(R.id.gallery)
 
         galleryImageView.setOnClickListener { v: View? ->
-            currentPickMode = 0
+
             pickMedia.launch(
                 PickVisualMediaRequest.Builder()
                     .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly)
@@ -125,6 +135,7 @@ class CreateUserFormFragment : Fragment() {
 
         cameraImageView.setOnClickListener { v: View? ->
 
+            requireContext().showToast("Work Going to Camera")
 
             bottomSheetDialog.dismiss()
         }
@@ -133,6 +144,18 @@ class CreateUserFormFragment : Fragment() {
         bottomSheetDialog
     }
 
+    private fun showDatePickerDialog(applicantDOBEditText: TextInputEditText) {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+            val selectedDate = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
+            applicantDOBEditText.setText(selectedDate)
+        }, year, month, day)
+        datePickerDialog.show()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -157,12 +180,28 @@ class CreateUserFormFragment : Fragment() {
             bottomSheet.show()
         }
 
+         binding.applicantDOBEditText.setOnClickListener {
+             showDatePickerDialog(binding.applicantDOBEditText)
+         }
+        binding.nomineeDOBEditText.setOnClickListener {
+             showDatePickerDialog(binding.nomineeDOBEditText)
+         }
+
+        binding.applicationAddressCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                binding.nomineeAddressEditTextParent.visibility = View.GONE
+            } else {
+                binding.nomineeAddressEditTextParent.visibility = View.VISIBLE
+            }
+        }
 
         val list = listOf("Married", "Unmarried", "Widow/Widower", "Divorced")
 
         binding.recyclerViewMarriedStatus.setHasFixedSize(true)
         marriedAdapter = RadioButtonsAdapter(list)
         binding.recyclerViewMarriedStatus.adapter = marriedAdapter
+
+        binding.stateEditText.setText(sharedViewModel.userPostingModel.value!!.statePostingDataModel.stateName.toString())
 
         binding.continueButton.setOnClickListener {
             val applicantName = binding.applicantNameEdiText.text.toString().trim()
@@ -182,7 +221,7 @@ class CreateUserFormFragment : Fragment() {
             val fatherName = binding.fatherNameEditText.text.toString().trim()
             val address = binding.addressEditText.text.toString().trim()
             val state = binding.stateEditText.text.toString().trim()
-            val district = binding.districtEditText.text.toString().trim()
+            val district = binding.districtSpinner.selectedItem.toString()
             val tehsil = binding.tehsilEditText.text.toString().trim()
             val post = binding.postEditText.text.toString().trim()
             val city = binding.cityEditText.text.toString().trim()
@@ -197,7 +236,13 @@ class CreateUserFormFragment : Fragment() {
             val nomineeDOB = binding.nomineeDOBEditText.text.toString().trim()
             val relationNominee = binding.relationNomineeEditText.text.toString().trim()
             val checkBoxApplicationAddress = binding.applicationAddressCheckBox.isChecked
-            val nomineeAddress = binding.nomineeAddressEditText.text.toString().trim()
+            val nomineeAddress: String
+            nomineeAddress = if (checkBoxApplicationAddress) {
+                address
+            }else{
+                binding.nomineeAddressEditText.text.toString().trim()
+            }
+
             val bankName = binding.bankNameEditText.text.toString().trim()
             val bankState = binding.bankStateSpinner.selectedItem.toString().trim()
             val branchName = binding.branchNameEdittext.text.toString().trim()
@@ -381,6 +426,11 @@ class CreateUserFormFragment : Fragment() {
                 requireContext().showErrorToast("Please Select a Bank Account Proof Photo")
                 return@setOnClickListener
             }
+            if (!binding.checkBoxfinal.isChecked ){
+                requireContext().showErrorToast("Please Accept Terms and Conditions")
+                return@setOnClickListener
+            }
+
 
             uploadImages { photoResponse ->
                 if (photoResponse != null) {
@@ -391,10 +441,14 @@ class CreateUserFormFragment : Fragment() {
 
                     progressDialog = requireContext().progressDialog(message = "Saving Data ...")
 
+                    progressDialog!!.show()
                     val apiService = ApiClient.getRetrofitInstance()
-                    val userInfo = UserDataModel(
-                        0,
+                    val userInfo = CreateUserModel(
                         sharedViewModel.userType.value!!.code,
+                        sharedViewModel.userPostingModel.value!!.statePostingDataModel.stateId,
+                        sharedViewModel.userPostingModel.value?.divisionalPostingDataModel?.divisionId,
+                        sharedViewModel.userPostingModel.value?.districtPostingDataModel?.districtId,
+                        sharedViewModel.userPostingModel.value?.blockPostingDataModel?.blockId,
                         applicantName,
                         userGender,
                         maritalStatus,
@@ -412,9 +466,12 @@ class CreateUserFormFragment : Fragment() {
                         city,
                         pincode,
                         mobileNo,
+                        alternateMobileNo,
                         emailAddress,
                         selectIdProof,
                         idPhoto,
+                        addressProof,
+                        addressPhoto,
                         nomineeName,
                         nomineeAadharNo,
                         nomineeDOB,
@@ -423,22 +480,34 @@ class CreateUserFormFragment : Fragment() {
                         bankName,
                         bankState,
                         branchName,
-                        accountNo, panNo, bankPhoto, password
+                        accountNo,
+                        panNo,
+                        bankPhoto,
+                        password,
+                        ""
                     )
+
                     apiService.createUser(userInfo)
                         .enqueue(object : Callback<CommonResponse<String>> {
                             override fun onResponse(
                                 call: Call<CommonResponse<String>>,
                                 response: Response<CommonResponse<String>>
                             ) {
-                                TODO("Not yet implemented")
+                                progressDialog!!.dismiss()
+                                if (response.body()?.code == 200) {
+                                    requireContext().showSuccessToast("User created successfully")
+                                    requireActivity().onBackPressed()
+                                }else{
+                                    requireContext().showErrorToast(response.body()?.message.toString())
+                                }
                             }
 
                             override fun onFailure(
                                 call: Call<CommonResponse<String>>,
                                 t: Throwable
                             ) {
-                                TODO("Not yet implemented")
+                                progressDialog!!.dismiss()
+                                requireContext().showErrorToast(t.message.toString())
                             }
 
                         })
@@ -447,7 +516,7 @@ class CreateUserFormFragment : Fragment() {
             }
         }
 
-
+    getCreateFromData()
     }
 
     private fun uploadImages(callback: (PhotoResponse?) -> Unit) {
@@ -516,6 +585,47 @@ class CreateUserFormFragment : Fragment() {
 
             })
 
+    }
+
+    fun getCreateFromData(){
+        ApiClient.getRetrofitInstance().createUserData(sharedViewModel.userPostingModel.value!!.statePostingDataModel.stateId).enqueue(object : Callback<CommonResponse<CreateUserData>>{
+            override fun onResponse(
+                call: Call<CommonResponse<CreateUserData>>,
+                response: Response<CommonResponse<CreateUserData>>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null && responseBody.code == 200) {
+                        setDistrictList(responseBody.data.districtList)
+                        setBankStateList(responseBody.data.stateList)
+                    } else {
+                        requireContext().showErrorToast(responseBody!!.message)
+                    }
+                }else{
+                    requireContext().showErrorToast("Error While Getting State List ")
+                }
+            }
+
+            override fun onFailure(call: Call<CommonResponse<CreateUserData>>, t: Throwable) {
+                requireContext().showErrorToast(t.message.toString())
+            }
+
+        })
+
+
+    }
+    private fun setBankStateList( stateList : List<StatePostingDataModel>) {
+        val stateNames = stateList.map { it.stateName }
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, stateNames)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.bankStateSpinner.adapter = adapter
+    }
+
+    private fun setDistrictList( districtList : List<DistrictPostingDataModel>) {
+        val stateNames = districtList.map { it.districtName }
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, stateNames)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.districtSpinner.adapter = adapter
     }
 
     fun getRealPathFromURI(uri: Uri): String? {

@@ -336,6 +336,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="number"
+                                android:maxLength="12"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp"
                                 />
@@ -484,23 +485,23 @@
                                 android:textSize="@dimen/_12ssp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/postInput"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_8sdp"
                             android:elevation="@dimen/_4sdp"
-                            android:hint="District">
+                            app:cardCornerRadius="@dimen/_4sdp">
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/districtEditText"
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/districtSpinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:singleLine="true"
+                                android:paddingHorizontal="@dimen/_6sdp"
+                                android:paddingVertical="@dimen/_10sdp"
                                 android:textSize="@dimen/_12ssp" />
 
-                        </com.google.android.material.textfield.TextInputLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/postInput"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -895,7 +896,6 @@
                                 android:id="@+id/relationNomineeEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:focusable="false"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -911,6 +911,7 @@
                             android:textSize="@dimen/_12ssp" />
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/nomineeAddressEditTextParent"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -923,7 +924,6 @@
                                 android:id="@+id/nomineeAddressEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:focusable="false"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -1041,7 +1041,7 @@
                                 android:id="@+id/branchNameEdittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:focusable="false"
+
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -1059,7 +1059,6 @@
                                 android:id="@+id/accountNoEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:focusable="false"
                                 android:inputType="number"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
@@ -1079,9 +1078,9 @@
                                 android:id="@+id/panNoEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:focusable="false"
+                                android:capitalize="characters"
                                 android:singleLine="true"
-                                android:maxLength="110"
+                                android:maxLength="10"
                                 android:textSize="@dimen/_12ssp" />
                         </com.google.android.material.textfield.TextInputLayout>
 

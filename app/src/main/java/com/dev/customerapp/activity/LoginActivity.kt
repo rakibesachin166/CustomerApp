@@ -1,12 +1,19 @@
 package com.dev.customerapp.activity;
 
+import android.R
+import android.app.Dialog
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.os.Handler
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.dev.customerapp.api.ApiClient
 import com.dev.customerapp.databinding.ActivityLoginBinding
 import com.dev.customerapp.models.UserDataModel
 import com.dev.customerapp.response.CommonResponse
+import com.dev.customerapp.utils.AgreementTxt
 import com.dev.customerapp.utils.Constant
 import com.dev.customerapp.utils.changeActivity
 import com.dev.customerapp.utils.progressDialog
@@ -59,7 +66,8 @@ class LoginActivity : AppCompatActivity() {
 
                             Constant(this@LoginActivity).saveUserData(userDataModel)
                             showSuccessToast(responseBody.message)
-                            changeActivity(MainActivity::class.java, true)
+                            fullScreenDialog()
+
 
                         } else {
                             showErrorToast(responseBody.message)
@@ -77,6 +85,25 @@ class LoginActivity : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    private fun fullScreenDialog(){
+        val dialog = Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
+
+        // Inflate the custom layout
+        val dialogView = layoutInflater.inflate(com.dev.customerapp.R.layout.dialog_agreement, null)
+        dialog.setContentView(dialogView)
+
+        // Set up the WebView
+        val webView: WebView = dialogView.findViewById(com.dev.customerapp.R.id.dialogWebview)
+        webView.webViewClient = WebViewClient()
+        webView.loadUrl("file:///android_asset/AASTHAGROUPSAGREEMENT.html");
+        Handler().postDelayed({
+            changeActivity(MainActivity::class.java, true)
+        },5000)
+        dialog.window?.setBackgroundDrawable(ContextCompat.getDrawable(this, android.R.color.black))
+
+        dialog.show()
     }
 
     override fun onDestroy() {

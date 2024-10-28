@@ -1,11 +1,15 @@
 package com.dev.customerapp.activity;
 
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.View
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -32,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
@@ -122,16 +127,47 @@ class MainActivity : AppCompatActivity() {
         val userData = Constant(this@MainActivity).getUserData()
         val headerButton: TextView = headerView.findViewById(R.id.tvSignIn)
 
+        val menu = binding?.navigationView?.menu
         if (userData == null) {
             headerButton.setOnClickListener {
                 changeActivity(LoginActivity::class.java, true)
             }
-
+            menu?.findItem(R.id.navigation_add_user)?.isVisible = false
+            menu?.findItem(R.id.navigation_add_vendor)?.isVisible = false
+            menu?.findItem(R.id.navigation_add_customer)?.isVisible = false
         } else {
             headerButton.background = null
             headerButton.text = userData.userName
             val profileImage: CircleImageView = headerView.findViewById(R.id.profile_image)
             profileImage.loadImage(ApiClient.BASE_URL + userData.userPhoto)
+            when (userData.userType) {
+                1 -> {
+                    menu?.findItem(R.id.navigation_add_user)?.isVisible = true
+                }
+                2 -> {
+                    menu?.findItem(R.id.navigation_add_user)?.isVisible = true
+                }
+                3 -> {
+                    menu?.findItem(R.id.navigation_add_user)?.isVisible = true
+                }
+                4 -> {
+                    menu?.findItem(R.id.navigation_add_user)?.isVisible = true
+                }
+                5 -> {
+                    menu?.findItem(R.id.navigation_add_vendor)?.isVisible = true
+                    menu?.findItem(R.id.navigation_add_customer)?.isVisible = true
+                }
+                else -> {
+
+                    println("Unknown user type")
+                }
+            }
+
         }
+
+
+
+
+
     }
 }
