@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.AddLocationFragment">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/stateCard"
             android:layout_width="match_parent"
@@ -225,301 +226,375 @@
 
 
         </com.google.android.material.card.MaterialCardView>
-     <!--   <LinearLayout
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/districtCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="2"
-            >
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/stateCard"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="true">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/_10sdp">
+
+                <com.google.android.material.card.MaterialCardView
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingBottom="@dimen/_10sdp">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="@dimen/_4sdp"
-                        >
+                    app:cardCornerRadius="@dimen/_4sdp"
 
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="@dimen/_5sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:elevation="@dimen/_4sdp"
-                            android:orientation="horizontal"
-                            android:paddingVertical="@dimen/_4sdp"
-                            >
-
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:gravity="center_vertical"
-                                android:padding="@dimen/_2sdp"
-                                android:text="State"
-                                android:textColor="@color/orange_primary"
-                                android:textSize="@dimen/_12ssp"
-                                android:textStyle="bold" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-                    </com.google.android.material.card.MaterialCardView>
-
+                    >
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_3sdp"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:background="@drawable/shape_corner_radius"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
                         android:elevation="@dimen/_4sdp"
-                        app:cardCornerRadius="@dimen/_4sdp">
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/_4sdp">
 
-                        <androidx.appcompat.widget.AppCompatSpinner
-                            android:id="@+id/stateSpinner"
+
+                        <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingHorizontal="@dimen/_3sdp"
-                            android:paddingVertical="@dimen/_5sdp"
-                            android:textSize="@dimen/_12ssp" />
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:padding="@dimen/_6sdp"
+                            android:text="Block"
+                            android:textColor="@color/orange_primary"
+                            android:textSize="@dimen/_12ssp"
+                            android:textStyle="bold" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                </com.google.android.material.card.MaterialCardView>
 
-
-            </com.google.android.material.card.MaterialCardView>
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/divisionCard"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                app:cardUseCompatPadding="true">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingBottom="@dimen/_10sdp">
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@drawable/shape_corner_radius"
+                    android:elevation="@dimen/_4sdp"
+                    app:cardCornerRadius="@dimen/_4sdp">
 
-                    <com.google.android.material.card.MaterialCardView
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/blockSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="@dimen/_4sdp"
-                        >
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="@dimen/_5sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:elevation="@dimen/_4sdp"
-                            android:orientation="horizontal"
-                            android:paddingVertical="@dimen/_4sdp"
-                            >
-
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:gravity="center_vertical"
-                                android:padding="@dimen/_2sdp"
-                                android:text="Division"
-                                android:textColor="@color/orange_primary"
-                                android:textSize="@dimen/_12ssp"
-                                android:textStyle="bold" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-                    </com.google.android.material.card.MaterialCardView>
-
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_3sdp"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:background="@drawable/shape_corner_radius"
-                        android:elevation="@dimen/_4sdp"
-                        app:cardCornerRadius="@dimen/_4sdp">
-
-                        <androidx.appcompat.widget.AppCompatSpinner
-                            android:id="@+id/divisionSpinner"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingHorizontal="@dimen/_3sdp"
-                            android:paddingVertical="@dimen/_5sdp"
-                            android:textSize="@dimen/_12ssp" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
+                        android:paddingHorizontal="@dimen/_6sdp"
+                        android:paddingVertical="@dimen/_10sdp"
+                        android:textSize="@dimen/_12ssp" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-            </com.google.android.material.card.MaterialCardView>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="2"
-            >
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/districtCard"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                app:cardUseCompatPadding="true">
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingBottom="@dimen/_10sdp">
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="@dimen/_4sdp"
-                        >
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="@dimen/_5sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:elevation="@dimen/_4sdp"
-                            android:orientation="horizontal"
-                            android:paddingVertical="@dimen/_4sdp"
-                            >
+        </com.google.android.material.card.MaterialCardView>
 
 
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:gravity="center_vertical"
-                                android:padding="@dimen/_2sdp"
-                                android:text="District"
-                                android:textColor="@color/orange_primary"
-                                android:textSize="@dimen/_12ssp"
-                                android:textStyle="bold" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
+        <!--   <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_weight="2"
+               >
+               <com.google.android.material.card.MaterialCardView
+                   android:id="@+id/stateCard"
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   app:cardUseCompatPadding="true">
+
+                   <androidx.appcompat.widget.LinearLayoutCompat
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       android:paddingBottom="@dimen/_10sdp">
+
+                       <com.google.android.material.card.MaterialCardView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           app:cardCornerRadius="@dimen/_4sdp"
+                           >
+
+                           <androidx.appcompat.widget.LinearLayoutCompat
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:layout_marginHorizontal="@dimen/_5sdp"
+                               android:layout_marginTop="@dimen/_2sdp"
+                               android:elevation="@dimen/_4sdp"
+                               android:orientation="horizontal"
+                               android:paddingVertical="@dimen/_4sdp"
+                               >
 
 
-                    </com.google.android.material.card.MaterialCardView>
+                               <androidx.appcompat.widget.AppCompatTextView
+                                   android:layout_width="match_parent"
+                                   android:layout_height="wrap_content"
+                                   android:layout_gravity="center_vertical"
+                                   android:gravity="center_vertical"
+                                   android:padding="@dimen/_2sdp"
+                                   android:text="State"
+                                   android:textColor="@color/orange_primary"
+                                   android:textSize="@dimen/_12ssp"
+                                   android:textStyle="bold" />
+                           </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_3sdp"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:background="@drawable/shape_corner_radius"
-                        android:elevation="@dimen/_4sdp"
-                        app:cardCornerRadius="@dimen/_4sdp">
-
-                        <androidx.appcompat.widget.AppCompatSpinner
-                            android:id="@+id/districtSpinner"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingHorizontal="@dimen/_3sdp"
-                            android:paddingVertical="@dimen/_5sdp"
-                            android:textSize="@dimen/_12ssp" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
+                       </com.google.android.material.card.MaterialCardView>
 
 
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                       <androidx.appcompat.widget.LinearLayoutCompat
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_marginHorizontal="@dimen/_3sdp"
+                           android:layout_marginTop="@dimen/_8sdp"
+                           android:background="@drawable/shape_corner_radius"
+                           android:elevation="@dimen/_4sdp"
+                           app:cardCornerRadius="@dimen/_4sdp">
+
+                           <androidx.appcompat.widget.AppCompatSpinner
+                               android:id="@+id/stateSpinner"
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:paddingHorizontal="@dimen/_3sdp"
+                               android:paddingVertical="@dimen/_5sdp"
+                               android:textSize="@dimen/_12ssp" />
+                       </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-            </com.google.android.material.card.MaterialCardView>
-            &lt;!&ndash;<com.google.android.material.card.MaterialCardView
-                android:id="@+id/blockCard"
-                android:layout_width="0dp"
-
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                app:cardUseCompatPadding="true">
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingBottom="@dimen/_10sdp">
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="@dimen/_4sdp"
-                        >
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="@dimen/_5sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:elevation="@dimen/_4sdp"
-                            android:orientation="horizontal"
-                            android:paddingVertical="@dimen/_4sdp"
-                            >
+                   </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:gravity="center_vertical"
-                                android:padding="@dimen/_2sdp"
-                                android:text="Block"
-                                android:textColor="@color/orange_primary"
-                                android:textSize="@dimen/_12ssp"
-                                android:textStyle="bold" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
+               </com.google.android.material.card.MaterialCardView>
+               <com.google.android.material.card.MaterialCardView
+                   android:id="@+id/divisionCard"
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   app:cardUseCompatPadding="true">
+
+                   <androidx.appcompat.widget.LinearLayoutCompat
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       android:paddingBottom="@dimen/_10sdp">
+
+                       <com.google.android.material.card.MaterialCardView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           app:cardCornerRadius="@dimen/_4sdp"
+                           >
+
+                           <androidx.appcompat.widget.LinearLayoutCompat
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:layout_marginHorizontal="@dimen/_5sdp"
+                               android:layout_marginTop="@dimen/_2sdp"
+                               android:elevation="@dimen/_4sdp"
+                               android:orientation="horizontal"
+                               android:paddingVertical="@dimen/_4sdp"
+                               >
 
 
-                    </com.google.android.material.card.MaterialCardView>
+                               <androidx.appcompat.widget.AppCompatTextView
+                                   android:layout_width="match_parent"
+                                   android:layout_height="wrap_content"
+                                   android:layout_gravity="center_vertical"
+                                   android:gravity="center_vertical"
+                                   android:padding="@dimen/_2sdp"
+                                   android:text="Division"
+                                   android:textColor="@color/orange_primary"
+                                   android:textSize="@dimen/_12ssp"
+                                   android:textStyle="bold" />
+                           </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_3sdp"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:background="@drawable/shape_corner_radius"
-                        android:elevation="@dimen/_4sdp"
-                        app:cardCornerRadius="@dimen/_4sdp">
-
-                        <androidx.appcompat.widget.AppCompatSpinner
-                            android:id="@+id/blockSpinner"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingHorizontal="@dimen/_3sdp"
-                            android:paddingVertical="@dimen/_5sdp"
-                            android:textSize="@dimen/_12ssp" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
+                       </com.google.android.material.card.MaterialCardView>
 
 
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                       <androidx.appcompat.widget.LinearLayoutCompat
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_marginHorizontal="@dimen/_3sdp"
+                           android:layout_marginTop="@dimen/_8sdp"
+                           android:background="@drawable/shape_corner_radius"
+                           android:elevation="@dimen/_4sdp"
+                           app:cardCornerRadius="@dimen/_4sdp">
+
+                           <androidx.appcompat.widget.AppCompatSpinner
+                               android:id="@+id/divisionSpinner"
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:paddingHorizontal="@dimen/_3sdp"
+                               android:paddingVertical="@dimen/_5sdp"
+                               android:textSize="@dimen/_12ssp" />
+                       </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-            </com.google.android.material.card.MaterialCardView>&ndash;&gt;
+                   </androidx.appcompat.widget.LinearLayoutCompat>
 
-        </LinearLayout>-->
+
+               </com.google.android.material.card.MaterialCardView>
+
+
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_weight="2"
+               >
+               <com.google.android.material.card.MaterialCardView
+                   android:id="@+id/districtCard"
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   app:cardUseCompatPadding="true">
+
+                   <androidx.appcompat.widget.LinearLayoutCompat
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       android:paddingBottom="@dimen/_10sdp">
+
+                       <com.google.android.material.card.MaterialCardView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           app:cardCornerRadius="@dimen/_4sdp"
+                           >
+
+                           <androidx.appcompat.widget.LinearLayoutCompat
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:layout_marginHorizontal="@dimen/_5sdp"
+                               android:layout_marginTop="@dimen/_2sdp"
+                               android:elevation="@dimen/_4sdp"
+                               android:orientation="horizontal"
+                               android:paddingVertical="@dimen/_4sdp"
+                               >
+
+
+                               <androidx.appcompat.widget.AppCompatTextView
+                                   android:layout_width="match_parent"
+                                   android:layout_height="wrap_content"
+                                   android:layout_gravity="center_vertical"
+                                   android:gravity="center_vertical"
+                                   android:padding="@dimen/_2sdp"
+                                   android:text="District"
+                                   android:textColor="@color/orange_primary"
+                                   android:textSize="@dimen/_12ssp"
+                                   android:textStyle="bold" />
+                           </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                       </com.google.android.material.card.MaterialCardView>
+
+
+                       <androidx.appcompat.widget.LinearLayoutCompat
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_marginHorizontal="@dimen/_3sdp"
+                           android:layout_marginTop="@dimen/_8sdp"
+                           android:background="@drawable/shape_corner_radius"
+                           android:elevation="@dimen/_4sdp"
+                           app:cardCornerRadius="@dimen/_4sdp">
+
+                           <androidx.appcompat.widget.AppCompatSpinner
+                               android:id="@+id/districtSpinner"
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:paddingHorizontal="@dimen/_3sdp"
+                               android:paddingVertical="@dimen/_5sdp"
+                               android:textSize="@dimen/_12ssp" />
+                       </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                   </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+               </com.google.android.material.card.MaterialCardView>
+               &lt;!&ndash;<com.google.android.material.card.MaterialCardView
+                   android:id="@+id/blockCard"
+                   android:layout_width="0dp"
+
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   app:cardUseCompatPadding="true">
+
+                   <androidx.appcompat.widget.LinearLayoutCompat
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       android:paddingBottom="@dimen/_10sdp">
+
+                       <com.google.android.material.card.MaterialCardView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           app:cardCornerRadius="@dimen/_4sdp"
+                           >
+
+                           <androidx.appcompat.widget.LinearLayoutCompat
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:layout_marginHorizontal="@dimen/_5sdp"
+                               android:layout_marginTop="@dimen/_2sdp"
+                               android:elevation="@dimen/_4sdp"
+                               android:orientation="horizontal"
+                               android:paddingVertical="@dimen/_4sdp"
+                               >
+
+
+                               <androidx.appcompat.widget.AppCompatTextView
+                                   android:layout_width="match_parent"
+                                   android:layout_height="wrap_content"
+                                   android:layout_gravity="center_vertical"
+                                   android:gravity="center_vertical"
+                                   android:padding="@dimen/_2sdp"
+                                   android:text="Block"
+                                   android:textColor="@color/orange_primary"
+                                   android:textSize="@dimen/_12ssp"
+                                   android:textStyle="bold" />
+                           </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                       </com.google.android.material.card.MaterialCardView>
+
+
+                       <androidx.appcompat.widget.LinearLayoutCompat
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_marginHorizontal="@dimen/_3sdp"
+                           android:layout_marginTop="@dimen/_8sdp"
+                           android:background="@drawable/shape_corner_radius"
+                           android:elevation="@dimen/_4sdp"
+                           app:cardCornerRadius="@dimen/_4sdp">
+
+                           <androidx.appcompat.widget.AppCompatSpinner
+                               android:id="@+id/blockSpinner"
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:paddingHorizontal="@dimen/_3sdp"
+                               android:paddingVertical="@dimen/_5sdp"
+                               android:textSize="@dimen/_12ssp" />
+                       </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                   </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+               </com.google.android.material.card.MaterialCardView>&ndash;&gt;
+
+           </LinearLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -541,11 +616,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:textSize="@dimen/_12ssp"
-                    />
+                    android:textSize="@dimen/_12ssp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
-
 
 
         <androidx.appcompat.widget.AppCompatButton
