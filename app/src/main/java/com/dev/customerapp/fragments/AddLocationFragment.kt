@@ -138,6 +138,32 @@ class AddLocationFragment : Fragment() {
                 }
             }
 
+        binding.blockSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+
+                    blockList.clear()
+                    clearSpinner(binding.blockSpinner)
+                    if (position != 0) {
+                        getBlockList(districtList[position].districtId)
+                        setTittle("Add Block")
+                    } else {
+                        setTittle("Add District")
+                    }
+
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+            }
+
 
         getStateList()
 
@@ -148,64 +174,81 @@ class AddLocationFragment : Fragment() {
 
             if (statePosition < 1) {
                 //Add State
-                addLocation(binding.inputTextLocation.text.toString(),1,null,null,null)
+                addLocation(binding.inputTextLocation.text.toString(), 1, null, null, null)
                 return@setOnClickListener
             }
             val divisionPosition = binding.divisionSpinner.selectedItemPosition
 
             if (divisionPosition < 1) {
                 //Add Division
-                addLocation(binding.inputTextLocation.text.toString(),2,
-                    stateList[statePosition].stateId,null,null)
+                addLocation(
+                    binding.inputTextLocation.text.toString(), 2,
+                    stateList[statePosition].stateId, null, null
+                )
                 return@setOnClickListener
             }
             val districtPosition = binding.districtSpinner.selectedItemPosition
 
             if (districtPosition < 1) {
                 //Add District
-                addLocation(binding.inputTextLocation.text.toString(),3,
-                    stateList[statePosition].stateId,divisionList[divisionPosition].divisionId,null)
+                addLocation(
+                    binding.inputTextLocation.text.toString(),
+                    3,
+                    stateList[statePosition].stateId,
+                    divisionList[divisionPosition].divisionId,
+                    null
+                )
                 return@setOnClickListener
             }
 
             //add Block
-            addLocation(binding.inputTextLocation.text.toString(),4,
-                stateList[statePosition].stateId,divisionList[divisionPosition].divisionId,
-                districtList[districtPosition].districtId)
+            addLocation(
+                binding.inputTextLocation.text.toString(), 4,
+                stateList[statePosition].stateId, divisionList[divisionPosition].divisionId,
+                districtList[districtPosition].districtId
+            )
 
 
         }
     }
 
-    private fun addLocation( locationName :String , locationType :Int , stateId: Int? , divisionId: Int? , districtId: Int?  ){
-        ApiClient.getRetrofitInstance().addLocation(stateId , divisionId ,districtId , locationType ,locationName).enqueue(object : Callback<CommonResponse<String>>{
-            override fun onResponse(
-                call: Call<CommonResponse<String>>,
-                response: Response<CommonResponse<String>>
-            ) {
-                val responseBody = response.body()
-                if (responseBody!=null){
-                    if (responseBody.code ==200){
-                        binding.inputTextLocation.setText("")
-                        requireContext().showSuccessToast(responseBody.message)
-                        clearSpinner(binding.stateSpinner)
-                        clearSpinner(binding.divisionSpinner)
-                        clearSpinner(binding.districtSpinner)
-                        getStateList()
+    private fun addLocation(
+        locationName: String,
+        locationType: Int,
+        stateId: Int?,
+        divisionId: Int?,
+        districtId: Int?
+    ) {
+        ApiClient.getRetrofitInstance()
+            .addLocation(stateId, divisionId, districtId, locationType, locationName)
+            .enqueue(object : Callback<CommonResponse<String>> {
+                override fun onResponse(
+                    call: Call<CommonResponse<String>>,
+                    response: Response<CommonResponse<String>>
+                ) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        if (responseBody.code == 200) {
+                            binding.inputTextLocation.setText("")
+                            requireContext().showSuccessToast(responseBody.message)
+                            clearSpinner(binding.stateSpinner)
+                            clearSpinner(binding.divisionSpinner)
+                            clearSpinner(binding.districtSpinner)
+                            getStateList()
 
-                    }else{
-                        requireContext().showErrorToast(responseBody.message)
+                        } else {
+                            requireContext().showErrorToast(responseBody.message)
+                        }
+
+                    } else {
+                        requireContext().showErrorToast("Failed To Add Location")
                     }
-
-                }else{
-                    requireContext().showErrorToast("Failed To Add Location")
                 }
-            }
 
-            override fun onFailure(call: Call<CommonResponse<String>>, t: Throwable) {
-                requireContext().showErrorToast(t.message.toString())
-            }
-        })
+                override fun onFailure(call: Call<CommonResponse<String>>, t: Throwable) {
+                    requireContext().showErrorToast(t.message.toString())
+                }
+            })
     }
 
     private fun setTittle(title: String) {
@@ -390,9 +433,10 @@ class AddLocationFragment : Fragment() {
     }
 
     private fun setBlockList() {
-//        val stateNames = blockList.map { it.blockName }
-//        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, stateNames)
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//        binding.blockSpinner.adapter = adapter
+        val stateNames = blockList.map { it.blockName }
+        val adapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, stateNames)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.blockSpinner.adapter = adapter
     }
 }
