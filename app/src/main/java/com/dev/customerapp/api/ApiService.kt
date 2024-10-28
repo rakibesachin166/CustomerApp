@@ -5,6 +5,7 @@ import com.dev.customerapp.models.CreateUserModel
 import com.dev.customerapp.models.CustomerModel
 import com.dev.customerapp.models.DistrictPostingDataModel
 import com.dev.customerapp.models.DivisionalPostingDataModel
+import com.dev.customerapp.models.EmployeeModel
 import com.dev.customerapp.models.StatePostingDataModel
 import com.dev.customerapp.models.UserDataModel
 import com.dev.customerapp.models.VendorModel
@@ -13,6 +14,7 @@ import com.dev.customerapp.response.CreateUserData
 import com.dev.customerapp.utils.ResponseHandler
 import com.dev.customerapp.response.PhotoResponse
 import okhttp3.MultipartBody
+import okhttp3.Response
 import retrofit2.Call
 import retrofit2.http.Body;
 import retrofit2.http.Field
@@ -36,6 +38,9 @@ interface ApiService {
     @POST("createCustomer")
     fun addCustomer(@Body customerModel: CustomerModel): Call<ResponseHandler<List<CustomerModel>>>
 
+    @POST("createEmployee")
+    fun addEmployee(@Body employeeModel: EmployeeModel) : Call<ResponseHandler<List<EmployeeModel>>>
+
     @POST("createVendor")
     fun addVendor(@Body vendorModel: VendorModel): Call<ResponseHandler<List<VendorModel>>>
 
@@ -55,6 +60,7 @@ interface ApiService {
     @POST("getBlockList")
     @FormUrlEncoded
     fun getBlockList(@Field("districtId") districtId: Int): Call<CommonResponse<List<BlockPostingDataModel>>>
+
     @Multipart
     @POST("uploadCreateImages")
     fun uploadDocuments(

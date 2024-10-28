@@ -73,6 +73,12 @@ class MainActivity : AppCompatActivity() {
                     intent.putExtra("fragment_type", "vendor")
                     startActivity(intent)
                 }
+
+                R.id.navigation_add_employee -> {
+                    val intent = Intent(this, ChangeActivity::class.java)
+                    intent.putExtra("fragment_type", "employee")
+                    startActivity(intent)
+                }
             }
             false
         }

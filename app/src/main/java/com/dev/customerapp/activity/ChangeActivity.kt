@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import com.dev.customerapp.R
 import com.dev.customerapp.fragments.AccountFragment
 import com.dev.customerapp.fragments.AddCustomerFragment
+import com.dev.customerapp.fragments.AddEmployeeFragment
 import com.dev.customerapp.fragments.AddVendorFragment
 import com.dev.customerapp.fragments.CategoriesFragment
 import com.dev.customerapp.fragments.CreateIDProofFragment
@@ -22,6 +23,7 @@ class ChangeActivity : AppCompatActivity() {
             "idProof" -> changeFragment(CreateIDProofFragment())
             "customer" -> changeFragment(AddCustomerFragment())
             "vendor" -> changeFragment(AddVendorFragment())
+            "employee" -> changeFragment(AddEmployeeFragment())
             else -> {}
         }
     }

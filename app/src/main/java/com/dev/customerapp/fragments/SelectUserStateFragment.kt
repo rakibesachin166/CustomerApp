@@ -59,9 +59,7 @@ public class SelectUserStateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         when (sharedViewModel.userType.value) {
-
             UserTypes.STATE_OFFICER -> {
                 binding.stateCard.visibility = View.VISIBLE
                 binding.divisionCard.visibility = View.GONE
