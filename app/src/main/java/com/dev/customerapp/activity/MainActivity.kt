@@ -2,7 +2,6 @@ package com.dev.customerapp.activity;
 
 
 import android.app.Dialog
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -21,6 +20,7 @@ import com.dev.customerapp.R
 import com.dev.customerapp.api.ApiClient
 import com.dev.customerapp.databinding.ActivityMainBinding
 import com.dev.customerapp.fragments.AccountFragment
+import com.dev.customerapp.fragments.CategoriesFragment
 import com.dev.customerapp.fragments.AddLocationFragment
 import com.dev.customerapp.fragments.HomeFragment
 import com.dev.customerapp.utils.Constant
@@ -99,6 +99,12 @@ class MainActivity : AppCompatActivity() {
                     changeFragment(AddLocationFragment())
 
                 }
+
+                R.id.navigation_add_employee -> {
+                    val intent = Intent(this, ChangeActivity::class.java)
+                    intent.putExtra("fragment_type", "employee")
+                    startActivity(intent)
+                }
             }
             false
         }
@@ -121,6 +127,10 @@ class MainActivity : AppCompatActivity() {
 
             R.id.bottom_account -> {
                 selectedFragment = AccountFragment()
+            }
+
+            R.id.bottom_categories -> {
+                selectedFragment = CategoriesFragment()
             }
 
         }
@@ -149,7 +159,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
         val userData = Constant(this@MainActivity).getUserData()
         val headerButton: TextView = headerView.findViewById(R.id.tvSignIn)
 
@@ -255,6 +264,4 @@ class MainActivity : AppCompatActivity() {
 
         dialog.show()
     }
-
-
 }

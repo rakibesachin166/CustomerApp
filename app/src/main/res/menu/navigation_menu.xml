@@ -16,6 +16,8 @@
         android:icon="@drawable/icon_person"
         android:title="Add Employee"
         android:visible="false" />
+        android:visible="false" />
+
     <item
         android:id="@+id/navigation_add_customer"
         android:icon="@drawable/icon_person"
@@ -40,4 +42,12 @@
         android:title="Add Location"
 
         android:visible="false" />
+        android:visible="false" />
+
+    <item
+        android:id="@+id/navigation_add_employee"
+        android:icon="@drawable/icon_person"
+        android:title="Add Employee" />
+
+
 </menu>
