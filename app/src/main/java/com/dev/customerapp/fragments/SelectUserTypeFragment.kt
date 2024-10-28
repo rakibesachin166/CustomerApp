@@ -30,11 +30,11 @@ public class SelectUserTypeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.submitButton.setOnClickListener {
             sharedViewModel.setUserType(
-                when (binding.userTypeSpinner.selectedItemPosition.toString()) {
-                    "StateOfficer" -> UserTypes.STATE_OFFICER
-                    "DivisionalOfficer" -> UserTypes.DIVISIONAL_OFFICER
-                    "DistrictOfficer" -> UserTypes.DISTRICT_OFFICER
-                    "BlockOfficer" -> UserTypes.BLOCK_OFFICER
+                when (binding.userTypeSpinner.selectedItem.toString()) {
+                    "State Vendor President" -> UserTypes.STATE_OFFICER
+                    "Divisional Vendor President" -> UserTypes.DIVISIONAL_OFFICER
+                    "District Vendor President" -> UserTypes.DISTRICT_OFFICER
+                    "Block Vendor President" -> UserTypes.BLOCK_OFFICER
                     else -> throw IllegalStateException("Unknown user type")
                 }
             )
@@ -44,9 +44,12 @@ public class SelectUserTypeFragment : Fragment() {
 
     }
     private fun setBlockList() {
-        var stateNames: Array<String> = resources.getStringArray(R.array.userTypeState)
+        var stateNames: Array<String> = resources.getStringArray(R.array.userTypeAdmin)
 
         when (Constant(requireContext()).getUserData()?.userType){
+            1->{
+                 stateNames = resources.getStringArray(R.array.userTypeAdmin)
+            }
             2-> {
                 stateNames = resources.getStringArray(R.array.userTypeState)
             }

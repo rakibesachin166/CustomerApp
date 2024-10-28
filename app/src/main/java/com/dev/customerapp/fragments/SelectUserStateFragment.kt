@@ -238,7 +238,6 @@ public class SelectUserStateFragment : Fragment() {
                         }
                     }
             }
-
             else -> {
                 throw IllegalStateException("Unknown user type")
             }
@@ -333,13 +332,15 @@ public class SelectUserStateFragment : Fragment() {
                         requireContext().showErrorToast("Please select Block")
                         return@setOnClickListener
                     }
-
-                    UserPostingModel(
-                        stateList[binding.stateSpinner.selectedItemPosition],
-                        divisionList[binding.divisionSpinner.selectedItemPosition],
-                        districtList[binding.districtSpinner.selectedItemPosition],
-                        blockList[binding.blockSpinner.selectedItemPosition]
+                    sharedViewModel.setUserPostingModel(
+                        UserPostingModel(
+                            stateList[binding.stateSpinner.selectedItemPosition],
+                            divisionList[binding.divisionSpinner.selectedItemPosition],
+                            districtList[binding.districtSpinner.selectedItemPosition],
+                            blockList[binding.blockSpinner.selectedItemPosition]
+                        )
                     )
+
                 }
 
                 else -> {

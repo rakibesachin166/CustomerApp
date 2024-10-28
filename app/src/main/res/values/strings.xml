@@ -24,24 +24,24 @@
     <string name="logout_message">Are You sure you Want to Logout</string>
 
     <string-array name="userTypeAdmin">
-        <item>StateOfficer</item>
-        <item>DivisionalOfficer</item>
-        <item>DistrictOfficer</item>
-        <item>BlockOfficer</item>
+        <item>State Vendor President</item>
+        <item>Divisional Vendor President</item>
+        <item>District Vendor President</item>
+        <item>Block Vendor President</item>
     </string-array>
     <string-array name="userTypeState">
 
-        <item>DivisionalOfficer</item>
-        <item>DistrictOfficer</item>
-        <item>BlockOfficer</item>
+        <item>Divisional Vendor President</item>
+        <item>District Vendor President</item>
+        <item>Block Vendor President</item>
     </string-array>
     <string-array name="userTypeDivision">
 
         <item>DistrictOfficer</item>
-        <item>BlockOfficer</item>
+        <item>Block Vendor President</item>
     </string-array>
     <string-array name="userTypeDistrict">
-        <item>BlockOfficer</item>
+        <item>Block Vendor President</item>
     </string-array>
     <string-array name="name_title">
         <item>Mr</item>

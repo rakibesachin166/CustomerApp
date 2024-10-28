@@ -95,7 +95,7 @@ class CreateUserFormFragment : Fragment() {
 
                     3 -> {
                         userBankAccountProofUri = uri
-                        binding.uploadBankDetailsImageView.loadImage(userAddressProofUri!!)
+                        binding.uploadBankDetailsImageView.loadImage(userBankAccountProofUri!!)
                         binding.suggester3.visibility = View.GONE
                     }
 
@@ -201,7 +201,7 @@ class CreateUserFormFragment : Fragment() {
         marriedAdapter = RadioButtonsAdapter(list)
         binding.recyclerViewMarriedStatus.adapter = marriedAdapter
 
-        binding.stateEditText.setText(sharedViewModel.userPostingModel.value!!.statePostingDataModel.stateName.toString())
+        binding.stateEditText.setText(sharedViewModel.userPostingModel.value!!.statePostingDataModel.stateName)
 
         binding.continueButton.setOnClickListener {
             val applicantName = binding.applicantNameEdiText.text.toString().trim()

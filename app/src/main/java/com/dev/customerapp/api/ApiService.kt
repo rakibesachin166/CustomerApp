@@ -75,4 +75,14 @@ interface ApiService {
     fun createUserData(
         @Field("stateId") stateId: Int
     ): Call<CommonResponse<CreateUserData>>
+
+    @POST("addLocation")
+    @FormUrlEncoded
+    fun addLocation(
+        @Field("stateId") stateId: Int?,
+        @Field("divisionId") divisionId: Int?,
+        @Field("districtId") districtId: Int?,
+        @Field("locationType") locationType: Int,
+        @Field("locationName") locationName: String,
+    ): Call<CommonResponse<String>>
 }

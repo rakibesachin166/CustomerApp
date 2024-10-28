@@ -17,7 +17,7 @@ class RadioButtonsAdapter(
         val radioButton: RadioButton = itemView.findViewById(R.id.radio_button)
 
     }
-    public fun getSelectedPosition(): Int = selectedPosition
+    public fun getSelectedPosition(): Int = selectedPosition+1
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RadioButtonViewHolder {
@@ -27,12 +27,12 @@ class RadioButtonsAdapter(
     }
 
     override fun onBindViewHolder(holder: RadioButtonViewHolder, position: Int) {
-        val item = itemList[position]
+        val item = itemList[holder.adapterPosition]
         holder.radioButton.text = item
-        holder.radioButton.isChecked = position == selectedPosition
+        holder.radioButton.isChecked = holder.adapterPosition == selectedPosition
         holder.radioButton.setOnCheckedChangeListener({ buttonView, isChecked ->
             if (isChecked) {
-                selectedPosition = position
+                selectedPosition = holder.adapterPosition
                 notifyDataSetChanged()
             }
         })
