@@ -23,13 +23,26 @@
     <string name="add_vendor">Add Vendor</string>
     <string name="logout_message">Are You sure you Want to Logout</string>
 
-    <string-array name="userCreateTypeArray">
+    <string-array name="userTypeAdmin">
         <item>StateOfficer</item>
         <item>DivisionalOfficer</item>
         <item>DistrictOfficer</item>
         <item>BlockOfficer</item>
     </string-array>
+    <string-array name="userTypeState">
 
+        <item>DivisionalOfficer</item>
+        <item>DistrictOfficer</item>
+        <item>BlockOfficer</item>
+    </string-array>
+    <string-array name="userTypeDivision">
+
+        <item>DistrictOfficer</item>
+        <item>BlockOfficer</item>
+    </string-array>
+    <string-array name="userTypeDistrict">
+        <item>BlockOfficer</item>
+    </string-array>
     <string-array name="name_title">
         <item>Mr</item>
         <item>Mrs</item>

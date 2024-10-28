@@ -1,6 +1,7 @@
 package com.dev.customerapp.api;
 
 import com.dev.customerapp.models.BlockPostingDataModel
+import com.dev.customerapp.models.CreateUserModel
 import com.dev.customerapp.models.CustomerModel
 import com.dev.customerapp.models.DistrictPostingDataModel
 import com.dev.customerapp.models.DivisionalPostingDataModel
@@ -8,6 +9,7 @@ import com.dev.customerapp.models.StatePostingDataModel
 import com.dev.customerapp.models.UserDataModel
 import com.dev.customerapp.models.VendorModel
 import com.dev.customerapp.response.CommonResponse
+import com.dev.customerapp.response.CreateUserData
 import com.dev.customerapp.utils.ResponseHandler
 import com.dev.customerapp.response.PhotoResponse
 import okhttp3.MultipartBody
@@ -63,8 +65,14 @@ interface ApiService {
     ): Call<CommonResponse<PhotoResponse>>
 
 
-    @POST("uploadCreateImages")
+    @POST("createUser")
     fun createUser(
-        @Body userInfo: UserDataModel
+        @Body userInfo: CreateUserModel
     ): Call<CommonResponse<String>>
+
+    @POST("createUserData")
+    @FormUrlEncoded
+    fun createUserData(
+        @Field("stateId") stateId: Int
+    ): Call<CommonResponse<CreateUserData>>
 }

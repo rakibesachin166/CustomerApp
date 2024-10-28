@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.dev.customerapp.R
 import com.dev.customerapp.databinding.FragmentSelectUserTypeBinding
 import com.dev.customerapp.models.UserTypes
+import com.dev.customerapp.utils.Constant
 import com.dev.customerapp.viewModels.CreateUserViewModel
 
 
@@ -28,16 +30,37 @@ public class SelectUserTypeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.submitButton.setOnClickListener {
             sharedViewModel.setUserType(
-                when (binding.userTypeSpinner.selectedItemPosition) {
-                    0 -> UserTypes.STATE_OFFICER
-                    1 -> UserTypes.DIVISIONAL_OFFICER
-                    2 -> UserTypes.DISTRICT_OFFICER
-                    3 -> UserTypes.BLOCK_OFFICER
+                when (binding.userTypeSpinner.selectedItemPosition.toString()) {
+                    "StateOfficer" -> UserTypes.STATE_OFFICER
+                    "DivisionalOfficer" -> UserTypes.DIVISIONAL_OFFICER
+                    "DistrictOfficer" -> UserTypes.DISTRICT_OFFICER
+                    "BlockOfficer" -> UserTypes.BLOCK_OFFICER
                     else -> throw IllegalStateException("Unknown user type")
                 }
             )
             sharedViewModel.setCurrentPage(1)
         }
+        setBlockList()
+
+    }
+    private fun setBlockList() {
+        var stateNames: Array<String> = resources.getStringArray(R.array.userTypeState)
+
+        when (Constant(requireContext()).getUserData()?.userType){
+            2-> {
+                stateNames = resources.getStringArray(R.array.userTypeState)
+            }
+            3-> {
+                stateNames = resources.getStringArray(R.array.userTypeDivision)
+            }
+            4-> {
+                stateNames = resources.getStringArray(R.array.userTypeDistrict)
+            }
+
+        }
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, stateNames)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.userTypeSpinner.adapter = adapter
     }
 
 }

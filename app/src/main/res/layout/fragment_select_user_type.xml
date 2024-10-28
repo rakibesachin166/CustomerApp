@@ -73,7 +73,7 @@
                         android:id="@+id/userTypeSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:entries="@array/userCreateTypeArray"
+
                         android:paddingHorizontal="@dimen/_6sdp"
                         android:paddingVertical="@dimen/_10sdp"
                         android:textSize="@dimen/_12ssp" />

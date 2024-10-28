@@ -43,14 +43,7 @@ class AddCustomerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    val intent = Intent(requireContext(), MainActivity::class.java)
-                    startActivity(intent)
-                }
-            })
+
 
         apiService = ApiClient.getRetrofitInstance()
         initDatePicker()
@@ -160,7 +153,9 @@ class AddCustomerFragment : Fragment() {
                         val code = responseHandler?.code
                         val message = responseHandler?.message
                         if (code == 200) {
+
                             requireContext().showSuccessToast(message.toString())
+                            requireActivity().onBackPressed()
                         }
                         if (code == 201) {
                             requireContext().showErrorToast(message.toString())
