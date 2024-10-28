@@ -8,7 +8,6 @@
     tools:context=".activity.MainActivity">
 
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -18,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@drawable/light_gradient_background"
-           android:elevation="@dimen/_12ssp">
+            android:elevation="@dimen/_12ssp">
+
             <RelativeLayout
                 android:id="@+id/relativeLayout"
                 android:layout_width="match_parent"
@@ -29,16 +29,16 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_35sdp"
+                    android:layout_centerVertical="true"
                     android:scaleType="fitStart"
-                   android:layout_centerVertical="true"
                     android:src="@drawable/mobile_logo" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
                     android:layout_centerVertical="true"
-                    android:layout_toStartOf="@+id/cartButton"
                     android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_toStartOf="@+id/cartButton"
                     android:src="@drawable/icon_notification" />
 
                 <androidx.appcompat.widget.AppCompatImageView

@@ -14,6 +14,7 @@ import com.dev.customerapp.R
 import com.dev.customerapp.api.ApiClient
 import com.dev.customerapp.databinding.ActivityMainBinding
 import com.dev.customerapp.fragments.AccountFragment
+import com.dev.customerapp.fragments.CategoriesFragment
 import com.dev.customerapp.fragments.HomeFragment
 import com.dev.customerapp.utils.Constant
 import com.dev.customerapp.utils.changeActivity
@@ -96,6 +97,10 @@ class MainActivity : AppCompatActivity() {
                 selectedFragment = AccountFragment()
             }
 
+            R.id.bottom_categories -> {
+                selectedFragment = CategoriesFragment()
+            }
+
         }
         selectedFragment?.let { changeFragment(it) }
         true
@@ -142,19 +147,24 @@ class MainActivity : AppCompatActivity() {
                 1 -> {
                     menu?.findItem(R.id.navigation_add_user)?.isVisible = true
                 }
+
                 2 -> {
                     menu?.findItem(R.id.navigation_add_user)?.isVisible = true
                 }
+
                 3 -> {
                     menu?.findItem(R.id.navigation_add_user)?.isVisible = true
                 }
+
                 4 -> {
                     menu?.findItem(R.id.navigation_add_user)?.isVisible = true
                 }
+
                 5 -> {
                     menu?.findItem(R.id.navigation_add_vendor)?.isVisible = true
                     menu?.findItem(R.id.navigation_add_customer)?.isVisible = true
                 }
+
                 else -> {
 
                     println("Unknown user type")
@@ -162,9 +172,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-
-
-
 
 
     }
