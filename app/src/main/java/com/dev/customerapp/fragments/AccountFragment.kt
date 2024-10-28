@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
-import com.dev.customerapp.Activity.ChangeActivity
+import com.dev.customerapp.activity.ChangeActivity
 import com.dev.customerapp.R
 import com.dev.customerapp.databinding.FragmentAccountBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog

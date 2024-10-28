@@ -1,4 +1,4 @@
-package com.dev.customerapp.Activity
+package com.dev.customerapp.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
