@@ -67,7 +67,8 @@ interface ApiService {
         @Part donorPhoto: MultipartBody.Part,
         @Part idProof: MultipartBody.Part,
         @Part addressProof: MultipartBody.Part,
-        @Part bankPass: MultipartBody.Part
+        @Part bankPass: MultipartBody.Part,
+        @Part signaturePhoto: MultipartBody.Part,
     ): Call<CommonResponse<PhotoResponse>>
 
 

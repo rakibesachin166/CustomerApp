@@ -28,7 +28,9 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
+        android:background="@drawable/shape_corner_radius"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -66,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:text="admin[AGS01]"
+                tools:text="admin[AGS01]"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
                 android:textStyle="bold" />
@@ -74,11 +76,6 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:background="@color/grey" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -92,22 +89,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableEnd="@drawable/icon_right_arrow"
-            android:text="Id Proof"
+            android:text="Identity  Card"
             android:textSize="@dimen/_12ssp"
             android:background="@drawable/shape_corner_radius"
             android:paddingHorizontal="@dimen/_10sdp"
-            android:paddingVertical="@dimen/_5sdp"
+            android:paddingVertical="@dimen/_8sdp"
             android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/logoutTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:drawableEnd="@drawable/icon_right_arrow"
             android:background="@drawable/shape_corner_radius"
             android:paddingHorizontal="@dimen/_10sdp"
-            android:paddingVertical="@dimen/_5sdp"
+            android:paddingVertical="@dimen/_8sdp"
             android:text="Logout"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold" />

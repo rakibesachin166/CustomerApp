@@ -7,4 +7,5 @@ data class PhotoResponse(
     @SerializedName("idPhoto") val idPhoto: String,
     @SerializedName("addressPhoto") val addressPhoto: String,
     @SerializedName("bankPhoto") val bankPhoto: String,
+    @SerializedName("signaturePhoto") val signaturePhoto: String,
 )

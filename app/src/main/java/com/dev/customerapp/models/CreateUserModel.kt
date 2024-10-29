@@ -11,8 +11,6 @@ data class CreateUserModel(
     val userPhoto: String,
     val userDob: String,
     val userAadharNo: String,
-    val userFatherName: String,
-    val userFatherAadharNo: String,
     val occupation: String,
     val userAddress: String,
     val userState: String,
@@ -39,6 +37,7 @@ data class CreateUserModel(
     val bankAccountNo: String,
     val panNo: String,
     val bankProofPhoto: String,
+    val signaturePhoto: String,
     val userPassword: String,
     val createdAt: String // Consider using LocalDateTime for date-time fields
 )

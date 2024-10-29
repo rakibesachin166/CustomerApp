@@ -64,6 +64,7 @@ class CreateUserFormFragment : Fragment() {
     private var userIdProofUri: Uri? = null
     private var userAddressProofUri: Uri? = null
     private var userBankAccountProofUri: Uri? = null
+    private var signatureUri: Uri? = null
 
     private var progressDialog: ProgressDialog? = null
     private val pickMedia: ActivityResultLauncher<PickVisualMediaRequest> =
@@ -97,6 +98,11 @@ class CreateUserFormFragment : Fragment() {
                         userBankAccountProofUri = uri
                         binding.uploadBankDetailsImageView.loadImage(userBankAccountProofUri!!)
                         binding.suggester3.visibility = View.GONE
+                    }
+                    4 -> {
+                        signatureUri = uri
+                        binding.uploadSignatureIdImageView.loadImage(signatureUri!!)
+                        binding.suggester6.visibility = View.GONE
                     }
 
                 }
@@ -179,6 +185,10 @@ class CreateUserFormFragment : Fragment() {
             currentPickMode = 3
             bottomSheet.show()
         }
+        binding.uploadSignatureIdTextView.setOnClickListener {
+            currentPickMode = 4
+            bottomSheet.show()
+        }
 
          binding.applicantDOBEditText.setOnClickListener {
              showDatePickerDialog(binding.applicantDOBEditText)
@@ -216,9 +226,7 @@ class CreateUserFormFragment : Fragment() {
             val maritalStatus = marriedAdapter.getSelectedPosition()
             val applicantDOB = binding.applicantDOBEditText.text.toString().trim()
             val applicantAadhar = binding.applicantAadharEditText.text.toString().trim()
-            val fatherAadharCard = binding.fatherAadharCardEditText.text.toString().trim()
             val occupation = binding.occupationSpinner.selectedItem.toString().trim()
-            val fatherName = binding.fatherNameEditText.text.toString().trim()
             val address = binding.addressEditText.text.toString().trim()
             val state = binding.stateEditText.text.toString().trim()
             val district = binding.districtSpinner.selectedItem.toString()
@@ -426,6 +434,11 @@ class CreateUserFormFragment : Fragment() {
                 requireContext().showErrorToast("Please Select a Bank Account Proof Photo")
                 return@setOnClickListener
             }
+            if (signatureUri == null) {
+                requireContext().showErrorToast("Please Uplaod Signature Photo")
+                return@setOnClickListener
+            }
+
             if (!binding.checkBoxfinal.isChecked ){
                 requireContext().showErrorToast("Please Accept Terms and Conditions")
                 return@setOnClickListener
@@ -438,6 +451,7 @@ class CreateUserFormFragment : Fragment() {
                     val idPhoto = photoResponse.idPhoto
                     val addressPhoto = photoResponse.addressPhoto
                     val bankPhoto = photoResponse.bankPhoto
+                    val signaturePhoto = photoResponse.signaturePhoto
 
                     progressDialog = requireContext().progressDialog(message = "Saving Data ...")
 
@@ -455,8 +469,6 @@ class CreateUserFormFragment : Fragment() {
                         userPhoto,
                         applicantDOB,
                         applicantAadhar,
-                        fatherName,
-                        fatherAadharCard,
                         occupation,
                         address,
                         state,
@@ -483,6 +495,7 @@ class CreateUserFormFragment : Fragment() {
                         accountNo,
                         panNo,
                         bankPhoto,
+                        signaturePhoto,
                         password,
                         ""
                     )
@@ -497,7 +510,8 @@ class CreateUserFormFragment : Fragment() {
                                 if (response.body()?.code == 200) {
                                     requireContext().showSuccessToast("User created successfully")
                                     requireActivity().onBackPressed()
-                                }else{
+                                }else
+                                {
                                     requireContext().showErrorToast(response.body()?.message.toString())
                                 }
                             }
@@ -529,12 +543,14 @@ class CreateUserFormFragment : Fragment() {
         val idProofImage = getRealPathFromURI(userIdProofUri!!)
         val addressProofImage = getRealPathFromURI(userAddressProofUri!!)
         val bankPassImage = getRealPathFromURI(userBankAccountProofUri!!)
+        val signatureImage = getRealPathFromURI(signatureUri!!)
 
 
         val photoFile = File(photoImage!!)
         val idProofFile = File(idProofImage!!)
         val addressProofFile = File(addressProofImage!!)
         val bankPassFile = File(bankPassImage!!)
+        val signatureImageFile = File(signatureImage!!)
 
         val photoRequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), photoFile)
         val idProofRequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), idProofFile)
@@ -553,8 +569,11 @@ class CreateUserFormFragment : Fragment() {
         )
         val bankPassPart =
             MultipartBody.Part.createFormData("bankPhoto", bankPassFile.name, bankPassRequestBody)
+
+        val signaturePhotoPart =
+            MultipartBody.Part.createFormData("signaturePhoto", signatureImageFile.name, bankPassRequestBody)
         val apiService = ApiClient.getRetrofitInstance()
-        apiService.uploadDocuments(photoPart, idProofPart, addressProofPart, bankPassPart)
+        apiService.uploadDocuments(photoPart, idProofPart, addressProofPart, bankPassPart ,signaturePhotoPart)
             .enqueue(object :
                 Callback<CommonResponse<PhotoResponse>> {
                 override fun onResponse(
@@ -587,7 +606,7 @@ class CreateUserFormFragment : Fragment() {
 
     }
 
-    fun getCreateFromData(){
+    private fun getCreateFromData(){
         ApiClient.getRetrofitInstance().createUserData(sharedViewModel.userPostingModel.value!!.statePostingDataModel.stateId).enqueue(object : Callback<CommonResponse<CreateUserData>>{
             override fun onResponse(
                 call: Call<CommonResponse<CreateUserData>>,
@@ -628,7 +647,7 @@ class CreateUserFormFragment : Fragment() {
         binding.districtSpinner.adapter = adapter
     }
 
-    fun getRealPathFromURI(uri: Uri): String? {
+    private fun getRealPathFromURI(uri: Uri): String? {
         val contentResolver: ContentResolver = requireContext().getContentResolver()
 
         if (ContentResolver.SCHEME_CONTENT == uri.scheme) {

@@ -49,6 +49,13 @@
         android:visible="false" />
          />
 
+    <item
+        android:id="@+id/navigationLogOut"
+        android:icon="@drawable/icon_person"
+        android:title="Logout"
+        android:visible="false" />
+    />
+
 
 
 

@@ -2,11 +2,13 @@ package com.dev.customerapp.activity;
 
 import android.os.Bundle;
 import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
 import com.dev.customerapp.R;
 import com.dev.customerapp.fragments.CreateUserFormFragment;
 import com.dev.customerapp.fragments.SelectUserStateFragment;
@@ -59,16 +61,7 @@ public class CreateUserActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        int fragments = fragmentManager.getBackStackEntryCount();
-
-        if (fragments == 1) {
-            finish();
-        } else if (fragments > 1) {
-            fragmentManager.popBackStack();
-        } else {
-            super.onBackPressed();
-        }
+        super.onBackPressed();
     }
 
 

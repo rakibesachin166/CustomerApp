@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.view.LayoutInflater
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -28,8 +29,12 @@ import com.dev.customerapp.utils.FunctionsConstant
 import com.dev.customerapp.utils.changeActivity
 import com.dev.customerapp.utils.loadImage
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -89,13 +94,15 @@ class MainActivity : AppCompatActivity() {
 
                     if (userDataModel != null) {
                         fullScreenDialog(
-                            "2024-10-28",
+                            getCurrentDate(),
                             userDataModel.userName,
-                            FunctionsConstant.getUserRoleName(userDataModel.userType)
+                            FunctionsConstant.getUserRoleName(userDataModel.userType),
+                            userDataModel.userAddress + ", " + userDataModel.userCity + ", " + userDataModel.userState + ", India, " + userDataModel.userPincode
                         )
                     }
 
                 }
+
                 R.id.navigation_addLocation -> {
                     changeFragment(AddLocationFragment())
 
@@ -111,6 +118,10 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this, ChangeActivity::class.java)
                     intent.putExtra("fragment_type", "userList")
                     startActivity(intent)
+                }
+
+                R.id.navigationLogOut -> {
+                    bottomSheet.show()
                 }
             }
             false
@@ -143,6 +154,35 @@ class MainActivity : AppCompatActivity() {
         }
         selectedFragment?.let { changeFragment(it) }
         true
+    }
+
+    fun getCurrentDate(): String {
+        val dateFormat = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
+        return dateFormat.format(Date())
+    }
+
+    private val bottomSheet: BottomSheetDialog by lazy {
+        val bottomSheetDialog = BottomSheetDialog(this)
+        val view: View =
+            LayoutInflater.from(this).inflate(R.layout.dialog_logout, null)
+        val logoutButton = view.findViewById<AppCompatButton>(R.id.logoutButton)
+        val cancelButton = view.findViewById<AppCompatButton>(R.id.cancelButton)
+
+
+        cancelButton.setOnClickListener {
+
+            bottomSheetDialog.dismiss()
+        }
+
+
+        logoutButton.setOnClickListener {
+            Constant(this).clearUserData()
+            bottomSheetDialog.dismiss()
+            recreate()
+        }
+
+        bottomSheetDialog.setContentView(view)
+        bottomSheetDialog
     }
 
     private fun closeDrawer() {
@@ -179,7 +219,10 @@ class MainActivity : AppCompatActivity() {
             menu?.findItem(R.id.navigation_add_customer)?.isVisible = false
             menu?.findItem(R.id.navigation_agreement)?.isVisible = false
             menu?.findItem(R.id.navigation_addLocation)?.isVisible = false
+            menu?.findItem(R.id.navigationLogOut)?.isVisible = false
+
         } else {
+            menu?.findItem(R.id.navigationLogOut)?.isVisible = true
             headerButton.background = null
             headerButton.text = userData.userName
             val profileImage: CircleImageView = headerView.findViewById(R.id.profile_image)
@@ -195,23 +238,23 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 2 -> {
-                    menu?.findItem(R.id.navigation_add_user)?.isVisible = true
+                    menu?.findItem(R.id.navigation_add_user)?.isVisible = false
                     menu?.findItem(R.id.navigation_agreement)?.isVisible = true
                 }
 
                 3 -> {
-                    menu?.findItem(R.id.navigation_add_user)?.isVisible = true
+                    menu?.findItem(R.id.navigation_add_user)?.isVisible = false
                     menu?.findItem(R.id.navigation_agreement)?.isVisible = true
                 }
 
                 4 -> {
-                    menu?.findItem(R.id.navigation_add_user)?.isVisible = true
+                    menu?.findItem(R.id.navigation_add_user)?.isVisible = false
                     menu?.findItem(R.id.navigation_agreement)?.isVisible = true
                 }
 
                 5 -> {
 
-                    menu?.findItem(R.id.navigation_add_employee)?.isVisible = true
+                    menu?.findItem(R.id.navigation_add_employee)?.isVisible = false
                     menu?.findItem(R.id.navigation_agreement)?.isVisible = true
                 }
 
@@ -233,8 +276,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun fullScreenDialog(date: String, name: String, role: String)
-    {
+    private fun fullScreenDialog(date: String, name: String, role: String, address: String) {
 
         val dialog = Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
 
@@ -253,6 +295,7 @@ class MainActivity : AppCompatActivity() {
             .replace("[User Creation Date]", date)
             .replace("[User Name]", name)
             .replace("[User Role]", role)
+            .replace("[User Complete Address]", address)
 
         webView.loadDataWithBaseURL(
             "file:///android_asset/",
