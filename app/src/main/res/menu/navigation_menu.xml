@@ -16,12 +16,18 @@
         android:icon="@drawable/icon_person"
         android:title="Add Employee"
         android:visible="false" />
-        android:visible="false" />
+         />
 
     <item
         android:id="@+id/navigation_add_customer"
         android:icon="@drawable/icon_person"
         android:title="Add Customer"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/navigation_user_list"
+        android:icon="@drawable/icon_person"
+        android:title="User List"
         android:visible="false" />
 
     <item
@@ -40,14 +46,10 @@
         android:id="@+id/navigation_addLocation"
         android:icon="@drawable/icon_person"
         android:title="Add Location"
-
         android:visible="false" />
-        android:visible="false" />
+         />
 
-    <item
-        android:id="@+id/navigation_add_employee"
-        android:icon="@drawable/icon_person"
-        android:title="Add Employee" />
+
 
 
 </menu>

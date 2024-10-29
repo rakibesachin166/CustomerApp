@@ -227,7 +227,7 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.card.MaterialCardView
+     <!--   <com.google.android.material.card.MaterialCardView
             android:id="@+id/districtCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -297,7 +297,7 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-        </com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.card.MaterialCardView>-->
 
 
         <!--   <LinearLayout

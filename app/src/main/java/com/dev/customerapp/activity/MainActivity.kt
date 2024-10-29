@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
             R.string.nav_open,
             R.string.nav_close
         )
+
         drawerLayout.addDrawerListener(actionBarDrawerToggle)
 
         headerView = binding?.navigationView!!.getHeaderView(0)
@@ -103,6 +104,12 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_add_employee -> {
                     val intent = Intent(this, ChangeActivity::class.java)
                     intent.putExtra("fragment_type", "employee")
+                    startActivity(intent)
+                }
+
+                R.id.navigation_user_list -> {
+                    val intent = Intent(this, ChangeActivity::class.java)
+                    intent.putExtra("fragment_type", "userList")
                     startActivity(intent)
                 }
             }
@@ -184,6 +191,7 @@ class MainActivity : AppCompatActivity() {
                     menu?.findItem(R.id.navigation_add_vendor)?.isVisible = true
                     menu?.findItem(R.id.navigation_agreement)?.isVisible = false
                     menu?.findItem(R.id.navigation_addLocation)?.isVisible = true
+                    menu?.findItem(R.id.navigation_user_list)?.isVisible = true
                 }
 
                 2 -> {
@@ -225,17 +233,15 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun fullScreenDialog(date: String, name: String, role: String) {
-
+    private fun fullScreenDialog(date: String, name: String, role: String)
+    {
 
         val dialog = Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
 
-        // Inflate the custom layout
-        val dialogView = layoutInflater.inflate(com.dev.customerapp.R.layout.dialog_agreement, null)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_agreement, null)
         dialog.setContentView(dialogView)
 
-        // Set up the WebView
-        val webView: WebView = dialogView.findViewById(com.dev.customerapp.R.id.dialogWebView)
+        val webView: WebView = dialogView.findViewById(R.id.dialogWebView)
         val agreeButton: AppCompatButton =
             dialogView.findViewById(com.dev.customerapp.R.id.agreeButton)
         webView.webViewClient = WebViewClient()
@@ -257,11 +263,10 @@ class MainActivity : AppCompatActivity() {
         )
         agreeButton.setOnClickListener {
             dialog.dismiss()
-            changeActivity(MainActivity::class.java, false)
+//            changeActivity(MainActivity::class.java, false)
         }
 
         dialog.window?.setBackgroundDrawable(ContextCompat.getDrawable(this, android.R.color.black))
-
         dialog.show()
     }
 }

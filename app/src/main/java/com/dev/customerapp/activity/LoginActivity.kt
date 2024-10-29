@@ -69,6 +69,8 @@ class LoginActivity : AppCompatActivity() {
                             Constant(this@LoginActivity).saveUserData(userDataModel)
                             showSuccessToast(responseBody.message)
 
+                            changeActivity(MainActivity::class.java, false)
+                            finish()
 
                         } else {
                             showErrorToast(responseBody.message)

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_5sdp">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/userImageView"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                  android:src="@drawable/profile"
+                />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/userImageView"
+                android:orientation="vertical"
+               android:layout_centerVertical="true"
+                >
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12ssp"
+                    tools:text="sachin sanjay rakibe"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/mobileNumber"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12ssp"
+                    tools:text="sachin sanjay rakibe"
+                    android:textColor="@color/black"
+                    />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>

@@ -82,6 +82,13 @@ interface ApiService {
         @Field("stateId") stateId: Int
     ): Call<CommonResponse<CreateUserData>>
 
+    @POST("getUserListForLocation")
+    @FormUrlEncoded
+    fun getUserOfLocation(
+        @Field("locationId") locationId: Int,
+    @Field("locationType") locationType: Int,
+    ): Call<CommonResponse<List<UserDataModel>>>
+
     @POST("addLocation")
     @FormUrlEncoded
     fun addLocation(

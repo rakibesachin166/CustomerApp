@@ -10,6 +10,7 @@ import com.dev.customerapp.fragments.AddEmployeeFragment
 import com.dev.customerapp.fragments.AddVendorFragment
 import com.dev.customerapp.fragments.CategoriesFragment
 import com.dev.customerapp.fragments.CreateIDProofFragment
+import com.dev.customerapp.fragments.UserListFragment
 
 class ChangeActivity : AppCompatActivity() {
 
@@ -24,6 +25,7 @@ class ChangeActivity : AppCompatActivity() {
             "customer" -> changeFragment(AddCustomerFragment())
             "vendor" -> changeFragment(AddVendorFragment())
             "employee" -> changeFragment(AddEmployeeFragment())
+            "userList" -> changeFragment(UserListFragment())
             else -> {}
         }
     }

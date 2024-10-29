@@ -8,7 +8,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
     //    private static final String BASE_URL = "https://192.168.26.184/api/";
 
-    public static final String BASE_URL = "http://192.168.26.184/CustomerAppApi";
+//    public static final String BASE_URL = "http://192.168.253.184/CustomerAppApi";
+    public static final String BASE_URL = "https://app.aasthagroups.com/CustomerAppApi";
     private static final String API_URL = BASE_URL + "/index.php/api/";
     private static ApiService apiService;
 
