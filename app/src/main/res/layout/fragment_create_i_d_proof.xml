@@ -8,244 +8,335 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_20sdp"
-android:layout_gravity="center"
-        app:cardCornerRadius="@dimen/_10sdp"
-        app:cardElevation="@dimen/_4sdp">
+        android:layout_height="match_parent">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="330dp"
+            android:layout_height="495dp"
+            android:layout_gravity="center"
+            android:background="@drawable/id_card_background">
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/userImage"
+                android:layout_width="130dp"
+                android:layout_height="165dp"
+                android:layout_marginStart="105dp"
+                android:layout_marginTop="75dp"
+                android:scaleType="fitXY"
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="250dp"
+                android:textColor="@color/blue_primary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="SACHIN RAKIBE" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/_50sdp">
+                android:layout_marginStart="140dp"
+                android:layout_marginTop="284dp"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/colorView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/background_gradient"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:paddingBottom="@dimen/_80sdp"
-                    app:layout_constraintStart_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="@dimen/_100sdp"
-                        android:layout_height="@dimen/_50sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/logo" />
-
-                    <TextView
-                        android:id="@+id/sampleTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:text="Aastha Saksham"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/_10ssp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/horizontalCenterGuide"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/userId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="@id/colorView" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/centerImageView"
-                    android:layout_width="@dimen/_150sdp"
-                    android:layout_height="@dimen/_100sdp"
-                    android:background="@drawable/shape_corner_radius_10"
-                    android:src="@drawable/profile"
-                    app:layout_constraintBottom_toBottomOf="@id/horizontalCenterGuide"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/horizontalCenterGuide" />
-
-                <TextView
-                    android:id="@+id/secondHalfTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:text="Aastha Saksham"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/_15ssp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/centerImageView" />
+                    tools:text="12" />
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/userDesignation"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/secondHalfTextView"
-                    >
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="1"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        >
+                    android:layout_marginTop="10dp"
+                    android:text="Admin State Officer"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.25"
-                            android:text="Id No"
-                            android:textSize="@dimen/_10ssp"
-                            android:textStyle="bold"
-                            />
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.05"
-                            android:text=" : "
-                            android:textSize="@dimen/_10ssp"
-                            android:textStyle="bold"
-                            />
+                    />
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/userIdTxt"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.7"
-                            android:text="5"
-                            android:textSize="@dimen/_10ssp"
-                            android:textStyle="bold"
-                            />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/userMobileNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:maxLength="12"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    tools:text="8975255963"
 
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="1"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        >
+                    />
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.25"
-                            android:text="Address"
-                            android:textSize="@dimen/_10ssp"
-                            android:textStyle="bold"
-                            />
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.05"
-                            android:text=" : "
-                            android:textSize="@dimen/_10ssp"
-                            android:textStyle="bold"
-                            />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/userCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:singleLine="true"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    tools:text="Nashik" />
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/addressTxt"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.7"
-                            android:text="5"
-                            android:textSize="@dimen/_10ssp"
-                            android:textStyle="bold"
-                            />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/userEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:singleLine="true"
+                    tools:text="sachin.rakibe19@vit.edu"
 
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="1"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        >
+                    />
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.25"
-                            android:text="Mobile No"
-                            android:textSize="@dimen/_10ssp"
-                            android:textStyle="bold"
-                            />
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.05"
-                            android:text=" : "
-                            android:textSize="@dimen/_10ssp"
-                            android:textStyle="bold"
-                            />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/mobileNumber"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.7"
-                            android:text="5"
-                            android:textSize="@dimen/_10ssp"
-                            android:textStyle="bold"
-                            />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="1"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        >
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.25"
-                            android:text="Email Id"
-                            android:textSize="@dimen/_10ssp"
-                            android:textStyle="bold"
-                            />
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.05"
-                            android:text=" : "
-                            android:textSize="@dimen/_10ssp"
-                            android:textStyle="bold"
-                            />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/emailAddressTxt"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.7"
-                            android:text="5"
-                            android:textSize="@dimen/_10ssp"
-                            android:textStyle="bold"
-                            />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </RelativeLayout>
 
-    </com.google.android.material.card.MaterialCardView>
 
+    </com.google.android.material.card.MaterialCardView>
+    <!--  <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+
+          <androidx.constraintlayout.widget.ConstraintLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:paddingBottom="@dimen/_50sdp">
+
+              <LinearLayout
+                  android:id="@+id/colorView"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@drawable/background_gradient"
+                  android:gravity="center_horizontal"
+                  android:orientation="vertical"
+                  android:paddingBottom="@dimen/_80sdp"
+                  app:layout_constraintStart_toEndOf="parent"
+                  app:layout_constraintTop_toTopOf="parent">
+
+                  <androidx.appcompat.widget.AppCompatImageView
+                      android:layout_width="@dimen/_100sdp"
+                      android:layout_height="@dimen/_50sdp"
+                      android:layout_marginTop="@dimen/_10sdp"
+                      android:scaleType="centerInside"
+                      android:src="@drawable/logo" />
+
+                  <TextView
+                      android:id="@+id/sampleTextView"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="center_horizontal"
+                      android:layout_marginTop="@dimen/_5sdp"
+                      android:text="Aastha Saksham"
+                      android:textColor="@android:color/white"
+                      android:textSize="@dimen/_10ssp"
+                      android:textStyle="bold" />
+              </LinearLayout>
+
+              <androidx.constraintlayout.widget.Guideline
+                  android:id="@+id/horizontalCenterGuide"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  app:layout_constraintBottom_toBottomOf="@id/colorView" />
+
+              <androidx.appcompat.widget.AppCompatImageView
+                  android:id="@+id/centerImageView"
+                  android:layout_width="@dimen/_150sdp"
+                  android:layout_height="@dimen/_100sdp"
+                  android:background="@drawable/shape_corner_radius_10"
+                  android:src="@drawable/profile"
+                  app:layout_constraintBottom_toBottomOf="@id/horizontalCenterGuide"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toTopOf="@id/horizontalCenterGuide" />
+
+              <TextView
+                  android:id="@+id/secondHalfTextView"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="@dimen/_10sdp"
+                  android:text="Aastha Saksham"
+                  android:textColor="@android:color/black"
+                  android:textSize="@dimen/_15ssp"
+                  android:textStyle="bold"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toBottomOf="@id/centerImageView" />
+
+              <androidx.appcompat.widget.LinearLayoutCompat
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:layout_marginTop="@dimen/_5sdp"
+                  android:layout_marginStart="@dimen/_20sdp"
+                  android:layout_marginEnd="@dimen/_10sdp"
+                  app:layout_constraintTop_toBottomOf="@+id/secondHalfTextView"
+                  >
+                  <androidx.appcompat.widget.LinearLayoutCompat
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:weightSum="1"
+                      android:orientation="horizontal"
+                      android:layout_marginTop="@dimen/_5sdp"
+                      >
+
+                      <androidx.appcompat.widget.AppCompatTextView
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="0.25"
+                          android:text="Id No"
+                          android:textSize="@dimen/_10ssp"
+                          android:textStyle="bold"
+                          />
+                      <androidx.appcompat.widget.AppCompatTextView
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="0.05"
+                          android:text=" : "
+                          android:textSize="@dimen/_10ssp"
+                          android:textStyle="bold"
+                          />
+
+                      <androidx.appcompat.widget.AppCompatTextView
+                          android:id="@+id/userIdTxt"
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="0.7"
+                          android:text="5"
+                          android:textSize="@dimen/_10ssp"
+                          android:textStyle="bold"
+                          />
+                  </androidx.appcompat.widget.LinearLayoutCompat>
+
+                  <androidx.appcompat.widget.LinearLayoutCompat
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:weightSum="1"
+                      android:orientation="horizontal"
+                      android:layout_marginTop="@dimen/_5sdp"
+                      >
+
+                      <androidx.appcompat.widget.AppCompatTextView
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="0.25"
+                          android:text="Address"
+                          android:textSize="@dimen/_10ssp"
+                          android:textStyle="bold"
+                          />
+                      <androidx.appcompat.widget.AppCompatTextView
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="0.05"
+                          android:text=" : "
+                          android:textSize="@dimen/_10ssp"
+                          android:textStyle="bold"
+                          />
+
+                      <androidx.appcompat.widget.AppCompatTextView
+                          android:id="@+id/addressTxt"
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="0.7"
+                          android:text="5"
+                          android:textSize="@dimen/_10ssp"
+                          android:textStyle="bold"
+                          />
+                  </androidx.appcompat.widget.LinearLayoutCompat>
+
+                  <androidx.appcompat.widget.LinearLayoutCompat
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:weightSum="1"
+                      android:orientation="horizontal"
+                      android:layout_marginTop="@dimen/_5sdp"
+                      >
+
+                      <androidx.appcompat.widget.AppCompatTextView
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="0.25"
+                          android:text="Mobile No"
+                          android:textSize="@dimen/_10ssp"
+                          android:textStyle="bold"
+                          />
+                      <androidx.appcompat.widget.AppCompatTextView
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="0.05"
+                          android:text=" : "
+                          android:textSize="@dimen/_10ssp"
+                          android:textStyle="bold"
+                          />
+
+                      <androidx.appcompat.widget.AppCompatTextView
+                          android:id="@+id/mobileNumber"
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="0.7"
+                          android:text="5"
+                          android:textSize="@dimen/_10ssp"
+                          android:textStyle="bold"
+                          />
+                  </androidx.appcompat.widget.LinearLayoutCompat>
+
+                  <androidx.appcompat.widget.LinearLayoutCompat
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:weightSum="1"
+                      android:orientation="horizontal"
+                      android:layout_marginTop="@dimen/_5sdp"
+                      >
+
+                      <androidx.appcompat.widget.AppCompatTextView
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="0.25"
+                          android:text="Email Id"
+                          android:textSize="@dimen/_10ssp"
+                          android:textStyle="bold"
+                          />
+                      <androidx.appcompat.widget.AppCompatTextView
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="0.05"
+                          android:text=" : "
+                          android:textSize="@dimen/_10ssp"
+                          android:textStyle="bold"
+                          />
+
+                      <androidx.appcompat.widget.AppCompatTextView
+                          android:id="@+id/emailAddressTxt"
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="0.7"
+                          android:text="5"
+                          android:textSize="@dimen/_10ssp"
+                          android:textStyle="bold"
+                          />
+                  </androidx.appcompat.widget.LinearLayoutCompat>
+
+              </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+          </androidx.constraintlayout.widget.ConstraintLayout>
+
+      </RelativeLayout>-->
 
 </FrameLayout>

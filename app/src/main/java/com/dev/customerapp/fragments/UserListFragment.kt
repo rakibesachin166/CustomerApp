@@ -9,10 +9,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import com.dev.customerapp.R
 import com.dev.customerapp.adapter.UsersAdapter
 import com.dev.customerapp.api.ApiClient
-import com.dev.customerapp.databinding.FragmentAddLocationBinding
 import com.dev.customerapp.databinding.FragmentUserListBinding
 import com.dev.customerapp.models.BlockPostingDataModel
 import com.dev.customerapp.models.DistrictPostingDataModel
@@ -20,6 +18,8 @@ import com.dev.customerapp.models.DivisionalPostingDataModel
 import com.dev.customerapp.models.StatePostingDataModel
 import com.dev.customerapp.models.UserDataModel
 import com.dev.customerapp.response.CommonResponse
+import com.dev.customerapp.utils.Constant
+import com.dev.customerapp.utils.printLog
 import com.dev.customerapp.utils.progressDialog
 import com.dev.customerapp.utils.showErrorToast
 import retrofit2.Call
@@ -33,6 +33,7 @@ class UserListFragment : Fragment() {
     private lateinit var divisionList: MutableList<DivisionalPostingDataModel>
     private lateinit var districtList: MutableList<DistrictPostingDataModel>
     private lateinit var blockList: MutableList<BlockPostingDataModel>
+    private lateinit var userdata: UserDataModel
     fun clearSpinner(spinner: Spinner) {
         val emptyList = listOf<String>()
         val adapter =
@@ -57,7 +58,7 @@ class UserListFragment : Fragment() {
         divisionList = mutableListOf()
         districtList = mutableListOf()
         blockList = mutableListOf()
-
+        userdata = Constant(requireContext()).getUserData()!!
         binding.stateSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -67,13 +68,23 @@ class UserListFragment : Fragment() {
                     id: Long
                 ) {
 
+
+                    printLog("pointer", "1")
                     divisionList.clear()
                     clearSpinner(binding.divisionSpinner)
-                    if (position != 0) {
+                    if (position > -1) {
+                        printLog("pointer", "2")
+                        printLog("pointer", stateList[position].stateId.toString())
+                        if (stateList[position].stateId > 0) {
+                            printLog("pointer", "3")
 
-                        getDivisionList(stateList[position].stateId)
+                            getDivisionList(stateList[position].stateId)
+                        }
+                        printLog("pointer", "4")
+
                     }
 
+                    printLog("pointer", "5")
 
                 }
 
@@ -94,10 +105,14 @@ class UserListFragment : Fragment() {
 
                     districtList.clear()
                     clearSpinner(binding.districtSpinner)
-                    if (position != 0) {
 
-                        getDistrictList(divisionList[position].divisionId)
-                    } else {
+
+                    if (position > -1) {
+
+                        if (divisionList[position].divisionId > 0) {
+
+                            getDistrictList(divisionList[position].divisionId)
+                        }
 
                     }
 
@@ -120,12 +135,14 @@ class UserListFragment : Fragment() {
 
 
                     blockList.clear()
-//                    clearSpinner(binding.blockSpinner)
-                    if (position != 0) {
-//                        getBlockList(districtList[position].districtId)
+                    clearSpinner(binding.blockSpinner)
 
-                    } else {
 
+                    if (position > -1) {
+                        if (districtList[position].districtId > 0) {
+
+                            getBlockList(districtList[position].districtId)
+                        }
                     }
 
 
@@ -145,14 +162,6 @@ class UserListFragment : Fragment() {
                     id: Long
                 ) {
 
-                    blockList.clear()
-                    clearSpinner(binding.blockSpinner)
-                    if (position != 0) {
-                        getBlockList(districtList[position].districtId)
-
-                    }
-
-
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -168,14 +177,14 @@ class UserListFragment : Fragment() {
 
             val statePosition = binding.stateSpinner.selectedItemPosition
 
-            if (statePosition < 1) {
+            if (statePosition < 0 || stateList[statePosition].stateId == 0) {
                 requireContext().showErrorToast("Please Select State")
                 return@setOnClickListener
             }
 
             val divisionPosition = binding.divisionSpinner.selectedItemPosition
 
-            if (divisionPosition < 1) {
+            if (divisionPosition < 0 || divisionList[divisionPosition].divisionId == 0) {
                 //Add Division
                 getUserOfLocation(
                     1, stateList[statePosition].stateId
@@ -184,7 +193,7 @@ class UserListFragment : Fragment() {
             }
             val districtPosition = binding.districtSpinner.selectedItemPosition
 
-            if (districtPosition < 1) {
+            if (districtPosition < 0 || districtList[districtPosition].districtId == 0) {
                 //Add District
                 getUserOfLocation(
                     2, divisionList[divisionPosition].divisionId
@@ -195,7 +204,7 @@ class UserListFragment : Fragment() {
 
             val blockPosition = binding.blockSpinner.selectedItemPosition
 
-            if (blockPosition < 1) {
+            if (blockPosition < 0 || blockList[blockPosition].blockId == 0) {
                 //Add block
                 getUserOfLocation(
                     3, districtList[districtPosition].districtId
@@ -288,12 +297,16 @@ class UserListFragment : Fragment() {
 
     private fun setStateList() {
 
+
+        if (userdata.userType >= 2) {
+            stateList = stateList.filter { it.stateId == userdata.stateId }.toMutableList()
+        }
+
         val stateNames = stateList.map { it.stateName }
         val adapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, stateNames)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.stateSpinner.adapter = adapter
-
 
     }
 
@@ -336,9 +349,15 @@ class UserListFragment : Fragment() {
     }
 
     private fun setDivisionList() {
-        val stateNames = divisionList.map { it.divisionName }
+
+        if (userdata.userType >= 3) {
+            divisionList =
+                divisionList.filter { it.divisionId == userdata.divisionId }.toMutableList()
+        }
+
+        val divisionNames = divisionList.map { it.divisionName }
         val adapter =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, stateNames)
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, divisionNames)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.divisionSpinner.adapter = adapter
     }
@@ -359,7 +378,7 @@ class UserListFragment : Fragment() {
                     val responseBody = response.body()
                     if (responseBody != null && responseBody.code == 200) {
                         districtList.clear()
-                        districtList.add(DistrictPostingDataModel(0, "--Select District--"))
+                        districtList.add(DistrictPostingDataModel(0, "--Select District--", 0))
                         districtList.addAll(responseBody.data)
                         setDistrictList()
                     } else {
@@ -381,9 +400,15 @@ class UserListFragment : Fragment() {
     }
 
     private fun setDistrictList() {
-        val stateNames = districtList.map { it.districtName }
+
+        if (userdata.userType >= 4) {
+            districtList =
+                districtList.filter { it.districtId == userdata.districtId }.toMutableList()
+        }
+        val districtNames = districtList.map { it.districtName }
+
         val adapter =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, stateNames)
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, districtNames)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.districtSpinner.adapter = adapter
     }
@@ -404,7 +429,7 @@ class UserListFragment : Fragment() {
                     val responseBody = response.body()
                     if (responseBody != null && responseBody.code == 200) {
                         blockList.clear()
-                        blockList.add(BlockPostingDataModel(0, "--Select Block--"))
+                        blockList.add(BlockPostingDataModel(0, "--Select Block--", 0))
                         blockList.addAll(responseBody.data)
                         setBlockList()
                     } else {
@@ -426,9 +451,15 @@ class UserListFragment : Fragment() {
     }
 
     private fun setBlockList() {
-        val stateNames = blockList.map { it.blockName }
+
+        if (userdata.userType >= 5) {
+            blockList = blockList.filter { it.blockId == userdata.blockId }.toMutableList()
+        }
+
+        val blockNames = blockList.map { it.blockName }
+
         val adapter =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, stateNames)
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, blockNames)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.blockSpinner.adapter = adapter
     }

@@ -81,12 +81,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_8sdp"
                             android:elevation="@dimen/_4sdp"
-                            android:hint="Sponsor Number*">
+                            android:hint="Officer Name*">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/sponsorNumberEditText"
+                                android:id="@+id/officerName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:text="Admin"
                                 android:focusable="false"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
@@ -100,10 +101,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_8sdp"
                             android:elevation="@dimen/_4sdp"
-                            android:hint="Proposer Number*">
+                            android:hint="Officer Id*">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/proposerNumberEdiText"
+                                android:id="@+id/officerId"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:focusable="false"
@@ -429,6 +430,62 @@
 
                         </com.google.android.material.textfield.TextInputLayout>
 
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:elevation="@dimen/_4sdp"
+                            app:cardCornerRadius="@dimen/_4sdp">
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/divisionSpinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="@dimen/_6sdp"
+                                android:paddingVertical="@dimen/_10sdp"
+                                android:textSize="@dimen/_12ssp" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:elevation="@dimen/_4sdp"
+                            app:cardCornerRadius="@dimen/_4sdp">
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/districtSpinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="@dimen/_6sdp"
+                                android:paddingVertical="@dimen/_10sdp"
+                                android:textSize="@dimen/_12ssp" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/cityInput"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:elevation="@dimen/_4sdp"
+                            android:hint="City *">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/cityEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+
+                                android:singleLine="true"
+                                android:textSize="@dimen/_12ssp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/tehsilInput"
@@ -447,6 +504,7 @@
                                 android:textSize="@dimen/_12ssp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
+
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -455,7 +513,7 @@
                             app:cardCornerRadius="@dimen/_4sdp">
 
                             <androidx.appcompat.widget.AppCompatSpinner
-                                android:id="@+id/districtSpinner"
+                                android:id="@+id/blockSpinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:paddingHorizontal="@dimen/_6sdp"
@@ -463,6 +521,24 @@
                                 android:textSize="@dimen/_12ssp" />
 
                         </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/villageInput"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:elevation="@dimen/_4sdp"
+                            android:hint="Village">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/villageEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:singleLine="true"
+                                android:textSize="@dimen/_12ssp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/postInput"
@@ -477,26 +553,6 @@
                                 android:id="@+id/postEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:singleLine="true"
-                                android:textSize="@dimen/_12ssp" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/cityInput"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:elevation="@dimen/_4sdp"
-                            android:hint="City *">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/cityEditText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-
-
                                 android:singleLine="true"
                                 android:textSize="@dimen/_12ssp" />
 
@@ -528,6 +584,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_8sdp"
                             android:elevation="@dimen/_4sdp"
+
                             android:hint="MobileNumber *">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -634,7 +691,8 @@
                                 android:maxWidth="@dimen/_250sdp"
                                 android:layout_centerHorizontal="true"
                                 android:scaleType="centerInside"
-                                android:maxHeight="@dimen/_200sdp" />
+                                android:maxHeight="@dimen/_200sdp"
+                                />
 
                         </RelativeLayout>
 
@@ -653,6 +711,68 @@
                             android:text="Upload Original Id Proof"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_12ssp" />
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:id="@+id/idProofBackPhotoLy"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10sdp">
+
+                                <androidx.appcompat.widget.LinearLayoutCompat
+                                    android:id="@+id/suggester2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:id="@+id/imageViewAddPhoto2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/icon_add_photo" />
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginHorizontal="@dimen/_15sdp"
+                                        android:lineSpacingExtra="3dp"
+                                        android:text="@string/image_message"
+                                        android:textColor="@color/darker_gray"
+                                        android:textSize="@dimen/_12ssp" />
+                                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/uploadOriginalIdImageView2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:maxWidth="@dimen/_250sdp"
+                                    android:layout_centerHorizontal="true"
+                                    android:scaleType="centerInside"
+                                    android:maxHeight="@dimen/_200sdp"
+                                    />
+
+                            </RelativeLayout>
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/uploadOriginalIdTextView2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:background="@drawable/shape_corner_radius_5"
+                                android:backgroundTint="@color/orange"
+                                android:drawableStart="@drawable/icon_file_upload"
+                                android:drawablePadding="@dimen/_5sdp"
+                                android:paddingHorizontal="@dimen/_10sdp"
+                                android:paddingVertical="@dimen/_8sdp"
+                                android:text="Upload Back Photo of Id Proof"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_12ssp" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
                         <com.google.android.material.card.MaterialCardView
@@ -679,7 +799,7 @@
                             android:layout_marginTop="@dimen/_10sdp">
 
                             <androidx.appcompat.widget.LinearLayoutCompat
-                                android:id="@+id/suggester2"
+                                android:id="@+id/suggester3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
 
@@ -726,6 +846,67 @@
                             android:text="Upload Original Address Proof"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_12ssp" />
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/addressProofBackPhotoLy"
+                            android:orientation="vertical"
+                            >
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10sdp">
+
+                                <androidx.appcompat.widget.LinearLayoutCompat
+                                    android:id="@+id/suggester4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/icon_add_photo" />
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginHorizontal="@dimen/_15sdp"
+                                        android:lineSpacingExtra="3dp"
+                                        android:text="@string/image_message"
+                                        android:textColor="@color/darker_gray"
+                                        android:textSize="@dimen/_12ssp" />
+
+                                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/uploadAddressProofImageView2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:maxWidth="@dimen/_250sdp"
+                                    android:layout_centerHorizontal="true"
+                                    android:scaleType="centerInside"
+                                    android:maxHeight="@dimen/_200sdp" />
+                            </RelativeLayout>
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/uploadAddressProofTextView2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:background="@drawable/shape_corner_radius_5"
+                                android:backgroundTint="@color/orange"
+                                android:drawableStart="@drawable/icon_file_upload"
+                                android:drawablePadding="@dimen/_5sdp"
+                                android:paddingHorizontal="@dimen/_10sdp"
+                                android:paddingVertical="@dimen/_8sdp"
+                                android:text="Upload Back Photo of Address Proof"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_12ssp" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -845,22 +1026,24 @@
                                 android:textSize="@dimen/_12ssp" />
                         </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_8sdp"
                             android:elevation="@dimen/_4sdp"
-                            android:hint="Relation With Nominee *">
+                            app:cardCornerRadius="@dimen/_4sdp">
 
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/relationNomineeEditText"
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/relationNomineeSpinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:singleLine="true"
+                                android:paddingHorizontal="@dimen/_6sdp"
+                                android:paddingVertical="@dimen/_10sdp"
+                                android:entries="@array/nomineeRelationArray"
                                 android:textSize="@dimen/_12ssp" />
-                        </com.google.android.material.textfield.TextInputLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
 
 
                         <com.google.android.material.checkbox.MaterialCheckBox
@@ -990,6 +1173,8 @@
 
                         </com.google.android.material.card.MaterialCardView>
 
+
+
                         <com.google.android.material.textfield.TextInputLayout
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
@@ -1053,7 +1238,7 @@
                             android:layout_marginTop="@dimen/_10sdp">
 
                             <androidx.appcompat.widget.LinearLayoutCompat
-                                android:id="@+id/suggester3"
+                                android:id="@+id/suggester5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
 
@@ -1294,6 +1479,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_8sdp"
                             android:elevation="@dimen/_4sdp"
+                            app:passwordToggleEnabled="true"
                             android:hint="Password*">
 
 
@@ -1312,6 +1498,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_8sdp"
                             android:elevation="@dimen/_4sdp"
+                            app:passwordToggleEnabled="true"
+
                             android:hint="Confirm Password*">
 
                             <com.google.android.material.textfield.TextInputEditText

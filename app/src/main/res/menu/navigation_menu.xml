@@ -8,7 +8,7 @@
 
     <item
         android:id="@+id/navigation_add_user"
-        android:icon="@drawable/icon_person"
+        android:icon="@drawable/icon_add_user"
         android:title="Add User"
         android:visible="false" />
     <item
@@ -16,8 +16,12 @@
         android:icon="@drawable/icon_person"
         android:title="Add Employee"
         android:visible="false" />
-         />
 
+    <item
+        android:id="@+id/navigation_manage_employee_status"
+        android:icon="@drawable/icon_person"
+        android:title="Manage Employee Status"
+        android:visible="false" />
     <item
         android:id="@+id/navigation_add_customer"
         android:icon="@drawable/icon_person"
@@ -26,13 +30,13 @@
 
     <item
         android:id="@+id/navigation_user_list"
-        android:icon="@drawable/icon_person"
+        android:icon="@drawable/icon_user_list"
         android:title="User List"
         android:visible="false" />
 
     <item
         android:id="@+id/navigation_add_vendor"
-        android:icon="@drawable/icon_person"
+        android:icon="@drawable/icon_add_vendor"
         android:title="Add Vendor"
         android:visible="false" />
     <item
@@ -41,22 +45,39 @@
         android:title="Agreement"
 
         android:visible="false" />
+    <item
+        android:id="@+id/navigation_add_product_category"
+        android:icon="@drawable/icon_add_category"
+        android:title="Add Product Category"
 
+    />
     <item
         android:id="@+id/navigation_addLocation"
-        android:icon="@drawable/icon_person"
+        android:icon="@drawable/icon_add_location"
         android:title="Add Location"
         android:visible="false" />
-         />
+    />
+    <item
+        android:id="@+id/navigation_media"
+        android:icon="@drawable/icon_media"
+        android:title="Media" />
+
+    <item
+        android:id="@+id/navigation_contact_us"
+        android:icon="@drawable/icon_contact_us"
+        android:title="Contact Us" />
+
+    <item
+        android:id="@+id/navigation_grievance_redress"
+        android:icon="@drawable/icon_grievance"
+        android:title="Grievance Redress" />
 
     <item
         android:id="@+id/navigationLogOut"
-        android:icon="@drawable/icon_person"
+        android:icon="@drawable/icon_logout"
         android:title="Logout"
         android:visible="false" />
     />
-
-
 
 
 </menu>

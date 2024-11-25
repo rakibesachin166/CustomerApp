@@ -10,6 +10,8 @@ import com.dev.customerapp.R
 import com.dev.customerapp.api.ApiClient
 import com.dev.customerapp.databinding.FragmentCreateIDProofBinding
 import com.dev.customerapp.utils.Constant
+import com.dev.customerapp.utils.FunctionsConstant.Companion.getUserFullId
+import com.dev.customerapp.utils.FunctionsConstant.Companion.getUserRoleName
 import com.dev.customerapp.utils.loadImage
 
 
@@ -29,14 +31,15 @@ class CreateIDProofFragment : Fragment() {
         val userData = Constant(requireActivity()).getUserData()
 
         if (
-            userData   != null
+            userData != null
         ) {
-            binding.secondHalfTextView.text = userData.userName
-            binding.userIdTxt.text = "${userData.userId}"
-            binding.addressTxt.text= userData.userAddress
-            binding.mobileNumber.text= userData.userMobileNo
-            binding.emailAddressTxt.text= userData.userEmail
-            binding.centerImageView.loadImage(ApiClient.BASE_URL + userData.userPhoto)
+            binding.userName.text = userData.userName
+            binding.userId.text = getUserFullId(userData.userType , userData.userId)
+            binding.userDesignation.text = getUserRoleName(userData.userType)
+            binding.userMobileNumber.text = userData.userMobileNo
+            binding.userCity.text = userData.userCity
+            binding.userEmail.text = userData.userEmail
+            binding.userImage.loadImage(ApiClient.BASE_URL + userData.userPhoto)
         }
     }
 }

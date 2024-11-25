@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_5sdp"
+            android:paddingHorizontal="@dimen/_10sdp">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/employeeName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="bold"
+                    tools:text="sachin sanjay rakibe" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/employeeLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:text="Nashik Maharashtra"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/acceptEmployee"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:layout_weight="1"
+                        android:background="@drawable/gradient_background"
+                        android:text="Accept"
+                        android:textColor="@color/white" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/rejectEmployee"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:layout_weight="1"
+                        android:background="@drawable/cancel_gradient_background"
+                        android:text="Reject"
+                        android:textColor="@color/white" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>

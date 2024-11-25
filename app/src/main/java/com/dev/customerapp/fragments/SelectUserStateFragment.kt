@@ -467,7 +467,7 @@ public class SelectUserStateFragment : Fragment() {
                     val responseBody = response.body()
                     if (responseBody != null && responseBody.code == 200) {
                         districtList.clear()
-                        districtList.add(DistrictPostingDataModel(0, "--Select District--"))
+                        districtList.add(DistrictPostingDataModel(0, "--Select District--",0))
                         districtList.addAll(responseBody.data)
                         setDistrictList()
                     } else {
@@ -511,7 +511,7 @@ public class SelectUserStateFragment : Fragment() {
                     val responseBody = response.body()
                     if (responseBody != null && responseBody.code == 200) {
                         blockList.clear()
-                        blockList.add(BlockPostingDataModel(0, "--Select Block--"))
+                        blockList.add(BlockPostingDataModel(0, "--Select Block--",0))
                         blockList.addAll(responseBody.data)
                         setBlockList()
                     } else {

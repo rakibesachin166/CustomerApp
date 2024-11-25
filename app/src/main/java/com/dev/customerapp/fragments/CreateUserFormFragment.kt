@@ -13,8 +13,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
@@ -27,8 +29,10 @@ import com.dev.customerapp.R
 import com.dev.customerapp.adapter.RadioButtonsAdapter
 import com.dev.customerapp.api.ApiClient
 import com.dev.customerapp.databinding.FragmentCreateUserFormBinding
+import com.dev.customerapp.models.BlockPostingDataModel
 import com.dev.customerapp.models.CreateUserModel
 import com.dev.customerapp.models.DistrictPostingDataModel
+import com.dev.customerapp.models.DivisionalPostingDataModel
 import com.dev.customerapp.models.StatePostingDataModel
 import com.dev.customerapp.models.UserDataModel
 import com.dev.customerapp.response.CommonResponse
@@ -48,6 +52,7 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Multipart
 import java.io.File
 import java.util.Calendar
 
@@ -56,13 +61,16 @@ class CreateUserFormFragment : Fragment() {
     private val sharedViewModel: CreateUserViewModel by activityViewModels()
     private lateinit var binding: FragmentCreateUserFormBinding
     private lateinit var marriedAdapter: RadioButtonsAdapter
-
+    private var filteredDistricts : List<DistrictPostingDataModel> = emptyList()
+    private lateinit var createUserData: CreateUserData
     private var currentPickMode: Int =
         0  //0-> User Photo 1-> Id Proof 2-> AAddress proof 3-> Bank Account Proof
 
     private var userPhotoUri: Uri? = null
     private var userIdProofUri: Uri? = null
+    private var userIdProofUri2: Uri? = null
     private var userAddressProofUri: Uri? = null
+    private var userAddressProofUri2: Uri? = null
     private var userBankAccountProofUri: Uri? = null
     private var signatureUri: Uri? = null
 
@@ -87,19 +95,30 @@ class CreateUserFormFragment : Fragment() {
                         binding.suggester1.visibility = View.GONE
 
                     }
-
                     2 -> {
+                        userIdProofUri2 = uri
+                        binding.uploadOriginalIdImageView2.loadImage(userIdProofUri2!!)
+                        binding.suggester2.visibility = View.GONE
+
+                    }
+                    3 -> {
                         userAddressProofUri = uri
                         binding.uploadAddressProofImageView.loadImage(userAddressProofUri!!)
-                        binding.suggester2.visibility = View.GONE
-                    }
-
-                    3 -> {
-                        userBankAccountProofUri = uri
-                        binding.uploadBankDetailsImageView.loadImage(userBankAccountProofUri!!)
                         binding.suggester3.visibility = View.GONE
                     }
                     4 -> {
+                        userAddressProofUri2 = uri
+                        binding.uploadAddressProofImageView2.loadImage(userAddressProofUri2!!)
+                        binding.suggester4.visibility = View.GONE
+                    }
+
+                    5 -> {
+                        userBankAccountProofUri = uri
+                        binding.uploadBankDetailsImageView.loadImage(userBankAccountProofUri!!)
+                        binding.suggester5.visibility = View.GONE
+                    }
+
+                    6 -> {
                         signatureUri = uri
                         binding.uploadSignatureIdImageView.loadImage(signatureUri!!)
                         binding.suggester6.visibility = View.GONE
@@ -156,15 +175,65 @@ class CreateUserFormFragment : Fragment() {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
-            val selectedDate = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
-            applicantDOBEditText.setText(selectedDate)
-        }, year, month, day)
+        val datePickerDialog =
+            DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+                val selectedDate =
+                    String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
+                applicantDOBEditText.setText(selectedDate)
+            }, year, month, day)
         datePickerDialog.show()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+         binding.idProofTypeSpinner.onItemSelectedListener
+        binding.idProofTypeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+
+                    if (position == 0) {
+                        binding.idProofBackPhotoLy.visibility=View.VISIBLE
+                    }else{
+                        binding.idProofBackPhotoLy.visibility=View.GONE
+                    }
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+            }
+
+        binding.addressProofSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+
+                    if (position == 0) {
+                        binding.addressProofBackPhotoLy.visibility=View.VISIBLE
+                    }else{
+                        binding.addressProofBackPhotoLy.visibility=View.GONE
+                    }
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+            }
+
+
 
         binding.applicantPhotoTextView.setOnClickListener {
             currentPickMode = 0
@@ -176,26 +245,38 @@ class CreateUserFormFragment : Fragment() {
             bottomSheet.show()
         }
 
-        binding.uploadAddressProofTextView.setOnClickListener {
+        binding.uploadOriginalIdTextView2.setOnClickListener {
             currentPickMode = 2
             bottomSheet.show()
         }
 
-        binding.uploadBankDetailsTextView.setOnClickListener {
+
+        binding.uploadAddressProofTextView.setOnClickListener {
             currentPickMode = 3
             bottomSheet.show()
         }
-        binding.uploadSignatureIdTextView.setOnClickListener {
+        binding.uploadAddressProofTextView2.setOnClickListener {
             currentPickMode = 4
             bottomSheet.show()
         }
 
-         binding.applicantDOBEditText.setOnClickListener {
-             showDatePickerDialog(binding.applicantDOBEditText)
-         }
+        binding.uploadBankDetailsTextView.setOnClickListener {
+            currentPickMode = 5
+            bottomSheet.show()
+        }
+        binding.uploadSignatureIdTextView.setOnClickListener {
+            currentPickMode = 6
+            bottomSheet.show()
+        }
+
+
+
+        binding.applicantDOBEditText.setOnClickListener {
+            showDatePickerDialog(binding.applicantDOBEditText)
+        }
         binding.nomineeDOBEditText.setOnClickListener {
-             showDatePickerDialog(binding.nomineeDOBEditText)
-         }
+            showDatePickerDialog(binding.nomineeDOBEditText)
+        }
 
         binding.applicationAddressCheckBox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -229,7 +310,36 @@ class CreateUserFormFragment : Fragment() {
             val occupation = binding.occupationSpinner.selectedItem.toString().trim()
             val address = binding.addressEditText.text.toString().trim()
             val state = binding.stateEditText.text.toString().trim()
-            val district = binding.districtSpinner.selectedItem.toString()
+            var division = ""
+            var district = ""
+            var block = ""
+
+
+            if (binding.divisionSpinner.selectedItem != null) {
+                division = binding.divisionSpinner.selectedItem.toString()
+            } else {
+                requireContext().showErrorToast("Please Select Division")
+                return@setOnClickListener
+            }
+
+
+
+            if (binding.districtSpinner.selectedItem != null) {
+                district = binding.districtSpinner.selectedItem.toString()
+            } else {
+                requireContext().showErrorToast("Please Select District")
+                return@setOnClickListener
+            }
+
+            if (binding.blockSpinner.selectedItem != null) {
+                block = binding.blockSpinner.selectedItem.toString()
+            } else {
+                requireContext().showErrorToast("Please Select Block")
+                return@setOnClickListener
+            }
+
+
+            val village = binding.villageEditText.text.toString().trim()
             val tehsil = binding.tehsilEditText.text.toString().trim()
             val post = binding.postEditText.text.toString().trim()
             val city = binding.cityEditText.text.toString().trim()
@@ -242,12 +352,12 @@ class CreateUserFormFragment : Fragment() {
             val nomineeName = binding.nomineeNameEditText.text.toString().trim()
             val nomineeAadharNo = binding.nomineeAadharEditText.text.toString().trim()
             val nomineeDOB = binding.nomineeDOBEditText.text.toString().trim()
-            val relationNominee = binding.relationNomineeEditText.text.toString().trim()
+            val relationNominee = binding.relationNomineeSpinner.selectedItem.toString()
             val checkBoxApplicationAddress = binding.applicationAddressCheckBox.isChecked
             val nomineeAddress: String
             nomineeAddress = if (checkBoxApplicationAddress) {
                 address
-            }else{
+            } else {
                 binding.nomineeAddressEditText.text.toString().trim()
             }
 
@@ -292,6 +402,12 @@ class CreateUserFormFragment : Fragment() {
             if (tehsil.isEmpty()) {
                 binding.tehsilEditText.requestFocus()
                 binding.tehsilEditText.error = "Enter Tehsil."
+                return@setOnClickListener
+            }
+
+            if (village.isEmpty()) {
+                binding.villageEditText.requestFocus()
+                binding.villageEditText.error = "Enter Village."
                 return@setOnClickListener
             }
 
@@ -367,11 +483,7 @@ class CreateUserFormFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            if (relationNominee.isEmpty()) {
-                binding.relationNomineeEditText.requestFocus()
-                binding.relationNomineeEditText.error = "Enter Relation with Nominee."
-                return@setOnClickListener
-            }
+
 
             if (!checkBoxApplicationAddress && nomineeAddress.isEmpty()) {
                 binding.nomineeAddressEditText.requestFocus()
@@ -424,11 +536,27 @@ class CreateUserFormFragment : Fragment() {
                 requireContext().showErrorToast("Please Select a Id Proof Photo")
                 return@setOnClickListener
             }
+            if (binding.idProofTypeSpinner.selectedItemPosition == 0) {
+                if (userIdProofUri2 == null) {
+                    requireContext().showErrorToast("Please Select a Id Proof Back Photo")
+                    return@setOnClickListener
+                }
+            }
+
+
 
             if (userAddressProofUri == null) {
                 requireContext().showErrorToast("Please Select a Address Proof Photo")
                 return@setOnClickListener
             }
+            if (binding.addressProofSpinner.selectedItemPosition == 0) {
+                if (userAddressProofUri2 == null) {
+                    requireContext().showErrorToast("Please Select a Address Proof Back Photo")
+                    return@setOnClickListener
+                }
+
+            }
+
 
             if (userBankAccountProofUri == null) {
                 requireContext().showErrorToast("Please Select a Bank Account Proof Photo")
@@ -439,7 +567,7 @@ class CreateUserFormFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            if (!binding.checkBoxfinal.isChecked ){
+            if (!binding.checkBoxfinal.isChecked) {
                 requireContext().showErrorToast("Please Accept Terms and Conditions")
                 return@setOnClickListener
             }
@@ -449,9 +577,13 @@ class CreateUserFormFragment : Fragment() {
                 if (photoResponse != null) {
                     val userPhoto = photoResponse.userPhoto
                     val idPhoto = photoResponse.idPhoto
+                    val idPhoto2 = photoResponse.idPhoto2
                     val addressPhoto = photoResponse.addressPhoto
+                    val addressPhoto2 = photoResponse.addressPhoto2
                     val bankPhoto = photoResponse.bankPhoto
                     val signaturePhoto = photoResponse.signaturePhoto
+
+
 
                     progressDialog = requireContext().progressDialog(message = "Saving Data ...")
 
@@ -472,18 +604,23 @@ class CreateUserFormFragment : Fragment() {
                         occupation,
                         address,
                         state,
+                        division,
                         district,
+                        block,
                         tehsil,
                         post,
                         city,
+                        village,
                         pincode,
                         mobileNo,
                         alternateMobileNo,
                         emailAddress,
                         selectIdProof,
                         idPhoto,
+                        idPhoto2,
                         addressProof,
                         addressPhoto,
+                        addressPhoto2,
                         nomineeName,
                         nomineeAadharNo,
                         nomineeDOB,
@@ -510,8 +647,7 @@ class CreateUserFormFragment : Fragment() {
                                 if (response.body()?.code == 200) {
                                     requireContext().showSuccessToast("User created successfully")
                                     requireActivity().onBackPressed()
-                                }else
-                                {
+                                } else {
                                     requireContext().showErrorToast(response.body()?.message.toString())
                                 }
                             }
@@ -530,7 +666,58 @@ class CreateUserFormFragment : Fragment() {
             }
         }
 
-    getCreateFromData()
+        binding.divisionSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+
+
+                    clearSpinner(binding.districtSpinner)
+
+
+                    createUserData.districtList?.let {
+                        setDistrictList(
+                            it,
+                            createUserData.divisionList?.get(position)?.divisionId ?: 0
+                        )
+                    }
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+            }
+
+        binding.districtSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+
+
+                    clearSpinner(binding.blockSpinner)
+
+                    createUserData.blockList?.let {
+                        setBlockList(
+                            it,
+                            filteredDistricts[position].districtId
+                        )
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+            }
+        getCreateFromData()
     }
 
     private fun uploadImages(callback: (PhotoResponse?) -> Unit) {
@@ -541,27 +728,73 @@ class CreateUserFormFragment : Fragment() {
         val photoImage = getRealPathFromURI(userPhotoUri!!)
 
         val idProofImage = getRealPathFromURI(userIdProofUri!!)
+
+
+        var idProofPart2 : MultipartBody.Part?
+        if (binding.idProofTypeSpinner.selectedItemPosition==0)
+        {
+            val idProofImage2 = getRealPathFromURI(userIdProofUri2!!)
+            val idProofFile2 = File(idProofImage2!!)
+            val idProofRequestBody2 = RequestBody.create("image/*".toMediaTypeOrNull(), idProofFile2)
+            idProofPart2 =
+                MultipartBody.Part.createFormData("idPhoto2", idProofFile2.name, idProofRequestBody2)
+        }else{
+            idProofPart2 = null
+        }
+
         val addressProofImage = getRealPathFromURI(userAddressProofUri!!)
+
+        val addressProofPart2 : MultipartBody.Part?
+
+        if (binding.addressProofSpinner.selectedItemPosition==0)
+        {
+            val addressProofImage2 = getRealPathFromURI(userAddressProofUri2!!)
+            val addressProofFile2 = File(addressProofImage2!!)
+            val addressProofRequestBody2 =
+                RequestBody.create("image/*".toMediaTypeOrNull(), addressProofFile2)
+             addressProofPart2 = MultipartBody.Part.createFormData(
+                "addressPhoto2",
+                addressProofFile2.name,
+                addressProofRequestBody2
+            )
+        }else{
+            addressProofPart2 = null
+        }
+
         val bankPassImage = getRealPathFromURI(userBankAccountProofUri!!)
         val signatureImage = getRealPathFromURI(signatureUri!!)
 
-
         val photoFile = File(photoImage!!)
         val idProofFile = File(idProofImage!!)
+
+
+
         val addressProofFile = File(addressProofImage!!)
+
+
+
         val bankPassFile = File(bankPassImage!!)
         val signatureImageFile = File(signatureImage!!)
 
         val photoRequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), photoFile)
+
         val idProofRequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), idProofFile)
+
+
         val addressProofRequestBody =
             RequestBody.create("image/*".toMediaTypeOrNull(), addressProofFile)
+
         val bankPassRequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), bankPassFile)
+
+        val signatureBody = RequestBody.create("image/*".toMediaTypeOrNull(), signatureImageFile)
+
 
         val photoPart =
             MultipartBody.Part.createFormData("userPhoto", photoFile.name, photoRequestBody)
+
         val idProofPart =
             MultipartBody.Part.createFormData("idPhoto", idProofFile.name, idProofRequestBody)
+
         val addressProofPart = MultipartBody.Part.createFormData(
             "addressPhoto",
             addressProofFile.name,
@@ -571,9 +804,22 @@ class CreateUserFormFragment : Fragment() {
             MultipartBody.Part.createFormData("bankPhoto", bankPassFile.name, bankPassRequestBody)
 
         val signaturePhotoPart =
-            MultipartBody.Part.createFormData("signaturePhoto", signatureImageFile.name, bankPassRequestBody)
+            MultipartBody.Part.createFormData(
+                "signaturePhoto",
+                signatureImageFile.name,
+                signatureBody
+            )
+
         val apiService = ApiClient.getRetrofitInstance()
-        apiService.uploadDocuments(photoPart, idProofPart, addressProofPart, bankPassPart ,signaturePhotoPart)
+        apiService.uploadDocuments(
+            photoPart,
+            idProofPart,
+            idProofPart2,
+            addressProofPart,
+            addressProofPart2,
+            bankPassPart,
+            signaturePhotoPart
+        )
             .enqueue(object :
                 Callback<CommonResponse<PhotoResponse>> {
                 override fun onResponse(
@@ -606,8 +852,15 @@ class CreateUserFormFragment : Fragment() {
 
     }
 
-    private fun getCreateFromData(){
-        ApiClient.getRetrofitInstance().createUserData(sharedViewModel.userPostingModel.value!!.statePostingDataModel.stateId).enqueue(object : Callback<CommonResponse<CreateUserData>>{
+    private fun getCreateFromData() {
+        ApiClient.getRetrofitInstance().createUserData(
+            sharedViewModel.userPostingModel.value!!.statePostingDataModel.stateId,
+            sharedViewModel.userPostingModel.value?.divisionalPostingDataModel?.divisionId,
+            sharedViewModel.userPostingModel.value?.districtPostingDataModel?.districtId,
+            sharedViewModel.userPostingModel.value?.blockPostingDataModel?.blockId,
+        ).enqueue(object : Callback<CommonResponse<CreateUserData>> {
+
+
             override fun onResponse(
                 call: Call<CommonResponse<CreateUserData>>,
                 response: Response<CommonResponse<CreateUserData>>
@@ -615,12 +868,25 @@ class CreateUserFormFragment : Fragment() {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null && responseBody.code == 200) {
-                        setDistrictList(responseBody.data.districtList)
+
+                        createUserData = responseBody.data
+
+
+                        if (responseBody.data.divisionList != null) {
+                            setDivisionList(responseBody.data.divisionList)
+                        }
+
+
                         setBankStateList(responseBody.data.stateList)
+
+                        binding.officerId.setText(responseBody.data.officerId)
+
+                        binding.officerName.setText(responseBody.data.officerName)
+
                     } else {
                         requireContext().showErrorToast(responseBody!!.message)
                     }
-                }else{
+                } else {
                     requireContext().showErrorToast("Error While Getting State List ")
                 }
             }
@@ -633,18 +899,49 @@ class CreateUserFormFragment : Fragment() {
 
 
     }
-    private fun setBankStateList( stateList : List<StatePostingDataModel>) {
+
+    private fun setBankStateList(stateList: List<StatePostingDataModel>) {
         val stateNames = stateList.map { it.stateName }
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, stateNames)
+        val adapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, stateNames)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.bankStateSpinner.adapter = adapter
     }
 
-    private fun setDistrictList( districtList : List<DistrictPostingDataModel>) {
-        val stateNames = districtList.map { it.districtName }
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, stateNames)
+    private fun setDivisionList(divisionalList: List<DivisionalPostingDataModel>) {
+        val divisionName = divisionalList.map { it.divisionName }
+        val adapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, divisionName)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.divisionSpinner.adapter = adapter
+    }
+
+    private fun setDistrictList(
+        districtList: List<DistrictPostingDataModel>,
+        selectedDivisionId: Int
+    ) {
+
+        Log.d("sachinDistrictFilter", selectedDivisionId.toString())
+         filteredDistricts = districtList.filter { it.divisionId == selectedDivisionId }
+
+        Log.d("sachin", filteredDistricts.toString())
+        val divisionNames = filteredDistricts.map { it.districtName }
+        val adapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, divisionNames)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.districtSpinner.adapter = adapter
+    }
+
+    private fun setBlockList(blockList: List<BlockPostingDataModel>, selectedDistrictId: Int) {
+        Log.d("sachinBlockFilter", selectedDistrictId.toString())
+
+        val filteredBlocks = blockList.filter { it.districtId == selectedDistrictId }
+        Log.d("sachinBlockList", filteredBlocks.toString())
+        val blockNames = filteredBlocks.map { it.blockName }
+        val adapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, blockNames)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.blockSpinner.adapter = adapter
     }
 
     private fun getRealPathFromURI(uri: Uri): String? {
@@ -730,4 +1027,15 @@ class CreateUserFormFragment : Fragment() {
 
         return null
     }
+
+
+    fun clearSpinner(spinner: Spinner) {
+        val emptyList = listOf<String>()
+        val adapter =
+            ArrayAdapter(binding.root.context, android.R.layout.simple_spinner_item, emptyList)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+    }
+
+
 }

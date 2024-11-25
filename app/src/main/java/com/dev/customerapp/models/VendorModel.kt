@@ -6,6 +6,7 @@ data class VendorModel(
     val vendorAddress: String,
     val vendorMobileNo: String,
     val vendorType: String,
+    val vendorRole :Int,
     val vendorBusinessCategory: String,
     val vendorCreateBy: String,
     val createdAt: String

@@ -15,6 +15,9 @@ import com.dev.customerapp.databinding.FragmentAddEmployeeBinding
 import com.dev.customerapp.models.CustomerModel
 import com.dev.customerapp.models.EmployeeModel
 import com.dev.customerapp.models.VendorModel
+import com.dev.customerapp.response.CommonResponse
+import com.dev.customerapp.response.CreateEmployeeData
+import com.dev.customerapp.response.CreateUserData
 import com.dev.customerapp.utils.Constant
 import com.dev.customerapp.utils.ResponseHandler
 import com.dev.customerapp.utils.showErrorToast
@@ -30,7 +33,10 @@ class AddEmployeeFragment : Fragment() {
     private lateinit var binding: FragmentAddEmployeeBinding
     private lateinit var apiService: ApiService
     private var progressDialog: Dialog? = null
-    private lateinit var datePickerDialog: DatePickerDialog
+    private lateinit var createEmployeeData: CreateEmployeeData
+    private val userData by lazy {
+        Constant(requireContext()).getUserData()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,9 +50,10 @@ class AddEmployeeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         apiService = ApiClient.getRetrofitInstance()
-        initDatePicker()
-        binding.employeeEditTextDOB.setOnClickListener {
-            openDatePicker(it)
+
+        binding.employeeEditTextDOB.setOnClickListener()
+        {
+            datePickerDialog.show()
         }
 
         binding.employeeSubmitButton.setOnClickListener {
@@ -60,6 +67,7 @@ class AddEmployeeFragment : Fragment() {
             val block = binding.employeeEditTextBlock.text.toString().trim()
             val district = binding.employeeEditTextDistrict.text.toString().trim()
             val pinCode = binding.employeeEditTextPinCode.text.toString().trim()
+            val password = binding.passwordEditText.text.toString().trim()
 
             if (name.isEmpty()) {
                 binding.employeeNameEditText.text.toString().trim()
@@ -122,8 +130,14 @@ class AddEmployeeFragment : Fragment() {
                 binding.employeeEditTextPinCode.error = "Enter a valid 6-digit PinCode."
                 return@setOnClickListener
             }
-
+            if (password.isEmpty()) {
+                binding.passwordEditText.requestFocus()
+                binding.passwordEditText.error = "Enter a Password"
+                return@setOnClickListener
+            }
+            showProgressDialog(true)
             val employee = EmployeeModel(
+                0,
                 name,
                 dob,
                 mobile,
@@ -132,10 +146,12 @@ class AddEmployeeFragment : Fragment() {
                 houseNo,
                 locality,
                 block,
+                userData!!.blockId!!,
                 district,
+                userData!!.districtId!!,
                 pinCode.toInt(),
-                Constant(requireContext()).getUserData()?.userId.toString(),
-                ""
+                password,
+                Constant(requireContext()).getUserData()!!.userId
             )
 
             val call: Call<ResponseHandler<List<EmployeeModel>>> = apiService.addEmployee(employee)
@@ -144,6 +160,7 @@ class AddEmployeeFragment : Fragment() {
                     call: Call<ResponseHandler<List<EmployeeModel>>>,
                     response: Response<ResponseHandler<List<EmployeeModel>>>
                 ) {
+                    showProgressDialog(false)
                     if (response.isSuccessful && response.body() != null) {
                         val responseHandler = response.body()
                         val code = responseHandler?.code
@@ -162,12 +179,16 @@ class AddEmployeeFragment : Fragment() {
                     call: Call<ResponseHandler<List<EmployeeModel>>>,
                     t: Throwable
                 ) {
+                    showProgressDialog(false)
                     requireContext().showErrorToast(t.message.toString())
 
                 }
             })
 
         }
+
+        getCreateFromData()
+
     }
 
     private fun showProgressDialog(show: Boolean) {
@@ -194,25 +215,63 @@ class AddEmployeeFragment : Fragment() {
         return activity?.isFinishing == true
     }
 
-    private fun openDatePicker(view: View) {
-        datePickerDialog.show()
-    }
 
-    private fun initDatePicker() {
+    private val datePickerDialog by lazy {
         val cal = Calendar.getInstance()
         val year = cal.get(Calendar.YEAR)
         val month = cal.get(Calendar.MONTH)
         val day = cal.get(Calendar.DAY_OF_MONTH)
 
-        datePickerDialog = DatePickerDialog(
+        DatePickerDialog(
             requireContext(),
             { _, selectedYear, selectedMonth, selectedDay ->
                 val formattedMonth = selectedMonth + 1
                 val date = makeDateString(selectedDay, formattedMonth, selectedYear)
                 binding.employeeEditTextDOB.setText(date)
-            }, year, month, day
+            },
+            year,
+            month,
+            day
         )
     }
+
+    private fun getCreateFromData() {
+
+        ApiClient.getRetrofitInstance().createEmployeeData(
+            userData!!.districtId!!,
+            userData!!.blockId!!
+        ).enqueue(object : Callback<CommonResponse<CreateEmployeeData>> {
+
+
+            override fun onResponse(
+                call: Call<CommonResponse<CreateEmployeeData>>,
+                response: Response<CommonResponse<CreateEmployeeData>>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null && responseBody.code == 200) {
+
+                        createEmployeeData = responseBody.data
+
+                        binding.employeeEditTextBlock.setText(createEmployeeData.blockName.toString())
+                        binding.employeeEditTextDistrict.setText(createEmployeeData.districtName.toString())
+
+                    } else {
+                        requireContext().showErrorToast(responseBody!!.message)
+                    }
+                } else {
+                    requireContext().showErrorToast("Error While Getting State List ")
+                }
+            }
+
+            override fun onFailure(call: Call<CommonResponse<CreateEmployeeData>>, t: Throwable) {
+                requireContext().showErrorToast(t.message.toString())
+            }
+
+        })
+
+    }
+
 
     private fun makeDateString(day: Int, month: Int, year: Int): String {
         return "$year-$month-$day"

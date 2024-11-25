@@ -95,6 +95,9 @@ class AddVendorFragment : Fragment() {
                 binding.inputLayoutPIN.error = "Enter PinCode."
                 return@setOnClickListener
             }
+          val loginUser =   Constant(requireContext()).getUserData()
+
+            val vendorRole = if (loginUser?.userType == 1) 2 else 1
 
             val vendor = VendorModel(
                 vendorName,
@@ -102,8 +105,9 @@ class AddVendorFragment : Fragment() {
                 address,
                 mobileNumber,
                 vendorType,
+                vendorRole,
                 businessCategory,
-                Constant(requireContext()).getUserData()?.userId.toString(),
+                loginUser?.userId.toString(),
                 ""
             )
             showProgressDialog(true)
@@ -153,7 +157,7 @@ class AddVendorFragment : Fragment() {
                 progressDialog!!.show()
             }
         } else {
-            if (progressDialog != null && progressDialog!!.isShowing()) {
+            if (progressDialog != null && progressDialog!!.isShowing) {
                 if (!isFinishing()) {
                     progressDialog!!.dismiss()
                 }

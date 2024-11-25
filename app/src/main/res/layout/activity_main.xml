@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@drawable/light_gradient_background"
-            android:elevation="@dimen/_12ssp">
+            android:elevation="@dimen/_50ssp">
 
             <RelativeLayout
                 android:id="@+id/relativeLayout"
@@ -65,8 +65,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            app:itemIconTint="@color/blue_primary"
-            app:itemTextColor="@color/blue_primary"
+            android:background="@color/white"
+            app:itemIconTint="@color/orange_bottom"
+            app:itemTextColor="@color/orange_bottom"
+            app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/bottom_menu" />
 

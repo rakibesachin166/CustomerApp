@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide
 import com.dev.customerapp.R
 
 
-fun Context.changeActivity(newActivity: Class<*> , isBackAllow :Boolean = true) {
+fun Context.changeActivity(newActivity: Class<*>, isBackAllow: Boolean = true) {
     val intent = Intent(this, newActivity)
     if (!isBackAllow) {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -24,9 +24,11 @@ fun Context.changeActivity(newActivity: Class<*> , isBackAllow :Boolean = true) 
 }
 
 fun Context.showToast(message: String, isShortToast: Boolean = true) {
-    Toast.makeText(this, message, if (isShortToast) Toast.LENGTH_SHORT else Toast.LENGTH_LONG).show()
+    Toast.makeText(this, message, if (isShortToast) Toast.LENGTH_SHORT else Toast.LENGTH_LONG)
+        .show()
 }
- fun Context.showErrorToast(message: String , isShortToast: Boolean = false) {
+
+fun Context.showErrorToast(message: String, isShortToast: Boolean = false) {
     val inflater = LayoutInflater.from(this)
     val layout: View = inflater.inflate(R.layout.toast_error, null)
     val text = layout.findViewById<TextView>(R.id.toast_text)
@@ -37,7 +39,8 @@ fun Context.showToast(message: String, isShortToast: Boolean = true) {
         show()
     }
 }
-fun Context.showSuccessToast(message: String , isShortToast: Boolean = false) {
+
+fun Context.showSuccessToast(message: String, isShortToast: Boolean = false) {
     val inflater = LayoutInflater.from(this)
     val layout: View = inflater.inflate(R.layout.toast_success, null)
     val text = layout.findViewById<TextView>(R.id.toast_text)
@@ -50,23 +53,27 @@ fun Context.showSuccessToast(message: String , isShortToast: Boolean = false) {
 }
 
 
-
-fun Context.progressDialog(isCancellable: Boolean = false, message: String = "Loading ..."): ProgressDialog {
+fun Context.progressDialog(
+    isCancellable: Boolean = false,
+    message: String = "Loading ..."
+): ProgressDialog {
     return ProgressDialog(this).apply {
         setCancelable(isCancellable)
         setMessage(message)
     }
 }
-fun printLog(tag:String = "sachin",message: String){
+
+fun printLog(tag: String = "sachin", message: String) {
     Log.d(tag, message)
 }
+
 fun ImageView.loadImage(url: String) {
     Glide.with(this.context)
         .load(url)
-        .placeholder(R.drawable.icon_person)
         .error(R.drawable.icon_person)
         .into(this)
 }
+
 fun ImageView.loadImage(url: Uri) {
     Glide.with(this.context)
         .load(url)

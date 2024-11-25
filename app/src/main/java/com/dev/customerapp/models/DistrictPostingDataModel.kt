@@ -1,3 +1,3 @@
 package com.dev.customerapp.models
 
-data class DistrictPostingDataModel(val districtId : Int , val districtName : String)
+data class DistrictPostingDataModel(val districtId : Int , val districtName : String , val divisionId : Int )

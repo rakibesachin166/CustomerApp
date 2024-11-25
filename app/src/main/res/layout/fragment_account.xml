@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/accountFragment"
@@ -8,108 +8,132 @@
     android:orientation="vertical"
     tools:context=".fragments.AccountFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_8sdp"
-            android:text="Account"
-            android:textColor="@color/blue_primary"
-            android:textSize="@dimen/_12ssp"
-            android:textStyle="bold" />
-    </com.google.android.material.card.MaterialCardView>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:background="@drawable/shape_corner_radius"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingVertical="@dimen/_10sdp"
-        android:paddingHorizontal="@dimen/_20sdp"
-       >
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profileCircleImageView"
-            android:layout_width="@dimen/_60sdp"
-            android:layout_height="@dimen/_60sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:src="@drawable/icon_person"
-            app:civ_border_width="@dimen/_1sdp" />
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvSignIn"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_60sdp"
-                android:layout_marginBottom="@dimen/_4sdp"
-                android:text="@string/sign_in"
-                android:textColor="@color/black"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_8sdp"
+                    android:text="Account"
+                    android:textColor="@color/orange_bottom"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_20sdp"
+                android:paddingVertical="@dimen/_10sdp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profileCircleImageView"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:src="@drawable/icon_person"
+                    app:civ_border_width="@dimen/_1sdp" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvSignIn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_60sdp"
+                        android:layout_marginBottom="@dimen/_4sdp"
+                        android:text="@string/sign_in"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvUserType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10ssp"
+                        android:textStyle="bold"
+                        tools:text="admin" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/idProofTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/icon_right_arrow"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:paddingVertical="@dimen/_8sdp"
+                    android:text="Identity  Card"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+
+            >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/logoutTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_corner_radius_5"
+                android:backgroundTint="@color/orange_bottom"
+                android:fontFamily="@font/raleway"
+                android:paddingHorizontal="@dimen/_50sdp"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="Logout"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_12ssp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvUserType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                tools:text="admin[AGS01]"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_10ssp"
-                android:textStyle="bold" />
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        </RelativeLayout>
 
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:orientation="vertical">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/idProofTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/icon_right_arrow"
-            android:text="Identity  Card"
-            android:textSize="@dimen/_12ssp"
-            android:background="@drawable/shape_corner_radius"
-            android:paddingHorizontal="@dimen/_10sdp"
-            android:paddingVertical="@dimen/_8sdp"
-            android:textStyle="bold" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/logoutTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:drawableEnd="@drawable/icon_right_arrow"
-            android:background="@drawable/shape_corner_radius"
-            android:paddingHorizontal="@dimen/_10sdp"
-            android:paddingVertical="@dimen/_8sdp"
-            android:text="Logout"
-            android:textSize="@dimen/_12ssp"
-            android:textStyle="bold" />
+    </RelativeLayout>
 
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-</LinearLayout>
+</FrameLayout>

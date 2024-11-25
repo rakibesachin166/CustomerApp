@@ -1,5 +1,7 @@
 package com.dev.customerapp.api;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -21,6 +23,9 @@ public class ApiClient {
 
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .addInterceptor(loggingInterceptor)
+                    .connectTimeout(20, TimeUnit.SECONDS)
+                    .readTimeout(20, TimeUnit.SECONDS)
+                    .writeTimeout(20, TimeUnit.SECONDS)
                     .build();
 
 

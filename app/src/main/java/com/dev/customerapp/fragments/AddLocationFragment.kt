@@ -45,7 +45,7 @@ class AddLocationFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View{
         // Inflate the layout for this fragment
         binding = FragmentAddLocationBinding.inflate(LayoutInflater.from(requireContext()))
         return binding.root
@@ -169,6 +169,13 @@ class AddLocationFragment : Fragment() {
 
 
         binding.submitButton.setOnClickListener {
+
+            if (binding.inputTextLocation.text.isNullOrEmpty()){
+                requireContext().showErrorToast("Please Enter Category Name")
+                return@setOnClickListener
+            }
+
+
 
             val statePosition = binding.stateSpinner.selectedItemPosition
 
@@ -366,7 +373,7 @@ class AddLocationFragment : Fragment() {
                     val responseBody = response.body()
                     if (responseBody != null && responseBody.code == 200) {
                         districtList.clear()
-                        districtList.add(DistrictPostingDataModel(0, "--Select District--"))
+                        districtList.add(DistrictPostingDataModel(0, "--Select District--",0))
                         districtList.addAll(responseBody.data)
                         setDistrictList()
                     } else {
@@ -411,7 +418,7 @@ class AddLocationFragment : Fragment() {
                     val responseBody = response.body()
                     if (responseBody != null && responseBody.code == 200) {
                         blockList.clear()
-                        blockList.add(BlockPostingDataModel(0, "--Select Block--"))
+                        blockList.add(BlockPostingDataModel(0, "--Select Block--",0))
                         blockList.addAll(responseBody.data)
                         setBlockList()
                     } else {

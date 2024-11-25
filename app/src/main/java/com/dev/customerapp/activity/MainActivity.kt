@@ -2,9 +2,9 @@ package com.dev.customerapp.activity;
 
 
 import android.app.Dialog
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.webkit.WebView
@@ -24,14 +24,19 @@ import com.dev.customerapp.fragments.AccountFragment
 import com.dev.customerapp.fragments.CategoriesFragment
 import com.dev.customerapp.fragments.AddLocationFragment
 import com.dev.customerapp.fragments.HomeFragment
+import com.dev.customerapp.models.UserDataModel
+import com.dev.customerapp.response.AgreementResponse
+import com.dev.customerapp.response.CommonResponse
 import com.dev.customerapp.utils.Constant
-import com.dev.customerapp.utils.FunctionsConstant
 import com.dev.customerapp.utils.changeActivity
 import com.dev.customerapp.utils.loadImage
+import com.dev.customerapp.utils.showErrorToast
+import com.dev.customerapp.utils.showSuccessToast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import de.hdodenhof.circleimageview.CircleImageView
-import java.io.File
+import retrofit2.Call
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -78,13 +83,14 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.navigation_add_customer -> {
-                    val intent = Intent(this, ChangeActivity::class.java)
+                    val intent = Intent(this, FragmentActivity::class.java)
                     intent.putExtra("fragment_type", "customer")
                     startActivity(intent)
+
                 }
 
                 R.id.navigation_add_vendor -> {
-                    val intent = Intent(this, ChangeActivity::class.java)
+                    val intent = Intent(this, FragmentActivity::class.java)
                     intent.putExtra("fragment_type", "vendor")
                     startActivity(intent)
                 }
@@ -93,12 +99,7 @@ class MainActivity : AppCompatActivity() {
                     val userDataModel = Constant(this@MainActivity).getUserData()
 
                     if (userDataModel != null) {
-                        fullScreenDialog(
-                            getCurrentDate(),
-                            userDataModel.userName,
-                            FunctionsConstant.getUserRoleName(userDataModel.userType),
-                            userDataModel.userAddress + ", " + userDataModel.userCity + ", " + userDataModel.userState + ", India, " + userDataModel.userPincode
-                        )
+                        agreementDialog()
                     }
 
                 }
@@ -108,15 +109,34 @@ class MainActivity : AppCompatActivity() {
 
                 }
 
+                R.id.navigation_add_product_category -> {
+                    val intent = Intent(this, FragmentActivity::class.java)
+                    intent.putExtra("fragment_type", "add_product_category")
+                    startActivity(intent)
+
+                }
+
                 R.id.navigation_add_employee -> {
-                    val intent = Intent(this, ChangeActivity::class.java)
+                    val intent = Intent(this, FragmentActivity::class.java)
                     intent.putExtra("fragment_type", "employee")
                     startActivity(intent)
                 }
 
+                R.id.navigation_manage_employee_status -> {
+                    val intent = Intent(this, FragmentActivity::class.java)
+                    intent.putExtra("fragment_type", "manage_employee_status")
+                    startActivity(intent)
+                }
+
                 R.id.navigation_user_list -> {
-                    val intent = Intent(this, ChangeActivity::class.java)
+                    val intent = Intent(this, FragmentActivity::class.java)
                     intent.putExtra("fragment_type", "userList")
+                    startActivity(intent)
+                }
+
+                R.id.navigation_contact_us -> {
+                    val intent = Intent(this, FragmentActivity::class.java)
+                    intent.putExtra("fragment_type", "contact-us")
                     startActivity(intent)
                 }
 
@@ -144,7 +164,14 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.bottom_account -> {
-                selectedFragment = AccountFragment()
+                val userData = Constant(this@MainActivity).getUserData()
+                if (userData == null) {
+                    changeActivity(LoginActivity::class.java, true)
+
+                } else {
+                    selectedFragment = AccountFragment()
+                }
+
             }
 
             R.id.bottom_categories -> {
@@ -204,9 +231,8 @@ class MainActivity : AppCompatActivity() {
         binding = null
     }
 
-    override fun onResume() {
-        super.onResume()
-        val userData = Constant(this@MainActivity).getUserData()
+    private fun setUpHomePage(userData: UserDataModel?) {
+
         val headerButton: TextView = headerView.findViewById(R.id.tvSignIn)
 
         val menu = binding?.navigationView?.menu
@@ -214,59 +240,80 @@ class MainActivity : AppCompatActivity() {
             headerButton.setOnClickListener {
                 changeActivity(LoginActivity::class.java, true)
             }
+            headerView.setOnClickListener(null)
+
             menu?.findItem(R.id.navigation_add_user)?.isVisible = false
             menu?.findItem(R.id.navigation_add_vendor)?.isVisible = false
             menu?.findItem(R.id.navigation_add_customer)?.isVisible = false
             menu?.findItem(R.id.navigation_agreement)?.isVisible = false
             menu?.findItem(R.id.navigation_addLocation)?.isVisible = false
             menu?.findItem(R.id.navigationLogOut)?.isVisible = false
+            menu?.findItem(R.id.navigation_user_list)?.isVisible = false
+            menu?.findItem(R.id.navigation_add_product_category)?.isVisible = false
+            menu?.findItem(R.id.navigation_add_employee)?.isVisible = false
+            menu?.findItem(R.id.navigation_manage_employee_status)?.isVisible = false
 
         } else {
+            headerView.setOnClickListener {
+                val intent = Intent(this@MainActivity, UserDetailsActivity::class.java)
+                intent.putExtra("userId", userData.userId)
+                startActivity(intent)
+            }
             menu?.findItem(R.id.navigationLogOut)?.isVisible = true
             headerButton.background = null
             headerButton.text = userData.userName
             val profileImage: CircleImageView = headerView.findViewById(R.id.profile_image)
             profileImage.loadImage(ApiClient.BASE_URL + userData.userPhoto)
-
             when (userData.userType) {
+                //Admin
                 1 -> {
                     menu?.findItem(R.id.navigation_add_user)?.isVisible = true
                     menu?.findItem(R.id.navigation_add_vendor)?.isVisible = true
                     menu?.findItem(R.id.navigation_agreement)?.isVisible = false
+                    menu?.findItem(R.id.navigation_add_product_category)?.isVisible = true
                     menu?.findItem(R.id.navigation_addLocation)?.isVisible = true
                     menu?.findItem(R.id.navigation_user_list)?.isVisible = true
+                    menu?.findItem(R.id.navigation_add_employee)?.isVisible = false
+                    menu?.findItem(R.id.navigation_manage_employee_status)?.isVisible = true
                 }
-
+                //State User
                 2 -> {
                     menu?.findItem(R.id.navigation_add_user)?.isVisible = false
                     menu?.findItem(R.id.navigation_agreement)?.isVisible = true
+                    menu?.findItem(R.id.navigation_user_list)?.isVisible = true
+                    menu?.findItem(R.id.navigation_add_product_category)?.isVisible = false
                 }
-
+                //Division User
                 3 -> {
                     menu?.findItem(R.id.navigation_add_user)?.isVisible = false
                     menu?.findItem(R.id.navigation_agreement)?.isVisible = true
+                    menu?.findItem(R.id.navigation_user_list)?.isVisible = true
+                    menu?.findItem(R.id.navigation_add_product_category)?.isVisible = false
                 }
-
+                //District User
                 4 -> {
                     menu?.findItem(R.id.navigation_add_user)?.isVisible = false
                     menu?.findItem(R.id.navigation_agreement)?.isVisible = true
+                    menu?.findItem(R.id.navigation_user_list)?.isVisible = true
+                    menu?.findItem(R.id.navigation_add_product_category)?.isVisible = false
                 }
-
+                //Block User
                 5 -> {
-
-                    menu?.findItem(R.id.navigation_add_employee)?.isVisible = false
+                    menu?.findItem(R.id.navigation_add_employee)?.isVisible = true
                     menu?.findItem(R.id.navigation_agreement)?.isVisible = true
+                    menu?.findItem(R.id.navigation_user_list)?.isVisible = false
+                    menu?.findItem(R.id.navigation_add_product_category)?.isVisible = false
                 }
-
+                //Employee User
                 6 -> {
-
                     menu?.findItem(R.id.navigation_add_vendor)?.isVisible = true
                     menu?.findItem(R.id.navigation_add_customer)?.isVisible = true
                     menu?.findItem(R.id.navigation_agreement)?.isVisible = false
+                    menu?.findItem(R.id.navigation_user_list)?.isVisible = false
+                    menu?.findItem(R.id.navigation_add_product_category)?.isVisible = false
                 }
 
                 else -> {
-
                     println("Unknown user type")
                 }
             }
@@ -276,7 +323,94 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun fullScreenDialog(date: String, name: String, role: String, address: String) {
+    override fun onResume() {
+        super.onResume()
+
+        when (Constant(this@MainActivity).getLoginType()) {
+            1 -> {
+                val userData = Constant(this@MainActivity).getUserData()
+                setUpHomePage(userData)
+                getUserProfile()
+            }
+
+            2 -> {
+                // $type = 2;  // Employee
+                Constant(this@MainActivity).getEmployeeData()
+                changeActivity(EmployeeMainActivity::class.java, false)
+            }
+
+            3 -> {
+                //   $type = 3;  // Vendor
+                Constant(this@MainActivity).getVendorData()
+                changeActivity(VendorMainActivity::class.java, false)
+            }
+
+            4 -> {
+                // $type = 4;  // Customer
+                Constant(this@MainActivity).getCustomerData()
+                changeActivity(CustomerMainActivity::class.java, false)
+            }
+
+            else -> {
+                val userData = Constant(this@MainActivity).getUserData()
+                setUpHomePage(userData)
+                getUserProfile()
+            }
+        }
+
+    }
+
+    private fun getUserProfile() {
+
+        val userData = Constant(this@MainActivity).getUserData()
+
+        if (userData != null) {
+            ApiClient.getRetrofitInstance().getUserHomeProfile(userData.userId)
+                .enqueue(object : retrofit2.Callback<CommonResponse<UserDataModel>> {
+                    override fun onResponse(
+                        call: Call<CommonResponse<UserDataModel>>,
+                        response: Response<CommonResponse<UserDataModel>>
+                    ) {
+
+                        progressDialog.dismiss()
+                        val responseBody = response.body()
+                        if (responseBody != null) {
+
+                            if (responseBody.code == 200) {
+                                Constant(this@MainActivity).saveUserData(responseBody.data)
+                                setUpHomePage(responseBody.data)
+                            } else if (responseBody.code == 201) {
+                                Constant(this@MainActivity).clearUserData()
+                                recreate()
+                            }
+
+                        } else {
+                            showErrorToast("Failed To Get Agreement . Please Try Again.")
+                        }
+
+                    }
+
+                    override fun onFailure(
+                        call: Call<CommonResponse<UserDataModel>>,
+                        t: Throwable
+                    ) {
+                        showErrorToast("Failed To Get Agreement ." + t.message.toString())
+                    }
+
+                })
+        }
+
+    }
+
+    private val progressDialog: Dialog by lazy {
+        ProgressDialog(this).apply {
+            setMessage("Loading...")
+            setCancelable(false)
+        }
+    }
+
+    private fun agreementDialog() {
+
 
         val dialog = Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
 
@@ -289,27 +423,107 @@ class MainActivity : AppCompatActivity() {
         webView.webViewClient = WebViewClient()
 
 
-        val htmlContent =
-            assets.open("AASTHAGROUPSAGREEMENT.html").bufferedReader().use { it.readText() }
-        val modifiedContent = htmlContent
-            .replace("[User Creation Date]", date)
-            .replace("[User Name]", name)
-            .replace("[User Role]", role)
-            .replace("[User Complete Address]", address)
+//        val htmlContent =
+//            assets.open("AASTHAGROUPSAGREEMENT.html").bufferedReader().use { it.readText() }
+//        val modifiedContent = htmlContent
+//            .replace("[User Creation Date]", date)
+//            .replace("[User Name]", name)
+//            .replace("[User Role]", role)
+//            .replace("[User Complete Address]", address)
+        val userData = Constant(this@MainActivity).getUserData() ?: return
+        progressDialog.show()
+        ApiClient.getRetrofitInstance().getAgreementData(userData.userId)
+            .enqueue(object : retrofit2.Callback<CommonResponse<AgreementResponse>> {
+                override fun onResponse(
+                    call: Call<CommonResponse<AgreementResponse>>,
+                    response: Response<CommonResponse<AgreementResponse>>
+                ) {
 
-        webView.loadDataWithBaseURL(
-            "file:///android_asset/",
-            modifiedContent,
-            "text/html",
-            "UTF-8",
-            null
+                    progressDialog.dismiss()
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        agreeButton.setOnClickListener {
+                            dialog.dismiss()
+                        }
+
+                        progressDialog.dismiss()
+
+                        if (responseBody.code == 200) {
+                            var agreement = " "
+
+                            if (responseBody.data.isAccepted == "0") {
+                                agreement = responseBody.data.agreement!!
+                                //Not accepted
+                                webView.loadData(agreement, "text/html; charset=utf-8", "UTF-8")
+                                agreeButton.visibility = View.VISIBLE
+
+                            } else {
+                                agreement = responseBody.data.agreementData!!.agreement
+                                //Already Accepted
+                                webView.loadData(agreement, "text/html; charset=utf-8", "UTF-8")
+                                agreeButton.visibility = View.GONE
+                            }
+                            agreeButton.setOnClickListener {
+
+                                progressDialog.show()
+
+                                ApiClient.getRetrofitInstance()
+                                    .acceptAgreement(userData.userId, agreement)
+                                    .enqueue(object : retrofit2.Callback<CommonResponse<String>> {
+
+                                        override fun onResponse(
+                                            call: Call<CommonResponse<String>>,
+                                            agreeResponse: Response<CommonResponse<String>>
+                                        ) {
+                                            progressDialog.dismiss()
+                                            val agreeBody = agreeResponse.body()
+                                            if (agreeBody?.code == 200) {
+                                                showSuccessToast(agreeBody.message)
+                                                dialog.dismiss()
+                                            } else {
+                                                showErrorToast(agreeBody?.message.toString())
+                                            }
+                                        }
+
+                                        override fun onFailure(
+                                            call: Call<CommonResponse<String>>,
+                                            t: Throwable
+                                        ) {
+                                            progressDialog.dismiss()
+
+                                            showErrorToast("Failed To Accept Agreement . Please Try Again.")
+                                        }
+
+                                    })
+
+
+                            }
+                        }
+                    } else {
+                        showErrorToast("Failed To Get Agreement . Please Try Again.")
+                    }
+
+                }
+
+                override fun onFailure(
+                    call: Call<CommonResponse<AgreementResponse>>,
+                    t: Throwable
+                ) {
+                    dialog.dismiss()
+                    progressDialog.dismiss()
+                    showErrorToast("Failed To Get Agreement ." + t.message.toString())
+
+                }
+
+            })
+
+        dialog.window?.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                this@MainActivity,
+                android.R.color.black
+            )
         )
-        agreeButton.setOnClickListener {
-            dialog.dismiss()
-//            changeActivity(MainActivity::class.java, false)
-        }
-
-        dialog.window?.setBackgroundDrawable(ContextCompat.getDrawable(this, android.R.color.black))
         dialog.show()
+
     }
 }

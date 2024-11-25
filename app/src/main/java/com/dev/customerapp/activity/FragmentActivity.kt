@@ -4,15 +4,16 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.dev.customerapp.R
-import com.dev.customerapp.fragments.AccountFragment
 import com.dev.customerapp.fragments.AddCustomerFragment
 import com.dev.customerapp.fragments.AddEmployeeFragment
+import com.dev.customerapp.fragments.AddProductCategoryFragment
 import com.dev.customerapp.fragments.AddVendorFragment
-import com.dev.customerapp.fragments.CategoriesFragment
 import com.dev.customerapp.fragments.CreateIDProofFragment
+import com.dev.customerapp.fragments.EmployeeStatusFragment
 import com.dev.customerapp.fragments.UserListFragment
+import com.dev.customerapp.fragments.WebViewFragment
 
-class ChangeActivity : AppCompatActivity() {
+class FragmentActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +26,10 @@ class ChangeActivity : AppCompatActivity() {
             "customer" -> changeFragment(AddCustomerFragment())
             "vendor" -> changeFragment(AddVendorFragment())
             "employee" -> changeFragment(AddEmployeeFragment())
+            "manage_employee_status" -> changeFragment(EmployeeStatusFragment())
             "userList" -> changeFragment(UserListFragment())
+            "add_product_category" -> changeFragment(AddProductCategoryFragment())
+            "contact-us" -> changeFragment(WebViewFragment("https://www.aasthagroups.com/contact-us/"))
             else -> {}
         }
     }

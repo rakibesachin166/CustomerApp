@@ -3,7 +3,12 @@
     <style name="Base.Theme.CustomerApp" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:fontFamily">@font/raleway</item>
+        <item name="android:statusBarColor">@color/orange_bottom</item>
     </style>
 
-    <style name="Theme.CustomerApp" parent="Base.Theme.CustomerApp" />
+    <style name="Theme.CustomerApp" parent="Base.Theme.CustomerApp">
+        <item name="android:fontFamily">@font/raleway</item>
+        <item name="android:statusBarColor">@color/orange_bottom</item>
+    </style>
 </resources>

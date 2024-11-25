@@ -72,14 +72,40 @@
     </string-array>
     <string-array name="idProofType">
         <item>Aadhar Card</item>
-        <item>Pan Card</item>
-        <item>Driver Licences</item>
+        <item>Central/State Government certified ID Proof</item>
+        <item>Domestic certified with communication address and photograph</item>
+        <item>Driving License</item>
+        <item>PAN Card</item>
+        <item>Passport (Valid)</item>
+        <item>Ration Card with Photograph</item>
+        <item>Voter ID Card</item>
+        <item>Written confirmation from the banks certifying Identity proof</item>
     </string-array>
+
 
     <string-array name="addressProofType">
-        <item>Electricity Bill</item>
-        <item>Bank PassBook</item>
-        <item>Driver Licences</item>
+        <item>Aadhar Card</item>
+        <item>Bank account/Passbook with Photograph</item>
+        <item>Central/State Government certified address Proof</item>
+        <item>Domestic certified with communication address and photograph</item>
+        <item>Current employer’s certificate mentioning residence</item>
+        <item>Driving License (Valid)</item>
+        <item>Electricity bill (Not older than 6 months)</item>
+        <item>Lease agreement along with rent receipt not older than 3 months</item>
+        <item>Passport (Valid)</item>
+        <item>Ration Card</item>
+        <item>Telephone Bill (Latest)</item>
+        <item>Voter Identity Card</item>
+        <item>Written confirmation from the banks (Attested by Bank)</item>
     </string-array>
 
+    <string-array name="nomineeRelationArray">
+        <item>Father</item>
+        <item>Mother</item>
+        <item>Brother</item>
+        <item>Sister</item>
+        <item>Son</item>
+        <item>Daughter</item>
+        <item>Spouse</item>
+    </string-array>
 </resources>

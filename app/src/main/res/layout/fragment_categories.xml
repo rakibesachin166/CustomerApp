@@ -1,181 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".fragments.CategoriesFragment">
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_8sdp"
-            android:text="All Categories"
-            android:textColor="@color/blue_primary"
-            android:textSize="@dimen/_12ssp"
-            android:textStyle="bold" />
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:text="Shop By Category"
-        android:textColor="@color/grey"
-        android:textSize="@dimen/_12ssp"
-        android:textStyle="bold" />
-
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_18sdp"
-        android:orientation="horizontal"
-        android:padding="@dimen/_5sdp">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/productProfileCircleView"
-            android:layout_width="@dimen/_60sdp"
-            android:layout_height="@dimen/_60sdp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:src="@drawable/food"
-            app:civ_border_width="@dimen/_1sdp" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/productTextView"
+        android:orientation="vertical">
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:drawableEnd="@drawable/icon_right_arrow"
-            android:text="100% PV OFFER"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12ssp"
-            android:textStyle="bold" />
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_8sdp"
+                android:text="All Categories"
+                android:textColor="@color/orange_bottom"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/topCategoryRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            tools:listitem="@layout/item_top_category"
+            />
+
+
+
+     <!--   <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="vertical">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Shop By Category"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:orientation="horizontal"
+                android:padding="@dimen/_5sdp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/productProfileCircleView"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:src="@drawable/food"
+                    app:civ_border_width="@dimen/_1sdp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/productTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:drawableEnd="@drawable/icon_right_arrow"
+                    android:text="Food &amp; Grocery Item"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/grey" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:orientation="horizontal"
+                android:padding="@dimen/_5sdp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:src="@drawable/health_care"
+                    app:civ_border_width="@dimen/_1sdp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:drawableEnd="@drawable/icon_right_arrow"
+                    android:text="HEALTH CARE"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/grey" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:orientation="horizontal"
+                android:padding="@dimen/_5sdp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:src="@drawable/men_fashion"
+                    app:civ_border_width="@dimen/_1sdp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:drawableEnd="@drawable/icon_right_arrow"
+                    android:text="MEN'S FASHION"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/grey" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:orientation="horizontal"
+                android:padding="@dimen/_5sdp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:src="@drawable/personal_care"
+                    app:civ_border_width="@dimen/_1sdp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:drawableEnd="@drawable/icon_right_arrow"
+                    android:text="PERSONAL CARE"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/grey" />
+        </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:background="@color/grey" />
 
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:orientation="horizontal"
-        android:padding="@dimen/_5sdp">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="@dimen/_60sdp"
-            android:layout_height="@dimen/_60sdp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:src="@drawable/health_care"
-            app:civ_border_width="@dimen/_1sdp" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:drawableEnd="@drawable/icon_right_arrow"
-            android:text="HEALTH CARE"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12ssp"
-            android:textStyle="bold" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:background="@color/grey" />
-
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:orientation="horizontal"
-        android:padding="@dimen/_5sdp">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="@dimen/_60sdp"
-            android:layout_height="@dimen/_60sdp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:src="@drawable/men_fashion"
-            app:civ_border_width="@dimen/_1sdp" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:drawableEnd="@drawable/icon_right_arrow"
-            android:text="MEN'S FASHION"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12ssp"
-            android:textStyle="bold" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:background="@color/grey" />
-
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:orientation="horizontal"
-        android:padding="@dimen/_5sdp">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="@dimen/_60sdp"
-            android:layout_height="@dimen/_60sdp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:src="@drawable/personal_care"
-            app:civ_border_width="@dimen/_1sdp" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:drawableEnd="@drawable/icon_right_arrow"
-            android:text="PERSONAL CARE"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12ssp"
-            android:textStyle="bold" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:background="@color/grey" />
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+</FrameLayout>

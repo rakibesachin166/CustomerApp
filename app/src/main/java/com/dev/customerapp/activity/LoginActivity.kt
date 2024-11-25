@@ -13,7 +13,9 @@ import androidx.core.content.ContextCompat
 import com.dev.customerapp.api.ApiClient
 import com.dev.customerapp.databinding.ActivityLoginBinding
 import com.dev.customerapp.models.UserDataModel
+import com.dev.customerapp.models.VendorModel
 import com.dev.customerapp.response.CommonResponse
+import com.dev.customerapp.response.LoginResponse
 import com.dev.customerapp.utils.AgreementTxt
 import com.dev.customerapp.utils.Constant
 import com.dev.customerapp.utils.FunctionsConstant
@@ -55,22 +57,44 @@ class LoginActivity : AppCompatActivity() {
             }
             val call = ApiClient.getRetrofitInstance().loginUser(username, password)
 
-            call.enqueue(object : Callback<CommonResponse<UserDataModel>> {
+            call.enqueue(object : Callback<CommonResponse<LoginResponse>> {
                 override fun onResponse(
-                    call: Call<CommonResponse<UserDataModel>>,
-                    response: Response<CommonResponse<UserDataModel>>
+                    call: Call<CommonResponse<LoginResponse>>,
+                    response: Response<CommonResponse<LoginResponse>>
                 ) {
                     if (response.isSuccessful && response.body() != null) {
                         val responseBody = response.body()!!
 
                         if (responseBody.code == 200) {
-                            val userDataModel = responseBody.data
-
-                            Constant(this@LoginActivity).saveUserData(userDataModel)
+                            val loginResponseModel = responseBody.data
                             showSuccessToast(responseBody.message)
+                            when(loginResponseModel.type){
+                                1->{
+                                    // $type = 1;// User
+                                    Constant(this@LoginActivity).saveUserData(loginResponseModel.user)
+                                    changeActivity( MainActivity::class.java,false)
+                                }
+                                2-> {
+                                    // $type = 2;  // Employee
+                                    Constant(this@LoginActivity).saveEmployeeData(loginResponseModel.employee)
+                                    changeActivity( EmployeeMainActivity::class.java,false)
 
-                            changeActivity(MainActivity::class.java, false)
+                                }
+                                3->{
+                                    //   $type = 3;  // Vendor
+                                    Constant(this@LoginActivity).saveVendorData(loginResponseModel.vendor)
+                                    changeActivity( VendorMainActivity::class.java,false)
+                                }
+                                4->{
+                                    // $type = 4;  // Customer
+                                    Constant(this@LoginActivity).saveCustomerData(loginResponseModel.customer)
+                                    changeActivity( CustomerMainActivity::class.java,false)
+                                }
+
+                            }
+
                             finish()
+
 
                         } else {
                             showErrorToast(responseBody.message)
@@ -82,7 +106,7 @@ class LoginActivity : AppCompatActivity() {
                     progressDialog?.dismiss()
                 }
 
-                override fun onFailure(call: Call<CommonResponse<UserDataModel>>, t: Throwable) {
+                override fun onFailure(call: Call<CommonResponse<LoginResponse>>, t: Throwable) {
                     progressDialog?.dismiss()
                     showErrorToast(t.message.toString())
                 }
