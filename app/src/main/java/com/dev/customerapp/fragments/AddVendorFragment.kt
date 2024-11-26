@@ -33,13 +33,31 @@ class AddVendorFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAddVendorBinding.inflate(LayoutInflater.from(requireContext()))
         return binding.root
     }
 
+    private var role: Int = 0
+    private var userId: Int = 0
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val loginType = Constant(requireContext()).getLoginType()
+
+        if (loginType == 0 || loginType == 1) {
+            val loginUser = Constant(requireContext()).getUserData()
+            role = if (loginUser?.userType == 1) 2 else 1
+            userId = loginUser!!.userId
+        } else if (loginType == 2) {
+            val loginUser = Constant(requireContext()).getEmployeeData()
+            role = 1
+            userId = loginUser.employeeId!!
+
+        } else {
+            throw NullPointerException("Do Not Have Access To Create Vendor Without Login")
+        }
+
 
 
         apiService = ApiClient.getRetrofitInstance()
@@ -52,7 +70,7 @@ class AddVendorFragment : Fragment() {
             val vendorType = binding.spinnerVendorType.selectedItem.toString()
             val businessCategory = binding.editTextBusinessCategory.text.toString().trim()
             val pin = binding.editTextPIN.text.toString().trim()
-
+            val password = binding.passwordEditText.text.toString().trim()
 
             if (vendorName.isEmpty()) {
                 binding.editTextVendorName.requestFocus()
@@ -95,19 +113,25 @@ class AddVendorFragment : Fragment() {
                 binding.inputLayoutPIN.error = "Enter PinCode."
                 return@setOnClickListener
             }
-          val loginUser =   Constant(requireContext()).getUserData()
 
-            val vendorRole = if (loginUser?.userType == 1) 2 else 1
+            if (password.isEmpty() || password.length < 6) {
+                binding.passwordEditText.requestFocus()
+                binding.passwordEditText.error = "Enter a Password With 6 Digits"
+                return@setOnClickListener
+            }
 
-            val vendor = VendorModel(
+
+            val vendor = VendorModel(0,
                 vendorName,
                 firmName,
                 address,
                 mobileNumber,
                 vendorType,
-                vendorRole,
+                role,
                 businessCategory,
-                loginUser?.userId.toString(),
+                pin,
+                userId.toString(),
+                password,
                 ""
             )
             showProgressDialog(true)

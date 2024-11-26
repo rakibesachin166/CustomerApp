@@ -79,6 +79,7 @@ class Constant(private val context: Context) {
     fun clearUserData() {
         val editor = sharedPreferences.edit()
         editor.remove("user_data")
+        editor.remove("loginType")
         editor.apply()
     }
 

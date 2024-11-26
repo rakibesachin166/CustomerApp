@@ -9,8 +9,14 @@ import com.dev.customerapp.fragments.AddEmployeeFragment
 import com.dev.customerapp.fragments.AddProductCategoryFragment
 import com.dev.customerapp.fragments.AddVendorFragment
 import com.dev.customerapp.fragments.CreateIDProofFragment
+import com.dev.customerapp.fragments.CustomerDetailsFragment
+import com.dev.customerapp.fragments.CustomerListFragment
+import com.dev.customerapp.fragments.EmployeeDetailsFragment
+import com.dev.customerapp.fragments.EmployeeListFragment
 import com.dev.customerapp.fragments.EmployeeStatusFragment
 import com.dev.customerapp.fragments.UserListFragment
+import com.dev.customerapp.fragments.VendorDetailsFragment
+import com.dev.customerapp.fragments.VendorListFragment
 import com.dev.customerapp.fragments.WebViewFragment
 
 class FragmentActivity : AppCompatActivity() {
@@ -28,7 +34,21 @@ class FragmentActivity : AppCompatActivity() {
             "employee" -> changeFragment(AddEmployeeFragment())
             "manage_employee_status" -> changeFragment(EmployeeStatusFragment())
             "userList" -> changeFragment(UserListFragment())
+            "employeeCustomerList" -> changeFragment(CustomerListFragment())
+            "employeeVendorList" -> changeFragment(VendorListFragment())
             "add_product_category" -> changeFragment(AddProductCategoryFragment())
+            "customerDetails" -> {
+                val customerId = intent.getIntExtra("customerId",0)
+                changeFragment(CustomerDetailsFragment(customerId))
+            }
+            "vendorDetails" -> {
+                val vendorId = intent.getIntExtra("vendorId",0)
+                changeFragment(VendorDetailsFragment(vendorId))
+            }
+            "employeeDetails" -> {
+                val employeeId = intent.getIntExtra("employeeId",0)
+                changeFragment(EmployeeDetailsFragment(employeeId))
+            }
             "contact-us" -> changeFragment(WebViewFragment("https://www.aasthagroups.com/contact-us/"))
             else -> {}
         }

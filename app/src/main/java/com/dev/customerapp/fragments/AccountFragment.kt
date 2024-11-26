@@ -12,6 +12,7 @@ import com.dev.customerapp.activity.FragmentActivity
 import com.dev.customerapp.R
 import com.dev.customerapp.activity.LoginActivity
 import com.dev.customerapp.activity.MainActivity
+import com.dev.customerapp.activity.UserDetailsActivity
 import com.dev.customerapp.api.ApiClient
 import com.dev.customerapp.databinding.FragmentAccountBinding
 import com.dev.customerapp.utils.Constant
@@ -26,8 +27,7 @@ class AccountFragment : Fragment() {
     private var currentPickMode: Int = 0
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentAccountBinding.inflate(inflater, container, false)
         return binding.root
@@ -50,7 +50,26 @@ class AccountFragment : Fragment() {
                 else -> "Unknown User Type"
             }
 
-            binding.tvUserType.text = "$userTypeText ${getUserFullId(userData.userType, userData.userId)}"
+            binding.tvUserType.text =
+                "$userTypeText ${getUserFullId(userData.userType, userData.userId)}"
+
+            binding.linearLayout.setOnClickListener {
+                val intent = Intent(requireActivity(), UserDetailsActivity::class.java)
+                intent.putExtra("userId", userData.userId)
+                startActivity(intent)
+            }
+
+            binding.idProofTextView.setOnClickListener {
+                val intent = Intent(requireContext(), FragmentActivity::class.java)
+                intent.putExtra("fragment_type", "idProof")
+                startActivity(intent)
+            }
+
+            binding.userProfile.setOnClickListener {
+                val intent = Intent(requireActivity(), UserDetailsActivity::class.java)
+                intent.putExtra("userId", userData.userId)
+                startActivity(intent)
+            }
 
 
         } else {
@@ -58,14 +77,11 @@ class AccountFragment : Fragment() {
                 requireContext().changeActivity(LoginActivity::class.java, true)
             })
             binding.idProofTextView.visibility = View.GONE
+            binding.userProfile.visibility = View.GONE
             binding.logoutTextView.visibility = View.VISIBLE
         }
 
-        binding.idProofTextView.setOnClickListener {
-            val intent = Intent(requireContext(), FragmentActivity::class.java)
-            intent.putExtra("fragment_type", "idProof")
-            startActivity(intent)
-        }
+
 
 
         binding.logoutTextView.setOnClickListener {
@@ -97,7 +113,6 @@ class AccountFragment : Fragment() {
         bottomSheetDialog.setContentView(view)
         bottomSheetDialog
     }
-
 
 
 }

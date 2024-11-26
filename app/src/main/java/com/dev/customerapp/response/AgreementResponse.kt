@@ -7,6 +7,6 @@ import com.google.gson.annotations.SerializedName
 
 data class AgreementResponse(
     @SerializedName("agreement") val agreement: String?,
-    @SerializedName("isAccepted") val isAccepted: String,
+    @SerializedName("isAccepted") val isAccepted: Int,
     @SerializedName("agreementData") val agreementData: AgreementModel?,
 )

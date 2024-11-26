@@ -1,20 +1,15 @@
 package com.dev.customerapp.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.dev.customerapp.R
 import com.dev.customerapp.SetEmployeeStatus
 import com.dev.customerapp.adapter.EmployeeStatusManageAdapter
 import com.dev.customerapp.api.ApiClient
 import com.dev.customerapp.databinding.FragmentEmployeeStatusBinding
-import com.dev.customerapp.databinding.FragmentUserListBinding
 import com.dev.customerapp.models.EmployeeModel
-import com.dev.customerapp.models.StatePostingDataModel
 import com.dev.customerapp.response.CommonResponse
-import com.dev.customerapp.utils.progressDialog
 import com.dev.customerapp.utils.showErrorToast
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,10 +19,8 @@ import retrofit2.Response
 class EmployeeStatusFragment : BaseFragment(), SetEmployeeStatus {
     private lateinit var binding: FragmentEmployeeStatusBinding
     private lateinit var employeeStatusManageAdapter: EmployeeStatusManageAdapter
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private lateinit var employeeList: MutableList<EmployeeModel>
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,10 +33,10 @@ class EmployeeStatusFragment : BaseFragment(), SetEmployeeStatus {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getStateList()
+        getEmployeeWithPendingStatus()
     }
 
-    private fun getStateList() {
+    private fun getEmployeeWithPendingStatus() {
         showProgressDialog(true)
         ApiClient.getRetrofitInstance().getEmployeeWithPendingStatus().enqueue(object :
             Callback<CommonResponse<List<EmployeeModel>>> {
@@ -55,8 +48,9 @@ class EmployeeStatusFragment : BaseFragment(), SetEmployeeStatus {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null && responseBody.code == 200) {
+                        employeeList = responseBody.data.toMutableList()
                         employeeStatusManageAdapter = EmployeeStatusManageAdapter(
-                            responseBody.data,
+                            employeeList,
                             this@EmployeeStatusFragment
                         )
                         binding.employeeStatusRecyclerView.adapter = employeeStatusManageAdapter
@@ -91,6 +85,7 @@ class EmployeeStatusFragment : BaseFragment(), SetEmployeeStatus {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
                         if (responseBody != null && responseBody.code == 200) {
+                            employeeList.removeAt(position)
                             employeeStatusManageAdapter.notifyItemRemoved(position)
                         } else {
                             requireContext().showErrorToast(responseBody!!.message)

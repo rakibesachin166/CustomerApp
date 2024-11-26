@@ -11,7 +11,6 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
@@ -21,8 +20,8 @@ import com.dev.customerapp.R
 import com.dev.customerapp.api.ApiClient
 import com.dev.customerapp.databinding.ActivityMainBinding
 import com.dev.customerapp.fragments.AccountFragment
-import com.dev.customerapp.fragments.CategoriesFragment
 import com.dev.customerapp.fragments.AddLocationFragment
+import com.dev.customerapp.fragments.CategoriesFragment
 import com.dev.customerapp.fragments.HomeFragment
 import com.dev.customerapp.models.UserDataModel
 import com.dev.customerapp.response.AgreementResponse
@@ -41,7 +40,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private var binding: ActivityMainBinding? = null
     private lateinit var drawerLayout: DrawerLayout
@@ -218,13 +217,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun changeFragment(fragment: Fragment) {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.mainFragmentLayout, fragment)
-            .addToBackStack(null)
-            .commit()
-    }
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -253,7 +246,8 @@ class MainActivity : AppCompatActivity() {
             menu?.findItem(R.id.navigation_add_employee)?.isVisible = false
             menu?.findItem(R.id.navigation_manage_employee_status)?.isVisible = false
 
-        } else {
+        }
+        else {
             headerView.setOnClickListener {
                 val intent = Intent(this@MainActivity, UserDetailsActivity::class.java)
                 intent.putExtra("userId", userData.userId)
@@ -350,7 +344,6 @@ class MainActivity : AppCompatActivity() {
                 Constant(this@MainActivity).getCustomerData()
                 changeActivity(CustomerMainActivity::class.java, false)
             }
-
             else -> {
                 val userData = Constant(this@MainActivity).getUserData()
                 setUpHomePage(userData)
@@ -418,6 +411,15 @@ class MainActivity : AppCompatActivity() {
         dialog.setContentView(dialogView)
 
         val webView: WebView = dialogView.findViewById(R.id.dialogWebView)
+        webView.settings.setJavaScriptEnabled(true)
+
+        webView.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                view.loadUrl(url)
+                return true
+            }
+        }
+
         val agreeButton: AppCompatButton =
             dialogView.findViewById(com.dev.customerapp.R.id.agreeButton)
         webView.webViewClient = WebViewClient()
@@ -451,7 +453,7 @@ class MainActivity : AppCompatActivity() {
                         if (responseBody.code == 200) {
                             var agreement = " "
 
-                            if (responseBody.data.isAccepted == "0") {
+                            if (responseBody.data.isAccepted == 0) {
                                 agreement = responseBody.data.agreement!!
                                 //Not accepted
                                 webView.loadData(agreement, "text/html; charset=utf-8", "UTF-8")

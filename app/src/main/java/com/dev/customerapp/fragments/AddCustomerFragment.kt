@@ -31,6 +31,8 @@ class AddCustomerFragment : Fragment() {
     private lateinit var apiService: ApiService
     private var progressDialog: Dialog? = null
     private lateinit var datePickerDialog: DatePickerDialog
+    private var userId = 0
+    private var role = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +44,25 @@ class AddCustomerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val loginType = Constant(requireContext()).getLoginType()
+        when (loginType) {
+            0, 1 -> {
+                val loginUser = Constant(requireContext()).getUserData()
+                role = if (loginUser?.userType == 1) 2 else 1
+                userId = loginUser!!.userId
+            }
 
+            2 -> {
+                val loginUser = Constant(requireContext()).getEmployeeData()
+                role = 1
+                userId = loginUser.employeeId!!
+
+            }
+
+            else -> {
+                throw NullPointerException("Do Not Have Access To Create Vendor Without Login")
+            }
+        }
 
 
         apiService = ApiClient.getRetrofitInstance()
@@ -62,7 +82,7 @@ class AddCustomerFragment : Fragment() {
             val block = binding.editTextBlock.text.toString().trim()
             val district = binding.editTextDistrict.text.toString().trim()
             val pinCode = binding.editTextPinCode.text.toString().trim()
-
+            val password = binding.passwordEditText.text.toString().trim()
 
             if (name.isEmpty()) {
                 binding.editTextName.requestFocus()
@@ -125,8 +145,12 @@ class AddCustomerFragment : Fragment() {
                 binding.editTextPinCode.error = "Enter a valid 6-digit PinCode."
                 return@setOnClickListener
             }
-
-            val customer = CustomerModel(
+            if (password.isEmpty() || password.length < 6) {
+                binding.passwordEditText.requestFocus()
+                binding.passwordEditText.error = "Enter a Password With 6 Digits"
+                return@setOnClickListener
+            }
+            val customer = CustomerModel(0,
                 name,
                 dob,
                 mobile,
@@ -137,7 +161,9 @@ class AddCustomerFragment : Fragment() {
                 block,
                 district,
                 pinCode.toInt(),
-                Constant(requireContext()).getUserData()?.userId.toString(),
+                password,
+                userId.toString(),
+                role,
                 ""
             )
             showProgressDialog(true)

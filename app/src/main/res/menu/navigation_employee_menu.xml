@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/icon_home"
+        android:title="Home" />
+
+
+    <item
+        android:id="@+id/navigation_add_customer"
+        android:icon="@drawable/icon_person"
+        android:title="Add Customer" />
+    <item
+        android:id="@+id/navigation_employee_customer_list"
+        android:icon="@drawable/icon_person"
+        android:title="Customer List"
+        />
+    <item
+        android:id="@+id/navigation_add_vendor"
+        android:icon="@drawable/icon_add_vendor"
+        android:title="Add Vendor"
+        />
+    <item
+        android:id="@+id/navigation_employee_vendor_list"
+        android:icon="@drawable/icon_add_vendor"
+        android:title="Vendor List"
+        />
+    <item
+        android:id="@+id/navigationLogOut"
+        android:icon="@drawable/icon_logout"
+        android:title="Logout"
+        />
+
+
+</menu>

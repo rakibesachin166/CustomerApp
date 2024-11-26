@@ -62,6 +62,7 @@ interface ApiService {
     fun getEmployeeWithPendingStatus(): Call<CommonResponse<List<EmployeeModel>>>
 
     @POST("setEmployeeStatus")
+    @FormUrlEncoded
     fun setEmployeeStatus(
         @Field("employeeId") employeeId: Int,
         @Field("employeeStatus") employeeStatus: Int
@@ -71,7 +72,6 @@ interface ApiService {
     @POST("getDivisionList")
     @FormUrlEncoded
     fun getDivisionList(@Field("stateId") stateId: Int): Call<CommonResponse<List<DivisionalPostingDataModel>>>
-
 
     @POST("getDistrictList")
     @FormUrlEncoded
@@ -144,25 +144,18 @@ interface ApiService {
         @Field("agreement") agreement: String,
     ): Call<CommonResponse<String>>
 
-
     @POST("getUserProfile")
     @FormUrlEncoded
     fun getUserProfile(
         @Field("userId") userId: Int,
     ): Call<CommonResponse<UserDataModel>>
 
-
-
     @POST("getTopCategoryList")
     fun getTopCategoryList(): Call<CommonResponse<List<TopCategoryModel>>>
-
 
     @POST("getChild1CategoryList")
     @FormUrlEncoded
     fun getChild1CategoryList(@Field("topCategoryId") topCategoryId: Int): Call<CommonResponse<List<Child1CategoryModel>>>
-
-
-
 
     @POST("addCategory")
     @FormUrlEncoded
@@ -176,7 +169,6 @@ interface ApiService {
         @Field("divisionProfit") divisionProfit: Int,
         @Field("districtProfit") districtProfit: Int,
         @Field("blockProfit") blockProfit: Int,
-
     ): Call<CommonResponse<String>>
 
     @Multipart
@@ -188,4 +180,42 @@ interface ApiService {
     @POST("getNestedCategories")
     fun getNestedCategories(): Call<CommonResponse<List<TopCategoryModel>>>
 
+    @POST("getCustomersList")
+    @FormUrlEncoded
+    fun getCustomersList(
+        @Field("createdBy") createdBy: Int,
+        @Field("role") role: Int,
+    ): Call<CommonResponse<List<CustomerModel>>>
+    @POST("getVendorsList")
+    @FormUrlEncoded
+    fun getVendorsList(
+        @Field("createdBy") createdBy: Int,
+        @Field("role") role: Int,
+    ): Call<CommonResponse<List<VendorModel>>>
+
+    @POST("getEmployeesList")
+    @FormUrlEncoded
+    fun getEmployeesList(
+        @Field("createdBy") createdBy: Int,
+        @Field("role") role: Int,
+    ): Call<CommonResponse<List<EmployeeModel>>>
+
+    @POST("getVendorProfile")
+    @FormUrlEncoded
+    fun getVendorProfile(
+        @Field("vendorId") vendorId: Int
+    ): Call<CommonResponse<VendorModel>>
+
+    @POST("getEmployeeProfile")
+    @FormUrlEncoded
+    fun getEmployeeProfile(
+        @Field("employeeId") employeeId: Int
+    ): Call<CommonResponse<EmployeeModel>>
+
+
+    @POST("getCustomerProfile")
+    @FormUrlEncoded
+    fun getCustomerProfile(
+        @Field("customerId") customerId: Int
+    ): Call<CommonResponse<CustomerModel>>
 }

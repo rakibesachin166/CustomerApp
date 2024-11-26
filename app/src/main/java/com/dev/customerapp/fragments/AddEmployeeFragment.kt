@@ -130,9 +130,9 @@ class AddEmployeeFragment : Fragment() {
                 binding.employeeEditTextPinCode.error = "Enter a valid 6-digit PinCode."
                 return@setOnClickListener
             }
-            if (password.isEmpty()) {
+            if (password.isEmpty() || password.length<6) {
                 binding.passwordEditText.requestFocus()
-                binding.passwordEditText.error = "Enter a Password"
+                binding.passwordEditText.error = "Enter a Password With 6 Digits"
                 return@setOnClickListener
             }
             showProgressDialog(true)
@@ -169,9 +169,13 @@ class AddEmployeeFragment : Fragment() {
                             requireContext().showSuccessToast(message.toString())
                             requireActivity().onBackPressed()
                         }
-                        if (code == 201) {
+                        else {
                             requireContext().showErrorToast(message.toString())
                         }
+                    }
+                    else
+                    {
+                        requireContext().showErrorToast("Error While Creating Employee")
                     }
                 }
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.EmployeeStatusFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.EmployeeListFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,19 +16,20 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:layout_marginTop="@dimen/_10sdp"
-            android:text="No Employee With Pending Status"
+            android:text="No Employees Available"
             android:textColor="@android:color/holo_red_dark"
             android:textSize="@dimen/_14ssp"
             android:textStyle="bold" />
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/employeeStatusRecyclerView"
+            android:id="@+id/employeesRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_manage_employee_status" />
+            tools:listitem="@layout/item_vendor_list"
+            />
 
 
     </RelativeLayout>

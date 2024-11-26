@@ -90,7 +90,16 @@
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:orientation="vertical">
-
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/userProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/icon_right_arrow"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:paddingVertical="@dimen/_8sdp"
+                    android:text="User Profile"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold" />
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/idProofTextView"
                     android:layout_width="match_parent"

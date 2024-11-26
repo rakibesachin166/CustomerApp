@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -178,7 +178,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_8sdp"
                             android:elevation="@dimen/_4sdp"
-                            android:hint="PIN">
+                            android:hint="Pincode">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/editTextPIN"
@@ -190,7 +190,24 @@
                                 android:textSize="@dimen/_12ssp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:elevation="@dimen/_4sdp"
+                            android:hint="Password*"
+                            app:passwordToggleEnabled="true">
 
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/passwordEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPassword"
+                                android:singleLine="true"
+                                android:textSize="@dimen/_12ssp" />
+                        </com.google.android.material.textfield.TextInputLayout>
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/vendorSubmitButton"
                             android:layout_width="match_parent"
@@ -203,8 +220,10 @@
                             android:textSize="@dimen/_12ssp" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
+
+
                 </ScrollView>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </com.google.android.material.card.MaterialCardView>
     </androidx.appcompat.widget.LinearLayoutCompat>
-</RelativeLayout>
+</FrameLayout>

@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
 import com.dev.customerapp.R
 
 open class BaseActivity : AppCompatActivity() {
@@ -28,5 +29,13 @@ open class BaseActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+     fun changeFragment(fragment: Fragment) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.mainFragmentLayout, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 }
