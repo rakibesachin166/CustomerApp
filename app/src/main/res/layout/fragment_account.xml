@@ -104,6 +104,7 @@
                     android:id="@+id/idProofTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:drawableEnd="@drawable/icon_right_arrow"
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:paddingVertical="@dimen/_8sdp"

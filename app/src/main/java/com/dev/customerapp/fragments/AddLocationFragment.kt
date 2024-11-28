@@ -46,7 +46,7 @@ class AddLocationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View{
-        // Inflate the layout for this fragment
+
         binding = FragmentAddLocationBinding.inflate(LayoutInflater.from(requireContext()))
         return binding.root
     }

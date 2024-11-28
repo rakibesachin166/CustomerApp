@@ -40,7 +40,7 @@ class VendorListFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         val loginType = Constant(requireContext()).getLoginType()
         when (loginType) {
-            0, 1 -> {
+             1 -> {
                 val loginUser = Constant(requireContext()).getUserData()
                 role = if (loginUser?.userType == 1) 2 else 1
                 userId = loginUser!!.userId

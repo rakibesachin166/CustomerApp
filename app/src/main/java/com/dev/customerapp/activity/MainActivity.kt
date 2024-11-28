@@ -83,14 +83,14 @@ class MainActivity : BaseActivity() {
 
                 R.id.navigation_add_customer -> {
                     val intent = Intent(this, FragmentActivity::class.java)
-                    intent.putExtra("fragment_type", "customer")
+                    intent.putExtra("fragment_type", "add_customer")
                     startActivity(intent)
 
                 }
 
                 R.id.navigation_add_vendor -> {
                     val intent = Intent(this, FragmentActivity::class.java)
-                    intent.putExtra("fragment_type", "vendor")
+                    intent.putExtra("fragment_type", "add_vendor")
                     startActivity(intent)
                 }
 
@@ -117,7 +117,7 @@ class MainActivity : BaseActivity() {
 
                 R.id.navigation_add_employee -> {
                     val intent = Intent(this, FragmentActivity::class.java)
-                    intent.putExtra("fragment_type", "employee")
+                    intent.putExtra("fragment_type", "add_employee")
                     startActivity(intent)
                 }
 
@@ -139,6 +139,11 @@ class MainActivity : BaseActivity() {
                     startActivity(intent)
                 }
 
+                R.id.navigation_setting -> {
+                    val intent = Intent(this, FragmentActivity::class.java)
+                    intent.putExtra("fragment_type", "change_setting")
+                    startActivity(intent)
+                }
                 R.id.navigationLogOut -> {
                     bottomSheet.show()
                 }
@@ -298,14 +303,7 @@ class MainActivity : BaseActivity() {
                     menu?.findItem(R.id.navigation_user_list)?.isVisible = false
                     menu?.findItem(R.id.navigation_add_product_category)?.isVisible = false
                 }
-                //Employee User
-                6 -> {
-                    menu?.findItem(R.id.navigation_add_vendor)?.isVisible = true
-                    menu?.findItem(R.id.navigation_add_customer)?.isVisible = true
-                    menu?.findItem(R.id.navigation_agreement)?.isVisible = false
-                    menu?.findItem(R.id.navigation_user_list)?.isVisible = false
-                    menu?.findItem(R.id.navigation_add_product_category)?.isVisible = false
-                }
+
 
                 else -> {
                     println("Unknown user type")

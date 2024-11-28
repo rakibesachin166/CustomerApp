@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -21,33 +22,32 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class EmployeeMainActivity : BaseActivity() {
-    private var binding: ActivityEmployeeMainBinding? = null
+    private lateinit var binding: ActivityEmployeeMainBinding
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
     private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var header: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityEmployeeMainBinding.inflate(layoutInflater)
-        setContentView(binding?.root)
-        setSupportActionBar(binding?.toolbar)
-        drawerLayout = binding?.drawerLayout!!
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
+        drawerLayout = binding.drawerLayout
         actionBarDrawerToggle = ActionBarDrawerToggle(
             this,
             drawerLayout,
-            binding?.toolbar,
+            binding.toolbar,
             R.string.nav_open,
             R.string.nav_close
         )
 
         drawerLayout.addDrawerListener(actionBarDrawerToggle)
-
-
         supportActionBar?.setDisplayShowTitleEnabled(false)
         actionBarDrawerToggle.syncState()
 
-        binding?.navigationView!!.setNavigationItemSelectedListener { item ->
+        binding.navigationView.setNavigationItemSelectedListener { item ->
             closeDrawer()
             when (item.itemId) {
                 R.id.navigation_add_user -> {
@@ -56,10 +56,11 @@ class EmployeeMainActivity : BaseActivity() {
 
                 R.id.navigation_add_customer -> {
                     val intent = Intent(this, FragmentActivity::class.java)
-                    intent.putExtra("fragment_type", "customer")
+                    intent.putExtra("fragment_type", "add_customer")
                     startActivity(intent)
 
                 }
+
                 R.id.navigation_employee_customer_list -> {
                     val intent = Intent(this, FragmentActivity::class.java)
                     intent.putExtra("fragment_type", "employeeCustomerList")
@@ -68,7 +69,7 @@ class EmployeeMainActivity : BaseActivity() {
 
                 R.id.navigation_add_vendor -> {
                     val intent = Intent(this, FragmentActivity::class.java)
-                    intent.putExtra("fragment_type", "vendor")
+                    intent.putExtra("fragment_type", "add_vendor")
                     startActivity(intent)
                 }
 
@@ -84,20 +85,24 @@ class EmployeeMainActivity : BaseActivity() {
                 }
 
 
-
                 R.id.navigationLogOut -> {
                     bottomSheet.show()
                 }
             }
             false
         }
+        header = binding.navigationView.getHeaderView(0)
+
+        val userNameTxt: AppCompatTextView = header.findViewById(R.id.tvName)
+
+        userNameTxt.text = Constant(this).getEmployeeData().employeeName
 
         if (savedInstanceState == null) {
             changeFragment(HomeFragment())
         }
 
-        bottomNavigationView = binding?.bottomNavigation!!
-//        bottomNavigationView.setOnNavigationItemSelectedListener(navListener)
+        bottomNavigationView = binding.bottomNavigation
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener)
         changeFragment(HomeFragment())
     }
 

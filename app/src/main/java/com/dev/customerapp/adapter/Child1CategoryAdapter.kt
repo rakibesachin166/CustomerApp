@@ -1,5 +1,6 @@
 package com.dev.customerapp.adapter
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dev.customerapp.R
+import com.dev.customerapp.activity.FragmentActivity
 import com.dev.customerapp.models.Child1CategoryModel
 
 
@@ -25,23 +27,34 @@ class Child1CategoryAdapter(
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = categories[holder.adapterPosition]
         holder.categoryName.text = category.child1CategoryName
-        holder.itemView.setOnClickListener {
+        holder.expandIcon.setOnClickListener {
 
             category.isExpanded = !category.isExpanded
             holder.expandIcon.setImageResource(if (category.isExpanded) R.drawable.icon_expand_less else R.drawable.icon_expand_more)
             holder.child2CategoryRecyclerView.visibility =
                 if (category.isExpanded) View.VISIBLE else View.GONE
+
+
         }
-        if (category.child2CategoryList != null) {
-            if (category.child2CategoryList.isNotEmpty()) {
+
+        holder.itemView.setOnClickListener{
+            val intent =  Intent(holder.itemView.context, FragmentActivity::class.java).apply {
+                putExtra("fragment_type", "vendor_list_purchase_product")
+                putExtra("topCategoryId", category.topCategoryId)
+                putExtra("child1CategoryId", category.child1CategoryId)
+                putExtra("child2CategoryId", 0)
+            }
+            holder.itemView.context.startActivity(intent)
+        }
+        if (category.child2CategoryList != null && category.child2CategoryList.isNotEmpty()) {
+
                 Log.d("sachin", category.toString())
                 holder.child2CategoryRecyclerView.adapter =
                     Child2CategoryAdapter(category.child2CategoryList)
-            } else {
-                Log.d("sachin", "Empty category")
-                holder.child2CategoryRecyclerView.adapter = Child2CategoryAdapter(emptyList())
-            }
-        } else {
+
+        }
+        else
+        {
             Log.d("sachin", "Empty category")
             holder.child2CategoryRecyclerView.adapter = Child2CategoryAdapter(emptyList())
         }

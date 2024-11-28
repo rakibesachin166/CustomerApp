@@ -1,5 +1,6 @@
 package com.dev.customerapp.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dev.customerapp.R
+import com.dev.customerapp.activity.FragmentActivity
 import com.dev.customerapp.models.Child1CategoryModel
 import com.dev.customerapp.models.Child2CategoryModel
 
@@ -34,8 +36,14 @@ class Child2CategoryAdapter(
             categoryName.text = category.child2CategoryName
 
             itemView.setOnClickListener {
-
+                val intent = Intent(itemView.context, FragmentActivity::class.java)
+                intent.putExtra("fragment_type", "vendor_list_purchase_product")
+                intent.putExtra("topCategoryId", category.topCategoryId)
+                intent.putExtra("child1CategoryId", category.child1CategoryId)
+                intent.putExtra("child2CategoryId", category.child2CategoryId)
+                itemView.context.startActivity(intent)
             }
+
         }
     }
 }

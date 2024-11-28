@@ -32,19 +32,19 @@ class Constant(private val context: Context) {
         editor.apply()
     }
 
-    fun saveVendorData(employeeData: VendorModel ) {
+    fun saveVendorData(vendorData: VendorModel ) {
         val editor = sharedPreferences.edit()
         val gson = Gson()
-        val json = gson.toJson(employeeData)
+        val json = gson.toJson(vendorData)
         editor.putString("user_data", json)
         editor.putInt("loginType", 3)
         editor.apply()
     }
 
-    fun saveCustomerData(employeeData: CustomerModel ) {
+    fun saveCustomerData(customerData: CustomerModel ) {
         val editor = sharedPreferences.edit()
         val gson = Gson()
-        val json = gson.toJson(employeeData)
+        val json = gson.toJson(customerData)
         editor.putString("user_data", json)
         editor.putInt("loginType", 4)
         editor.apply()
@@ -81,6 +81,35 @@ class Constant(private val context: Context) {
         editor.remove("user_data")
         editor.remove("loginType")
         editor.apply()
+    }
+
+    fun getLoginUserIdAndLoginType(): Pair<Int, Int> {
+
+        when(val loginType = sharedPreferences.getInt("loginType", 0)){
+            1->{
+                val user = getUserData()
+                return Pair(user!!.userId, loginType)
+            }
+            2->{
+                val user = getEmployeeData()
+                return Pair(user.employeeId, loginType)
+            }
+
+            3->{
+                val user = getVendorData()
+                return Pair(user.vendorId, loginType)
+            }
+            4->{
+                val user = getCustomerData()
+                return Pair(user.customerId, loginType)
+            }
+            else -> {
+                throw NullPointerException("No Login User Found")
+            }
+
+        }
+
+
     }
 
 }

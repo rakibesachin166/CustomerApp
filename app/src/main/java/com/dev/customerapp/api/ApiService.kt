@@ -2,11 +2,13 @@ package com.dev.customerapp.api;
 
 import com.dev.customerapp.models.BlockPostingDataModel
 import com.dev.customerapp.models.Child1CategoryModel
+import com.dev.customerapp.models.Child2CategoryModel
 import com.dev.customerapp.models.CreateUserModel
 import com.dev.customerapp.models.CustomerModel
 import com.dev.customerapp.models.DistrictPostingDataModel
 import com.dev.customerapp.models.DivisionalPostingDataModel
 import com.dev.customerapp.models.EmployeeModel
+import com.dev.customerapp.models.ProductModel
 import com.dev.customerapp.models.StatePostingDataModel
 import com.dev.customerapp.models.TopCategoryModel
 import com.dev.customerapp.models.UserDataModel
@@ -16,7 +18,6 @@ import com.dev.customerapp.response.CommonResponse
 import com.dev.customerapp.response.CreateEmployeeData
 import com.dev.customerapp.response.CreateUserData
 import com.dev.customerapp.response.LoginResponse
-import com.dev.customerapp.utils.ResponseHandler
 import com.dev.customerapp.response.PhotoResponse
 import okhttp3.MultipartBody
 import okhttp3.Response
@@ -47,13 +48,13 @@ interface ApiService {
     ): Call<CommonResponse<UserDataModel>>
 
     @POST("createCustomer")
-    fun addCustomer(@Body customerModel: CustomerModel): Call<ResponseHandler<List<CustomerModel>>>
+    fun addCustomer(@Body customerModel: CustomerModel): Call<CommonResponse<String>>
 
     @POST("createEmployee")
-    fun addEmployee(@Body employeeModel: EmployeeModel) : Call<ResponseHandler<List<EmployeeModel>>>
+    fun addEmployee(@Body employeeModel: EmployeeModel) : Call<CommonResponse<List<EmployeeModel>>>
 
     @POST("createVendor")
-    fun addVendor(@Body vendorModel: VendorModel): Call<ResponseHandler<List<VendorModel>>>
+    fun addVendor(@Body vendorModel: VendorModel): Call<CommonResponse<List<VendorModel>>>
 
     @POST("getStateList")
     fun getStateList(): Call<CommonResponse<List<StatePostingDataModel>>>
@@ -157,6 +158,10 @@ interface ApiService {
     @FormUrlEncoded
     fun getChild1CategoryList(@Field("topCategoryId") topCategoryId: Int): Call<CommonResponse<List<Child1CategoryModel>>>
 
+    @POST("getChild2CategoryList")
+    @FormUrlEncoded
+    fun getChild2CategoryList(@Field("child1CategoryId") child2CategoryId: Int): Call<CommonResponse<List<Child2CategoryModel>>>
+
     @POST("addCategory")
     @FormUrlEncoded
     fun addCategory(
@@ -218,4 +223,17 @@ interface ApiService {
     fun getCustomerProfile(
         @Field("customerId") customerId: Int
     ): Call<CommonResponse<CustomerModel>>
+
+    @POST("createProduct")
+    fun createProduct(@Body productModel:ProductModel): Call<CommonResponse<String>>
+
+    @POST("getVendorListForPurchaseProductFragment")
+    @FormUrlEncoded
+    fun getVendorListForPurchaseProductFragment(
+        @Field("topCategoryId") topCategoryId : Int,
+        @Field("child1CategoryId") child1CategoryId: Int?,
+        @Field("child2CategoryId") child2CategoryId: Int?,
+    ): Call<CommonResponse<List<VendorModel>>>
+
+
 }

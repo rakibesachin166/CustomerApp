@@ -4,40 +4,33 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.dev.customerapp.SetEmployeeStatus
 import com.dev.customerapp.activity.FragmentActivity
-import com.dev.customerapp.databinding.ItemCustomerListBinding
-import com.dev.customerapp.databinding.ItemManageEmployeeStatusBinding
 import com.dev.customerapp.databinding.ItemVendorListBinding
 import com.dev.customerapp.models.VendorModel
-import com.dev.customerapp.models.EmployeeModel
 
-class VendorsAdapter(
+class VendorListForPurchaseProductAdapter(
     private val itemList: List<VendorModel>
-) : RecyclerView.Adapter<VendorsAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<VendorListForPurchaseProductAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemVendorListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(vendorModel: VendorModel) {
 
-            binding.vendorName.text = vendorModel.vendorName // Set user name
+            binding.vendorName.text = vendorModel.vendorName
             binding.vendorLocation.text =
                 vendorModel.vendorAddress
 
-
-            binding.root.setOnClickListener{
+            binding.root.setOnClickListener {
                 val intent = Intent(binding.root.context, FragmentActivity::class.java)
-                intent.putExtra("fragment_type", "vendorDetails")
                 intent.putExtra("vendorId", vendorModel.vendorId)
                 binding.root.context.startActivity(intent)
-
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        // Use the ViewBinding to inflate the layout
+
         val binding = ItemVendorListBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,

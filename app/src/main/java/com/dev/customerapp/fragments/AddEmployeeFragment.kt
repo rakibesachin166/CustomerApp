@@ -19,7 +19,6 @@ import com.dev.customerapp.response.CommonResponse
 import com.dev.customerapp.response.CreateEmployeeData
 import com.dev.customerapp.response.CreateUserData
 import com.dev.customerapp.utils.Constant
-import com.dev.customerapp.utils.ResponseHandler
 import com.dev.customerapp.utils.showErrorToast
 import com.dev.customerapp.utils.showSuccessToast
 import retrofit2.Call
@@ -130,7 +129,7 @@ class AddEmployeeFragment : Fragment() {
                 binding.employeeEditTextPinCode.error = "Enter a valid 6-digit PinCode."
                 return@setOnClickListener
             }
-            if (password.isEmpty() || password.length<6) {
+            if (password.isEmpty() || password.length < 6) {
                 binding.passwordEditText.requestFocus()
                 binding.passwordEditText.error = "Enter a Password With 6 Digits"
                 return@setOnClickListener
@@ -145,20 +144,18 @@ class AddEmployeeFragment : Fragment() {
                 address,
                 houseNo,
                 locality,
-                block,
                 userData!!.blockId!!,
-                district,
                 userData!!.districtId!!,
                 pinCode.toInt(),
                 password,
                 Constant(requireContext()).getUserData()!!.userId
             )
 
-            val call: Call<ResponseHandler<List<EmployeeModel>>> = apiService.addEmployee(employee)
-            call.enqueue(object : Callback<ResponseHandler<List<EmployeeModel>>> {
+            val call: Call<CommonResponse<List<EmployeeModel>>> = apiService.addEmployee(employee)
+            call.enqueue(object : Callback<CommonResponse<List<EmployeeModel>>> {
                 override fun onResponse(
-                    call: Call<ResponseHandler<List<EmployeeModel>>>,
-                    response: Response<ResponseHandler<List<EmployeeModel>>>
+                    call: Call<CommonResponse<List<EmployeeModel>>>,
+                    response: Response<CommonResponse<List<EmployeeModel>>>
                 ) {
                     showProgressDialog(false)
                     if (response.isSuccessful && response.body() != null) {
@@ -168,19 +165,16 @@ class AddEmployeeFragment : Fragment() {
                         if (code == 200) {
                             requireContext().showSuccessToast(message.toString())
                             requireActivity().onBackPressed()
-                        }
-                        else {
+                        } else {
                             requireContext().showErrorToast(message.toString())
                         }
-                    }
-                    else
-                    {
+                    } else {
                         requireContext().showErrorToast("Error While Creating Employee")
                     }
                 }
 
                 override fun onFailure(
-                    call: Call<ResponseHandler<List<EmployeeModel>>>,
+                    call: Call<CommonResponse<List<EmployeeModel>>>,
                     t: Throwable
                 ) {
                     showProgressDialog(false)

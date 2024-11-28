@@ -15,8 +15,8 @@ import com.dev.customerapp.api.ApiClient
 import com.dev.customerapp.api.ApiService
 import com.dev.customerapp.databinding.FragmentAddVendorBinding
 import com.dev.customerapp.models.VendorModel
+import com.dev.customerapp.response.CommonResponse
 import com.dev.customerapp.utils.Constant
-import com.dev.customerapp.utils.ResponseHandler
 import com.dev.customerapp.utils.showErrorToast
 import com.dev.customerapp.utils.showSuccessToast
 import com.dev.customerapp.utils.showToast
@@ -135,11 +135,11 @@ class AddVendorFragment : Fragment() {
                 ""
             )
             showProgressDialog(true)
-            val call: Call<ResponseHandler<List<VendorModel>>> = apiService.addVendor(vendor)
-            call.enqueue(object : Callback<ResponseHandler<List<VendorModel>>> {
+            val call: Call<CommonResponse<List<VendorModel>>> = apiService.addVendor(vendor)
+            call.enqueue(object : Callback<CommonResponse<List<VendorModel>>> {
                 override fun onResponse(
-                    call: Call<ResponseHandler<List<VendorModel>>>,
-                    response: Response<ResponseHandler<List<VendorModel>>>
+                    call: Call<CommonResponse<List<VendorModel>>>,
+                    response: Response<CommonResponse<List<VendorModel>>>
                 ) {
                     showProgressDialog(false)
                     if (response.isSuccessful && response.body() != null) {
@@ -157,7 +157,7 @@ class AddVendorFragment : Fragment() {
                 }
 
                 override fun onFailure(
-                    call: Call<ResponseHandler<List<VendorModel>>>,
+                    call: Call<CommonResponse<List<VendorModel>>>,
                     t: Throwable
                 ) {
                     showProgressDialog(false)

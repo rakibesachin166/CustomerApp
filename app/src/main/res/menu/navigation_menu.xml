@@ -71,7 +71,10 @@
         android:id="@+id/navigation_grievance_redress"
         android:icon="@drawable/icon_grievance"
         android:title="Grievance Redress" />
-
+    <item
+        android:id="@+id/navigation_setting"
+        android:icon="@drawable/icon_person"
+        android:title="Setting" />
     <item
         android:id="@+id/navigationLogOut"
         android:icon="@drawable/icon_logout"

@@ -1,23 +1,21 @@
 package com.dev.customerapp.fragments
 
-import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.dev.customerapp.R
-import com.dev.customerapp.activity.MainActivity
 import com.dev.customerapp.api.ApiClient
 import com.dev.customerapp.api.ApiService
 import com.dev.customerapp.databinding.FragmentAddCustomerBinding
 import com.dev.customerapp.models.CustomerModel
+import com.dev.customerapp.models.EmployeeModel
+import com.dev.customerapp.response.CommonResponse
+import com.dev.customerapp.response.CreateEmployeeData
 import com.dev.customerapp.utils.Constant
-import com.dev.customerapp.utils.ResponseHandler
 import com.dev.customerapp.utils.showErrorToast
 import com.dev.customerapp.utils.showSuccessToast
 import retrofit2.Call
@@ -31,8 +29,8 @@ class AddCustomerFragment : Fragment() {
     private lateinit var apiService: ApiService
     private var progressDialog: Dialog? = null
     private lateinit var datePickerDialog: DatePickerDialog
-    private var userId = 0
-    private var role = 0
+    private lateinit var loginUser: EmployeeModel
+    private var role = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,25 +42,7 @@ class AddCustomerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val loginType = Constant(requireContext()).getLoginType()
-        when (loginType) {
-            0, 1 -> {
-                val loginUser = Constant(requireContext()).getUserData()
-                role = if (loginUser?.userType == 1) 2 else 1
-                userId = loginUser!!.userId
-            }
-
-            2 -> {
-                val loginUser = Constant(requireContext()).getEmployeeData()
-                role = 1
-                userId = loginUser.employeeId!!
-
-            }
-
-            else -> {
-                throw NullPointerException("Do Not Have Access To Create Vendor Without Login")
-            }
-        }
+        loginUser = Constant(requireContext()).getEmployeeData()
 
 
         apiService = ApiClient.getRetrofitInstance()
@@ -79,8 +59,6 @@ class AddCustomerFragment : Fragment() {
             val address = binding.editTextAddress.text.toString().trim()
             val houseNo = binding.editTextHouseNo.text.toString().trim()
             val locality = binding.editTextLocality.text.toString().trim()
-            val block = binding.editTextBlock.text.toString().trim()
-            val district = binding.editTextDistrict.text.toString().trim()
             val pinCode = binding.editTextPinCode.text.toString().trim()
             val password = binding.passwordEditText.text.toString().trim()
 
@@ -128,18 +106,6 @@ class AddCustomerFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            if (block.isEmpty()) {
-                binding.editTextBlock.requestFocus()
-                binding.editTextBlock.error = "Enter Block."
-                return@setOnClickListener
-            }
-
-            if (district.isEmpty()) {
-                binding.editTextDistrict.requestFocus()
-                binding.editTextDistrict.error = "Enter District."
-                return@setOnClickListener
-            }
-
             if (pinCode.isEmpty() || !pinCode.matches(Regex("\\d{6}"))) {
                 binding.editTextPinCode.requestFocus()
                 binding.editTextPinCode.error = "Enter a valid 6-digit PinCode."
@@ -150,7 +116,8 @@ class AddCustomerFragment : Fragment() {
                 binding.passwordEditText.error = "Enter a Password With 6 Digits"
                 return@setOnClickListener
             }
-            val customer = CustomerModel(0,
+            val customer = CustomerModel(
+                0,
                 name,
                 dob,
                 mobile,
@@ -158,20 +125,20 @@ class AddCustomerFragment : Fragment() {
                 address,
                 houseNo,
                 locality,
-                block,
-                district,
+                loginUser.employeeBlockId,
+                loginUser.employeeDistrictId,
                 pinCode.toInt(),
                 password,
-                userId.toString(),
+                loginUser.employeeId,
                 role,
                 ""
             )
             showProgressDialog(true)
-            val call: Call<ResponseHandler<List<CustomerModel>>> = apiService.addCustomer(customer)
-            call.enqueue(object : Callback<ResponseHandler<List<CustomerModel>>> {
+            val call: Call<CommonResponse<String>> = apiService.addCustomer(customer)
+            call.enqueue(object : Callback<CommonResponse<String>> {
                 override fun onResponse(
-                    call: Call<ResponseHandler<List<CustomerModel>>>,
-                    response: Response<ResponseHandler<List<CustomerModel>>>
+                    call: Call<CommonResponse<String>>,
+                    response: Response<CommonResponse<String>>
                 ) {
                     showProgressDialog(false)
                     if (response.isSuccessful && response.body() != null) {
@@ -182,15 +149,16 @@ class AddCustomerFragment : Fragment() {
 
                             requireContext().showSuccessToast(message.toString())
                             requireActivity().onBackPressed()
-                        }
-                        if (code == 201) {
+                        } else {
                             requireContext().showErrorToast(message.toString())
                         }
+                    } else {
+                        requireContext().showErrorToast("Error creating customer . Please Try Again")
                     }
                 }
 
                 override fun onFailure(
-                    call: Call<ResponseHandler<List<CustomerModel>>>,
+                    call: Call<CommonResponse<String>>,
                     t: Throwable
                 ) {
                     showProgressDialog(false)
@@ -200,6 +168,8 @@ class AddCustomerFragment : Fragment() {
             })
 
         }
+
+        getCreateFromData()
     }
 
     private fun showProgressDialog(show: Boolean) {
@@ -244,6 +214,43 @@ class AddCustomerFragment : Fragment() {
                 binding.editTextDOB.setText(date)
             }, year, month, day
         )
+    }
+
+    private fun getCreateFromData() {
+
+        ApiClient.getRetrofitInstance().createEmployeeData(
+            loginUser.employeeDistrictId,
+            loginUser.employeeBlockId
+        ).enqueue(object : Callback<CommonResponse<CreateEmployeeData>> {
+
+
+            override fun onResponse(
+                call: Call<CommonResponse<CreateEmployeeData>>,
+                response: Response<CommonResponse<CreateEmployeeData>>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null && responseBody.code == 200) {
+
+                        val createEmployeeData = responseBody.data
+
+                        binding.editTextBlock.setText(createEmployeeData.blockName.toString())
+                        binding.editTextDistrict.setText(createEmployeeData.districtName.toString())
+
+                    } else {
+                        requireContext().showErrorToast(responseBody!!.message)
+                    }
+                } else {
+                    requireContext().showErrorToast("Error While Getting State List ")
+                }
+            }
+
+            override fun onFailure(call: Call<CommonResponse<CreateEmployeeData>>, t: Throwable) {
+                requireContext().showErrorToast(t.message.toString())
+            }
+
+        })
+
     }
 
     private fun makeDateString(day: Int, month: Int, year: Int): String {

@@ -1,7 +1,7 @@
 package com.dev.customerapp.models
 
 data class VendorModel(
-    val vendorInt: Int,
+    val vendorId: Int,
     val vendorName: String,
     val vendorFirm: String,
     val vendorAddress: String,

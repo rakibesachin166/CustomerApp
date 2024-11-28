@@ -9,11 +9,11 @@ data class CustomerModel(
     val customerAddress: String,
     val customerHouseNo: String,
     val customerLocallity: String,
-    val customerBlockId: String,
-    val customerDistrictId: String,
+    val customerBlockId: Int,
+    val customerDistrictId: Int,
     val customerPincode: Int,
     val customerPassword: String,
-    val createdBy: String,
+    val createdBy: Int,
     val customerRole: Int,
     val createdAt: String
 )
